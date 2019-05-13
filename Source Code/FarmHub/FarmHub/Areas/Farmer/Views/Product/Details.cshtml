@@ -1,0 +1,47 @@
+﻿@model Model.EF.PRODUCT
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Farmer/Views/Shared/_Layouts.cshtml";
+}
+
+<head>
+    <title>Details Product</title>
+</head>
+
+<div class="card">
+
+    <div class="card-header card-header-color">
+        <h5>Chi tiết nông sản</h5>
+    </div>
+
+    <div class="card-body card-body-color">
+        <div class="container">
+            <div class="row" style="padding-top:10px">
+                <div class="container">
+                    <table>
+                        <tbody>
+
+                            <tr>
+                                <td>Loại nông sản</td>
+                                <td>@Html.DisplayFor(model => model.PRODUCT_KIND.Name_ProductKind)</td>
+                            </tr>
+
+                            <tr>
+                                <td>Tên nông sản</td>
+                                <td>@Html.DisplayFor(model => model.Name_Product)</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_Product }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

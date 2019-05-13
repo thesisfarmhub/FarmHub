@@ -1,0 +1,20 @@
+C:\Users\ChenLong\source\repos\FarmHub\Common\bin\Debug\Common.dll
+C:\Users\ChenLong\source\repos\FarmHub\Common\bin\Debug\Common.pdb
+C:\Users\ChenLong\source\repos\FarmHub\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\ChenLong\source\repos\FarmHub\Common\obj\Debug\Common.dll
+C:\Users\ChenLong\source\repos\FarmHub\Common\obj\Debug\Common.pdb
+C:\Users\ChenLong\Desktop\FarmHub\FarmHub\Common\bin\Debug\Common.dll
+C:\Users\ChenLong\Desktop\FarmHub\FarmHub\Common\bin\Debug\Common.pdb
+C:\Users\ChenLong\Desktop\FarmHub\FarmHub\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\ChenLong\Desktop\FarmHub\FarmHub\Common\obj\Debug\Common.dll
+C:\Users\ChenLong\Desktop\FarmHub\FarmHub\Common\obj\Debug\Common.pdb
+C:\Users\trong\OneDrive\Máy tính\Long\FarmHub\FarmHub\Common\bin\Debug\Common.dll
+C:\Users\trong\OneDrive\Máy tính\Long\FarmHub\FarmHub\Common\bin\Debug\Common.pdb
+C:\Users\trong\OneDrive\Máy tính\Long\FarmHub\FarmHub\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\trong\OneDrive\Máy tính\Long\FarmHub\FarmHub\Common\obj\Debug\Common.dll
+C:\Users\trong\OneDrive\Máy tính\Long\FarmHub\FarmHub\Common\obj\Debug\Common.pdb
+C:\Users\trong\OneDrive\Máy tính\Working\FarmHub\FarmHub\Common\bin\Debug\Common.dll
+C:\Users\trong\OneDrive\Máy tính\Working\FarmHub\FarmHub\Common\bin\Debug\Common.pdb
+C:\Users\trong\OneDrive\Máy tính\Working\FarmHub\FarmHub\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\trong\OneDrive\Máy tính\Working\FarmHub\FarmHub\Common\obj\Debug\Common.dll
+C:\Users\trong\OneDrive\Máy tính\Working\FarmHub\FarmHub\Common\obj\Debug\Common.pdb

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Model.EF.MARKET_TRANS_HIS>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Farmer/Views/Shared/_Layouts.cshtml";
+}
+
+<head>
+    <title>Index Market Transaction History</title>
+
+    <style>
+        table, thead, tr, tbody, th, td {
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<!-- Start About us -->
+<section id="mu-about-us">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mu-about-us-area">
+                    <div class="mu-title">
+                        <span class="mu-subtitle">Gợi Ý Giá</span>
+                        <h2>TRUNG BÌNH TRÊN THỊ TRƯỜNG</h2>
+                        <i class="fa fa-spoon"></i>
+                        <span class="mu-title-bar"></span>
+                    </div>
+                    <div class="row">
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Thành Phố</th>
+                                    <th>Tên Nông Sản</th>
+                                    <th>Giá Chào Bán Trung Bình</th>
+                                    <th>Giá Chào Mua Trung Bình</th>
+                                    <th>Giá Giao Dịch Trung Bình</th>
+                                    <th>Sản Lượng Cung Cấp</th> <!--hiển thị kết hợp với field Id_MassUnit-->
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.City_Market)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Average_OfferPrice)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Average_PurchasePrice)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Average_TransPrice)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Product_SupplyQuantity) @Html.DisplayFor(modelItem => item.MASS_UNIT.Name_MassUnit)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End About us -->

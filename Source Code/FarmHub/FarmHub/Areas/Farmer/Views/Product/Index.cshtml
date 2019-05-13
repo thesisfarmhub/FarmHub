@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Model.EF.PRODUCT>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Farmer/Views/Shared/_Layouts.cshtml";
+}
+
+<head>
+    <title>Index Product</title>
+</head>
+
+<div class="card " style="margin-top:10px">
+
+    <div class="card-header card-header-color">
+        <h4>Danh sách các loại nông sản</h4>
+    </div>
+
+    <div class="card card-body-color">
+        <p>
+            @Html.ActionLink("Thêm Mới", "Create")
+        </p>
+
+        <table class="table table-hover">
+
+            <tr>
+                <th>Loại nông sản</th>
+                <th>Tên nông sản</th>
+                <th>Chức năng</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.PRODUCT_KIND.Name_ProductKind)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Name_Product)</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id_Product }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id_Product }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id_Product })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+</div>
