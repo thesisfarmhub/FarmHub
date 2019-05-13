@@ -1,0 +1,90 @@
+﻿@model Model.EF.FARM
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Farmer/Views/Shared/_Layouts.cshtml";
+}
+
+<head>
+    <title>Edit Farm</title>
+</head>
+
+<!-- Start Reservation section -->
+<section id="mu-reservation">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mu-reservation-area">
+                    <div class="mu-title">
+                        <span class="mu-subtitle">Nông Trại</span>
+                        <h2>CHỈNH SỬA THÔNG TIN</h2>
+                        <i class="fa fa-spoon"></i>
+                        <span class="mu-title-bar"></span>
+                    </div>
+                    @using (Html.BeginForm())
+                    {
+                        <div class="mu-reservation-content">
+                            <form class="mu-reservation-form">
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "alert alert-danger", @role = "alert", @style = "text-align: center"})
+                                <div class="row">
+
+                                    @Html.HiddenFor(model => model.Id_Farm)
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="hidden" name="Id_Farmer" value="@Model.Id_Farmer">
+                                            <input type="text" class="form-control" placeholder="Tên Chủ Nông Trại" value="@Model.FARMER.Name_Farmer" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Tên Nông Trại" name="Name_Farm" value="@Model.Name_Farm">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Địa Chỉ Nông Trại" name="Address_Farm" value="@Model.Address_Farm">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Diện Tích Nông Trại" name="Acreage" value="@Model.Acreage">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Thành Phố" name="City_Farm" value="@Model.City_Farm">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <h4><span class="label label-success">Nông Trại Đang Hoạt Động</span></h4>
+                                            @*<input type="text" class="form-control" placeholder="Nông Trại Đang Hoạt Động" disabled>*@
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control" cols="30" rows="10" placeholder="Your Message" name="Description_Farm" value="@Model.Description_Farm">@Model.Description_Farm</textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <center>
+                                    <button type="submit" class="mu-readmore-btn">Cập Nhật</button>
+
+                                    <button type="button" onclick="location.href = '@Url.Action("Index","Farm", new { id = Model.FARMER.Id_Farmer })'" class="mu-readmore-btn">Quay Về</button>
+                                </center>
+
+                            </form>
+                        </div>
+                       
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Reservation section -->

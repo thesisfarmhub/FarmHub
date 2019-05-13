@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Model.EF.SEED>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Farmer/Views/Shared/_Layouts.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name_Seed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Code_Seed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Is_Deleted)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name_Seed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code_Seed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Is_Deleted)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id_Seed }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id_Seed }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id_Seed })
+        </td>
+    </tr>
+}
+
+</table>

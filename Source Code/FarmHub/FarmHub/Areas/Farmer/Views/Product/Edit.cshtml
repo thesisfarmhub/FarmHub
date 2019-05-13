@@ -1,0 +1,59 @@
+﻿@model Model.EF.PRODUCT
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Farmer/Views/Shared/_Layouts.cshtml";
+}
+
+<head>
+    <title>Edit Product</title>
+</head>
+
+<div class="card">
+
+    <div class="card-header card-header-color">
+        <h5>Chỉnh sửa thông tin nông sản</h5>
+    </div>
+
+    <div class="card-body card-body-color">
+        <div class="container">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="col-10" style="margin:auto;">
+
+                    @Html.HiddenFor(model => model.Id_Product)
+
+                    <div class="form-group">
+                        Loại nông sản
+                        <div class="col-md-10">
+                            @Html.DropDownList("Id_ProductKind", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Id_ProductKind, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        Tên nông sản
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Name_Product, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name_Product, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <center>
+                        <button class="btn brown" type="submit">Xác nhận</button>
+                    </center>
+
+
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
