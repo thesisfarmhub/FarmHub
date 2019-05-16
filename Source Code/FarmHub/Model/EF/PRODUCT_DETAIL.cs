@@ -1,4 +1,4 @@
-namespace Model.EF
+﻿namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
@@ -20,13 +20,16 @@ namespace Model.EF
         [Key]
         public int Id_ProductDetail { get; set; }
 
+        [Required(ErrorMessage = "Thông tin này không được để trống")]
         public int? Id_Product { get; set; }
 
+        [Required(ErrorMessage = "Thông tin này không được để trống")]
         public int? Id_Farm { get; set; }
 
+        [Required(ErrorMessage = "Thông tin này không được để trống")]
         public int? Id_Seed { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "Độ dài tối đa 50 ký tự")]
         public string Geography_Location { get; set; }
 
         [StringLength(200)]
@@ -34,17 +37,28 @@ namespace Model.EF
 
         public int? Min_Mass { get; set; }
 
-        [StringLength(50)]
+        [Required(ErrorMessage = "Thông tin này không được để trống")]
+        [StringLength(50, ErrorMessage = "Độ dài tối đa 50 ký tự")]
         public string Name_Crop { get; set; }
 
+        [Required(ErrorMessage = "Thông tin này không được để trống")]
+        [DataType(DataType.DateTime, ErrorMessage = "Xin nhập đúng định dạng tháng/ngày/năm")]
         public DateTime? Start_Time { get; set; }
 
+        [Required(ErrorMessage = "Thông tin này không được để trống")]
+        [DataType(DataType.DateTime, ErrorMessage = "Xin nhập đúng định dạng tháng/ngày/năm")]
         public DateTime? End_Time { get; set; }
 
+        [Required(ErrorMessage = "Thông tin này không được để trống")]
+        [DataType(DataType.DateTime, ErrorMessage = "Xin nhập đúng định dạng tháng/ngày/năm")]
         public DateTime? Harvest_StartTime { get; set; }
 
+        [Required(ErrorMessage = "Thông tin này không được để trống")]
+        [DataType(DataType.DateTime, ErrorMessage = "Xin nhập đúng định dạng tháng/ngày/năm")]
         public DateTime? Harvest_EndTime { get; set; }
 
+        [Required(ErrorMessage = "Thông tin này không được để trống")]
+        [Range(1, 2147483647, ErrorMessage = "Sản lượng tính bằng tấn, hãy nhập giá trị đúng")]
         public int? Quantity_Expected { get; set; }
 
         public bool? Is_Deleted { get; set; }

@@ -37,20 +37,20 @@ begin tran
 	Insert into USER_AUTHENTICATION (Id_UserKind,Name_User,Password_User,Created_Date,Status_User) values (2,'trader3','202cb962ac59075b964b07152d234b70',1/1/2019,1)
 
 	--FARMER--
-	Insert into FARMER (Id_User,Name_Farmer,Birthday_Farmer,Gender_Farmer,Address_Farmer,Telephone_Farmer,Email_Farmer,Image_Farmer,Is_Deleted) 
-	values (1,'Farmer A',1/1/2019,1,'Address A',0817777777,'farmer1@gmail.com','\Data\Image\Farmer\Base\farmer_male.jpeg',0)
-	Insert into FARMER (Id_User,Name_Farmer,Birthday_Farmer,Gender_Farmer,Address_Farmer,Telephone_Farmer,Email_Farmer,Image_Farmer,Is_Deleted) 
-	values (2,'Farmer B',1/1/2019,1,'Address B',0817777777,'farmer2@gmail.com','\Data\Image\Farmer\Base\farmer_male.jpeg',0)
-	Insert into FARMER (Id_User,Name_Farmer,Birthday_Farmer,Gender_Farmer,Address_Farmer,Telephone_Farmer,Email_Farmer,Image_Farmer,Is_Deleted) 
-	values (3,'Farmer C',1/1/2019,1,'Address C',0817777777,'farmer3@gmail.com','\Data\Image\Farmer\Base\farmer_male.jpeg',0)
+	Insert into FARMER (Id_User,Name_Farmer,Birthday_Farmer,Gender_Farmer,Address_Farmer,Telephone_Farmer,Email_Farmer,Is_Deleted) 
+	values (1,'Farmer A',1/1/2019,1,'Address A',0817777777,null,0)
+	Insert into FARMER (Id_User,Name_Farmer,Birthday_Farmer,Gender_Farmer,Address_Farmer,Telephone_Farmer,Email_Farmer,Is_Deleted) 
+	values (2,'Farmer B',1/1/2019,1,'Address B',0817777777,null,0)
+	Insert into FARMER (Id_User,Name_Farmer,Birthday_Farmer,Gender_Farmer,Address_Farmer,Telephone_Farmer,Email_Farmer,Is_Deleted) 
+	values (3,'Farmer C',1/1/2019,1,'Address C',0817777777,null,0)
 
 	--TRADER--
-	Insert into TRADER (Id_User,Name_Trader,Birthday_Trader,Gender_Trader,Address_Trader,Telephone_Trader,Email_Trader,Image_Trader,Is_Deleted) 
-	values (4,'Trader A',1/1/2019,1,'Address A',0817999999,'trader1@gmail.com','\Data\Image\Trader\Base\trader_male.jpeg',0)
-	Insert into TRADER (Id_User,Name_Trader,Birthday_Trader,Gender_Trader,Address_Trader,Telephone_Trader,Email_Trader,Image_Trader,Is_Deleted) 
-	values (5,'Trader B',1/1/2019,1,'Address B',0817999999,'trader2@gmail.com','\Data\Image\Trader\Base\trader_male.jpeg',0)
-	Insert into TRADER (Id_User,Name_Trader,Birthday_Trader,Gender_Trader,Address_Trader,Telephone_Trader,Email_Trader,Image_Trader,Is_Deleted) 
-	values (6,'Trader C',1/1/2019,1,'Address C',0817999999,'trader3@gmail.com','\Data\Image\Trader\Base\trader_male.jpeg',0)
+	Insert into TRADER (Id_User,Name_Trader,Birthday_Trader,Gender_Trader,Address_Trader,Telephone_Trader,Email_Trader,Is_Deleted) 
+	values (4,'Trader A',1/1/2019,1,'Address A',0817999999,null,0)
+	Insert into TRADER (Id_User,Name_Trader,Birthday_Trader,Gender_Trader,Address_Trader,Telephone_Trader,Email_Trader,Is_Deleted) 
+	values (5,'Trader B',1/1/2019,1,'Address B',0817999999,null,0)
+	Insert into TRADER (Id_User,Name_Trader,Birthday_Trader,Gender_Trader,Address_Trader,Telephone_Trader,Email_Trader,Is_Deleted) 
+	values (6,'Trader C',1/1/2019,1,'Address C',0817999999,null,0)
 
 	--MASS_UNIT--
 	Insert into MASS_UNIT(Name_MassUnit,Weight_To_Kg) values (N'Tấn', 1000)

@@ -45,36 +45,41 @@ namespace FarmHub.Areas.Farmer.Controllers
                 fileName = Path.GetFileNameWithoutExtension(pdModel.ImageFile.FileName);
                 fileExtension = Path.GetExtension(pdModel.ImageFile.FileName);
                 fileName = fileName + DateTime.Now.ToString("yymmssfff") + fileExtension;
-                pdModel.Image_ProductDetail = "/Data/Image/Farmer/Customer" + fileName;
-                fileName = Path.Combine(Server.MapPath("/Data/Image/Farmer/Customer"), fileName);
+                pdModel.Image_ProductDetail = "/Data/Image/Farmer/Customer/" + fileName;
+                fileName = Path.Combine(Server.MapPath("/Data/Image/Farmer/Customer/"), fileName);
                 pdModel.ImageFile.SaveAs(fileName);
 
-                pdModel.Id_Farm = Convert.ToInt32(Session["FarmID"]);
-                var result = dao.Create(pdModel);
-
-                if (result > 0)
-                {
-                    // Session
-                    var session = Convert.ToInt32(Session["FarmerID"]);
-                    var db = new FarmHubDbContext();
-                    var farmerID = db.FARMERs.Find(session).Id_Farmer;
-                    var farmID = db.FARMs.FirstOrDefault(x => x.Id_Farmer == farmerID).Id_Farm;
-                    return RedirectToAction("Index", new { id = farmID });
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Tạo mới thất bại !!!");
-                }
             }
             catch (Exception)
             {
                 ModelState.AddModelError("", "Hình ảnh không được để trống");
+                FarmIDForViewBag();
+                SetViewBagProduct();
+                SetViewBagSeed();
+                return View(pdModel);
             }
 
-            FarmIDForViewBag();
-            SetViewBagProduct();
-            SetViewBagSeed();
-            return View(pdModel);
+            pdModel.Id_Farm = Convert.ToInt32(Session["FarmID"]);
+            var result = dao.Create(pdModel);
+
+            if (result > 0)
+            {
+                // Session
+                var session = Convert.ToInt32(Session["FarmerID"]);
+                var db = new FarmHubDbContext();
+                var farmerID = db.FARMERs.Find(session).Id_Farmer;
+                var farmID = db.FARMs.FirstOrDefault(x => x.Id_Farmer == farmerID).Id_Farm;
+                return RedirectToAction("Index", new { id = farmID });
+
+            }
+            else
+            {
+                ModelState.AddModelError("", "Tạo mới thất bại !!!");
+                FarmIDForViewBag();
+                SetViewBagProduct();
+                SetViewBagSeed();
+                return View(pdModel);
+            }
         }
 
         // GET: Farmer/ProductDetails/Edit/5
@@ -96,53 +101,60 @@ namespace FarmHub.Areas.Farmer.Controllers
         [HttpPost]
         public ActionResult Edit(PRODUCT_DETAIL productDetailsModel)
         {
-            if (ModelState.IsValid)
+            string fileName = null;
+            string fileExtension = null;
+
+            try
             {
-                string fileName = null;
-                string fileExtension = null;
+                fileName = Path.GetFileNameWithoutExtension(productDetailsModel.ImageFile.FileName);
+                fileExtension = Path.GetExtension(productDetailsModel.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + fileExtension;
+                productDetailsModel.Image_ProductDetail = "/Data/Image/Farmer/Customer/" + fileName;
+                fileName = Path.Combine(Server.MapPath("/Data/Image/Farmer/Customer/"), fileName);
+                productDetailsModel.ImageFile.SaveAs(fileName);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Hình ảnh không được để trống");
 
-                try
-                {
-                    fileName = Path.GetFileNameWithoutExtension(productDetailsModel.ImageFile.FileName);
-                    fileExtension = Path.GetExtension(productDetailsModel.ImageFile.FileName);
-                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + fileExtension;
-                    productDetailsModel.Image_ProductDetail = "/Data/Image/Farmer/" + fileName;
-                    fileName = Path.Combine(Server.MapPath("/Data/Image/Farmer/"), fileName);
-                    productDetailsModel.ImageFile.SaveAs(fileName);
+                // Set and select value from ViewBag
+                var farmmID = new FarmHubDbContext().PRODUCT_DETAIL.Find(productDetailsModel.Id_ProductDetail).Id_Farm;
+                SetViewBagFarm(farmmID);
+                var producID = new FarmHubDbContext().PRODUCT_DETAIL.Find(productDetailsModel.Id_ProductDetail).Id_Product;
+                SetViewBagProduct(producID);
+                var seedID = new FarmHubDbContext().PRODUCT_DETAIL.Find(productDetailsModel.Id_ProductDetail).Id_Seed;
+                SetViewBagSeed(seedID);
 
-                    var result = dao.Update(productDetailsModel);
-
-                    if (result)
-                    {
-                        // Session
-                        var session = Convert.ToInt32(Session["FarmerID"]);
-                        var db = new FarmHubDbContext();
-                        var farmerID = db.FARMERs.Find(session).Id_Farmer;
-                        var farmID = db.FARMs.FirstOrDefault(x => x.Id_Farmer == farmerID).Id_Farm;
-                        return RedirectToAction("Index", new { id = farmID });
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Cập nhật thất bại");
-                    }
-                }
-                catch (Exception)
-                {
-                    ModelState.AddModelError("", "Hình ảnh không được để trống");
-                }
-
+                var productDetailsModelState = dao.Details(productDetailsModel.Id_ProductDetail);
+                return View(productDetailsModelState);
             }
 
-            // Set and select value from ViewBag
-            var farmmID = new FarmHubDbContext().PRODUCT_DETAIL.Find(productDetailsModel.Id_ProductDetail).Id_Farm;
-            SetViewBagFarm(farmmID);
-            var producID = new FarmHubDbContext().PRODUCT_DETAIL.Find(productDetailsModel.Id_ProductDetail).Id_Product;
-            SetViewBagProduct(producID);
-            var seedID = new FarmHubDbContext().PRODUCT_DETAIL.Find(productDetailsModel.Id_ProductDetail).Id_Seed;
-            SetViewBagSeed(seedID);
+            var result = dao.Update(productDetailsModel);
 
-            var productDetailsModelState = dao.Details(productDetailsModel.Id_ProductDetail);
-            return View(productDetailsModelState);
+            if (result)
+            {
+                // Session
+                var session = Convert.ToInt32(Session["FarmerID"]);
+                var db = new FarmHubDbContext();
+                var farmerID = db.FARMERs.Find(session).Id_Farmer;
+                var farmID = db.FARMs.FirstOrDefault(x => x.Id_Farmer == farmerID).Id_Farm;
+                return RedirectToAction("Index", new { id = farmID });
+            }
+            else
+            {
+                ModelState.AddModelError("", "Cập nhật thất bại");
+
+                // Set and select value from ViewBag
+                var farmmID = new FarmHubDbContext().PRODUCT_DETAIL.Find(productDetailsModel.Id_ProductDetail).Id_Farm;
+                SetViewBagFarm(farmmID);
+                var producID = new FarmHubDbContext().PRODUCT_DETAIL.Find(productDetailsModel.Id_ProductDetail).Id_Product;
+                SetViewBagProduct(producID);
+                var seedID = new FarmHubDbContext().PRODUCT_DETAIL.Find(productDetailsModel.Id_ProductDetail).Id_Seed;
+                SetViewBagSeed(seedID);
+
+                var productDetailsModelState = dao.Details(productDetailsModel.Id_ProductDetail);
+                return View(productDetailsModelState);
+            }
         }
 
         // GET: Farmer/ProductDetails/Delete/5
@@ -216,7 +228,7 @@ namespace FarmHub.Areas.Farmer.Controllers
 
             var farmerID = new FarmHubDbContext().FARMERs.Find(session).Id_Farmer;
             FarmDAO dao = new FarmDAO();
-            ViewBag.FarmIDForPD = new SelectList(dao.ListFarmByFarmerID(farmerID), "Id_Farm", "Name_Farm", farmIDSaved);          
+            ViewBag.FarmIDForPD = new SelectList(dao.ListFarmByFarmerID(farmerID), "Id_Farm", "Name_Farm", farmIDSaved);
         }
         #endregion
     }

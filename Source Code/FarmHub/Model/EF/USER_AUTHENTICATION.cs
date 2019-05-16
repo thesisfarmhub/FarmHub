@@ -13,6 +13,7 @@ namespace Model.EF
         {
             FARMERs = new HashSet<FARMER>();
             FEED_BACK = new HashSet<FEED_BACK>();
+            TRADERs = new HashSet<TRADER>();
         }
 
         [Key]
@@ -39,6 +40,9 @@ namespace Model.EF
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FEED_BACK> FEED_BACK { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TRADER> TRADERs { get; set; }
 
         public virtual USER_KIND USER_KIND { get; set; }
     }

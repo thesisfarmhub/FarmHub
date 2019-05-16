@@ -49,7 +49,14 @@ namespace Model.Dao.Farmer
         {
             productDetailModel.Is_Deleted = false;
             db.PRODUCT_DETAIL.Add(productDetailModel);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
             return productDetailModel.Id_ProductDetail;
         }
 
@@ -63,9 +70,14 @@ namespace Model.Dao.Farmer
                 targetUpdate.Id_Product = productDetailModel.Id_Product;
                 targetUpdate.Id_Farm = productDetailModel.Id_Farm;
                 targetUpdate.Id_Seed = productDetailModel.Id_Seed;
+                targetUpdate.Name_Crop = productDetailModel.Name_Crop;
+                targetUpdate.Start_Time = productDetailModel.Start_Time;
+                targetUpdate.End_Time = productDetailModel.End_Time;
+                targetUpdate.Harvest_StartTime = productDetailModel.Harvest_StartTime;
+                targetUpdate.Harvest_EndTime = productDetailModel.Harvest_EndTime;
                 targetUpdate.Geography_Location = productDetailModel.Geography_Location;
+                targetUpdate.Quantity_Expected = productDetailModel.Quantity_Expected;
                 targetUpdate.Image_ProductDetail = productDetailModel.Image_ProductDetail;
-                targetUpdate.Min_Mass = productDetailModel.Min_Mass;
                 db.SaveChanges();
                 return true;
             }

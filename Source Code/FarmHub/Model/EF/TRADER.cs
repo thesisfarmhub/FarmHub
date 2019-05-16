@@ -37,13 +37,12 @@ namespace Model.EF
         [StringLength(100)]
         public string Email_Trader { get; set; }
 
-        [StringLength(200)]
-        public string Image_Trader { get; set; }
-
         public bool? Is_Deleted { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PURCHASE_OFFER> PURCHASE_OFFER { get; set; }
+
+        public virtual USER_AUTHENTICATION USER_AUTHENTICATION { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TRADER_PREFERENCE> TRADER_PREFERENCE { get; set; }
