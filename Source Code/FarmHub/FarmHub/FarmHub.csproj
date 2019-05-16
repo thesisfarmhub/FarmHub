@@ -199,6 +199,7 @@
     <Compile Include="Areas\Farmer\Controllers\TransactionOrderController.cs" />
     <Compile Include="Areas\Farmer\FarmerAreaRegistration.cs" />
     <Compile Include="Areas\Farmer\Models\FarmerHomePageModel.cs" />
+    <Compile Include="Areas\Farmer\Models\SeedAutoCompleteModel.cs" />
     <Compile Include="Controllers\EditPasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />

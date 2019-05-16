@@ -45,8 +45,8 @@ namespace FarmHub.Areas.Farmer.Controllers
                 fileName = Path.GetFileNameWithoutExtension(pdModel.ImageFile.FileName);
                 fileExtension = Path.GetExtension(pdModel.ImageFile.FileName);
                 fileName = fileName + DateTime.Now.ToString("yymmssfff") + fileExtension;
-                pdModel.Image_ProductDetail = "/Data/Image/Farmer/Customer" + fileName;
-                fileName = Path.Combine(Server.MapPath("/Data/Image/Farmer/Customer"), fileName);
+                pdModel.Image_ProductDetail = "/Data/Image/Farmer/Customer/" + fileName;
+                fileName = Path.Combine(Server.MapPath("/Data/Image/Farmer/Customer/"), fileName);
                 pdModel.ImageFile.SaveAs(fileName);
 
                 pdModel.Id_Farm = Convert.ToInt32(Session["FarmID"]);
@@ -106,8 +106,8 @@ namespace FarmHub.Areas.Farmer.Controllers
                     fileName = Path.GetFileNameWithoutExtension(productDetailsModel.ImageFile.FileName);
                     fileExtension = Path.GetExtension(productDetailsModel.ImageFile.FileName);
                     fileName = fileName + DateTime.Now.ToString("yymmssfff") + fileExtension;
-                    productDetailsModel.Image_ProductDetail = "/Data/Image/Farmer/" + fileName;
-                    fileName = Path.Combine(Server.MapPath("/Data/Image/Farmer/"), fileName);
+                    productDetailsModel.Image_ProductDetail = "/Data/Image/Farmer/Customer/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("/Data/Image/Farmer/Customer/"), fileName);
                     productDetailsModel.ImageFile.SaveAs(fileName);
 
                     var result = dao.Update(productDetailsModel);

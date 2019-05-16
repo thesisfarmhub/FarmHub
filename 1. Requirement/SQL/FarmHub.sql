@@ -48,7 +48,6 @@ Create Table FARMER
 	Address_Farmer nvarchar(200),
 	Telephone_Farmer nvarchar(10),
 	Email_Farmer nvarchar(100),
-	Image_Farmer varchar(200),
 	Is_Deleted bit
 	-- Foreign Key --
 	Foreign Key (Id_User) references USER_AUTHENTICATION(Id_User)
@@ -237,7 +236,6 @@ Create Table TRADER
 	Address_Trader nvarchar(200),
 	Telephone_Trader nvarchar(10),
 	Email_Trader nvarchar(100),
-	Image_Trader varchar(200),
 	Is_Deleted bit
 	-- Foreign Key --
 	Foreign Key (Id_User) references USER_AUTHENTICATION(Id_User)

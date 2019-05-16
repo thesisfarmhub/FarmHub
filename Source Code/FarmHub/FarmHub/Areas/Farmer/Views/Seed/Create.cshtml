@@ -7,10 +7,10 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>SEED</h4>
         <hr />
@@ -18,7 +18,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Name_Seed, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name_Seed, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.Name_Seed, "searchInput", new { htmlAttributes = new { @class = "form-control" } })*@
+                <input class="form-control" id="searchInput" />
                 @Html.ValidationMessageFor(model => model.Name_Seed, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -49,6 +50,28 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<link rel="stylesheet" href="code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+
+<script>
+    $("#searchInput").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: '@Url.Action("GetSearchValue", "Seed")',
+                dataType: "json",
+                data: { search: $("#searchInput").val() },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return { label: item.Name_Seed, value: item.Name_Seed };
+                    }));
+                },
+                error: function (xhr, status, error) {
+                    alert("Error");
+                }
+            });
+        }
+    });
+</script>

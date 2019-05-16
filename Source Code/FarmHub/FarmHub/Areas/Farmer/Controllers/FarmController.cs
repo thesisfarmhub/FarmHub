@@ -50,6 +50,7 @@ namespace FarmHub.Areas.Farmer.Controllers
                 }
             }
 
+            ModelState.AddModelError("", "Tạo mới thất bại !!!");
             SetViewBagFarmer();
             return View();
         }
@@ -79,6 +80,7 @@ namespace FarmHub.Areas.Farmer.Controllers
                 }
             }
 
+            ModelState.AddModelError("", "Cập nhật thất bại !!!");
             var farmModelState = dao.Details(farmModel.Id_Farm);
             return View(farmModelState);
         }

@@ -1,5 +1,8 @@
-﻿using Model.Dao.Farmer;
+﻿using FarmHub.Areas.Farmer.Models;
+using Model.Dao.Farmer;
 using Model.EF;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace FarmHub.Areas.Farmer.Controllers
@@ -45,6 +48,18 @@ namespace FarmHub.Areas.Farmer.Controllers
             }
 
             return View();
+        }
+
+        // Auto Complete
+        public JsonResult GetSearchValue(string search)
+        {
+            FarmHubDbContext db = new FarmHubDbContext();
+            List<SeedAutoCompleteModel> allSearch = db.SEEDs.Where(x => x.Name_Seed.Contains(search)).Select(x => new SeedAutoCompleteModel
+            {
+                Id_Seed = x.Id_Seed,
+                Name_Seed = x.Name_Seed
+            }).ToList();
+            return new JsonResult { Data = allSearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         // GET: Farmer/Seed/Edit/5
