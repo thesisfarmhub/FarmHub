@@ -18,3 +18,12 @@ C:\Users\trong\OneDrive\Máy tính\Working\FarmHub\FarmHub\Common\bin\Debug\Comm
 C:\Users\trong\OneDrive\Máy tính\Working\FarmHub\FarmHub\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
 C:\Users\trong\OneDrive\Máy tính\Working\FarmHub\FarmHub\Common\obj\Debug\Common.dll
 C:\Users\trong\OneDrive\Máy tính\Working\FarmHub\FarmHub\Common\obj\Debug\Common.pdb
+<<<<<<< HEAD
+=======
+D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\bin\Debug\Common.dll
+D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\bin\Debug\Common.pdb
+D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.dll
+D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.pdb
+>>>>>>> master

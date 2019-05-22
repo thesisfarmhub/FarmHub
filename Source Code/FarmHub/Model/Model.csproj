@@ -78,6 +78,10 @@
     <Compile Include="Dao\Trader\PurchaseOfferDetailDao.cs" />
     <Compile Include="Dao\Trader\RegisterDao.cs" />
     <Compile Include="Dao\Trader\SaleOfferDao.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="Dao\Trader\TraderDAO.cs" />
+>>>>>>> master
     <Compile Include="Dao\Trader\TransactionDao.cs" />
     <Compile Include="DTO\Farmer\FarmerTopProductDTO.cs" />
     <Compile Include="DTO\Farmer\FarmerTransDTO.cs" />

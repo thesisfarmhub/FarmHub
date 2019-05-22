@@ -37,9 +37,12 @@ namespace Model.EF
         [StringLength(100)]
         public string Email_Farmer { get; set; }
 
+<<<<<<< HEAD
         [StringLength(200)]
         public string Image_Farmer { get; set; }
 
+=======
+>>>>>>> master
         public bool? Is_Deleted { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

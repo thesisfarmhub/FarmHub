@@ -38,10 +38,13 @@ namespace Model.EF
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+<<<<<<< HEAD
             modelBuilder.Entity<FARMER>()
                 .Property(e => e.Image_Farmer)
                 .IsUnicode(false);
 
+=======
+>>>>>>> master
             modelBuilder.Entity<PRODUCT>()
                 .Property(e => e.Image_Product)
                 .IsUnicode(false);
@@ -50,10 +53,13 @@ namespace Model.EF
                 .Property(e => e.Image_ProductDetail)
                 .IsUnicode(false);
 
+<<<<<<< HEAD
             modelBuilder.Entity<TRADER>()
                 .Property(e => e.Image_Trader)
                 .IsUnicode(false);
 
+=======
+>>>>>>> master
             modelBuilder.Entity<USER_AUTHENTICATION>()
                 .Property(e => e.Name_User)
                 .IsUnicode(false);

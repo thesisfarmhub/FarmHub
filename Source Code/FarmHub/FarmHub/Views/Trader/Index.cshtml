@@ -1,0 +1,188 @@
+﻿@model FarmHub.Models.TraderHomePageModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+
+<head>
+    <title>Trader Home Page</title>
+</head>
+
+<!-- Start Chef Section - TRENDING: Top 5 nông sản bán chạy/bán ế nhất-->
+<section id="mu-chef">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mu-chef-area">
+                    <div class="mu-title">
+                        <span class="mu-subtitle">Top 7</span>
+                        <h2>NÔNG SẢN ĐẶT MUA NHIỀU NHẤT</h2>
+                        <i class="fa fa-spoon"></i>
+                        <span class="mu-title-bar"></span>
+                    </div>
+                    <div class="mu-chef-content">
+                        <ul class="mu-chef-nav">
+                            @foreach (var item in Model.ListTopProducts)
+                            {
+                                <li>
+                                    <div class="mu-single-chef">
+                                        <figure class="mu-single-chef-img">
+                                            <img src="@item.Image_Product" alt="chef img">
+                                        </figure>
+                                        <div class="mu-single-chef-info">
+                                            <h4>@item.Name_Product</h4>
+                                            <span>@item.Quantity_PurchaseOffer - @item.Name_Seed</span>
+                                        </div>
+                                        <div class="mu-single-chef-social">
+                                            <button type="button" class="mu-readmore-btn">Chi Tiết</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Chef Section -->
+
+<!-- Start Counter Section Top 4 Products -->
+@*<section id="mu-counter">
+        <div class="mu-counter-overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mu-counter-area">
+                            <ul class="mu-counter-nav">
+                                @foreach (var item in Model.ListTopProducts.Take(4))
+                                {
+                                    <li class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="mu-single-counter">
+                                            <span>@item.Name_Product</span>
+                                            <h3><span class="counter">@item.Quantity_PurchaseOffer</span><sup>+tons</sup></h3>
+                                            <p>@item.Name_Seed</p>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>*@
+<!-- End Counter Section -->
+
+<!-- Start About us - NHU CẦU MUA CỦA TÔI -->
+<section id="mu-about-us">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mu-about-us-area">
+                    <div class="mu-title">
+                        <span class="mu-subtitle">Mua Bán</span>
+                        <h2>NHU CẦU MUA CỦA TÔI</h2>
+                        <i class="fa fa-spoon"></i>
+                        <span class="mu-title-bar"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <section id="mu-chef">
+                                <div class="mu-chef-area">
+                                    <div class="mu-chef-content">
+                                        <ul class="mu-chef-nav">
+                                            @foreach (var item in Model.ListPurchaseOffer)
+                                            {
+                                                <li>
+                                                    <div class="mu-single-chef">
+                                                        <figure class="mu-single-chef-img">
+                                                            <img src="@item.PRODUCT.Image_Product" alt="chef img">
+                                                        </figure>
+                                                        <div class="mu-single-chef-info">
+                                                            <h4>@item.PRODUCT.Name_Product</h4>
+                                                            <span>@item.TRADER.Name_Trader</span>
+                                                        </div>
+                                                        <div class="mu-single-chef-social">
+                                                            <button type="button" class="mu-readmore-btn">Chi Tiết</button>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mu-about-us-right">
+                                <img src="~/Assets/HTML/SpicyX/img/about-us/abtus-img-1.png" style="max-width:100%; max-height:100%;" alt="img">
+                                <img src="~/Assets/HTML/SpicyX/img/about-us/abtus-img-1.png" style="max-width:100%; max-height:100%;" alt="img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End About us - TOP PRODUCTS -->
+
+<!-- Start About us - NHU CẦU BÁN PHÙ HỢP -->
+<section id="mu-about-us">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mu-about-us-area">
+                    <div class="mu-title">
+                        <span class="mu-subtitle">Mua Bán</span>
+                        <h2>NHU CẦU BÁN PHÙ HỢP</h2>
+                        <i class="fa fa-spoon"></i>
+                        <span class="mu-title-bar"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <section id="mu-chef">
+                                <div class="mu-chef-area">
+                                    <div class="mu-chef-content">
+                                        <ul class="mu-chef-nav">
+                                            @foreach (var item in Model.SuitalbeSaleOffers)
+                                            {
+                                                foreach (var subItem in item)
+                                                {
+                                                    <li>
+                                                        <div class="mu-single-chef">
+                                                            <figure class="mu-single-chef-img">
+                                                                <img src="@subItem.PRODUCT_DETAIL.Image_ProductDetail" alt="chef img">
+                                                            </figure>
+                                                            <div class="mu-single-chef-info">
+                                                                <h4>@subItem.PRODUCT_DETAIL.PRODUCT.Name_Product</h4>
+                                                                <span>@subItem.FARM.FARMER.Name_Farmer</span>
+                                                            </div>
+                                                            <div class="mu-single-chef-social">
+                                                                <button type="button" class="mu-readmore-btn">Chi Tiết</button>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mu-about-us-right">
+                                <img src="~/Assets/HTML/SpicyX/img/about-us/abtus-img-1.png" style="max-width:100%; max-height:100%;" alt="img">
+                                <img src="~/Assets/HTML/SpicyX/img/about-us/abtus-img-1.png" style="max-width:100%; max-height:100%;" alt="img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End About us - TOP PRODUCTS -->

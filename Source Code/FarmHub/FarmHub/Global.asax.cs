@@ -12,6 +12,10 @@ namespace FarmHub
     {
         protected void Application_Start()
         {
+<<<<<<< HEAD
+=======
+            DefaultModelBinder.ResourceClassKey = "Errors";
+>>>>>>> master
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
