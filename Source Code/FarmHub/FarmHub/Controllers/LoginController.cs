@@ -33,13 +33,12 @@ namespace FarmHub.Controllers
                 if (result == "Succeed")
                 {
                     var user = dao.GetUserByID(username);
-
+                    
                     var userSession = new UserLoginSession();
-
                     userSession.UserName = user.Name_User;
                     userSession.UserID = user.Id_User;
-                    Session["UserId"] = user.Id_User;
-
+                    
+                    Session["UserId"] = user.Id_User;  
                     Session.Add(Constant.USER_SESSION, userSession);
 
                     //Farmer:1 , Trader:2 , Admin:3

@@ -12,6 +12,18 @@
     <title>Home Page</title>
 </head>
 
+<style>
+    iframe {
+        border: 1px solid black;
+        width: 100%;
+    }
+
+    .output {
+        background: #eee;
+    }
+
+</style>
+
 <!-- Start Chef Section - TRENDING: Top 5 nông sản bán chạy/bán ế nhất-->
 <section id="mu-chef">
     <div class="container">
@@ -120,7 +132,7 @@
                                                         <figure class="mu-single-chef-img">
                                                             <img src="@item.PRODUCT.Image_Product" alt="chef img">
                                                         </figure>
-                                                        <div class="mu-single-chef-info">
+                                                        <div class="m`u-single-chef-info">
                                                             <h4>@item.PRODUCT.Name_Product</h4>
                                                             <span>@item.TRADER.Name_Trader</span>
                                                         </div>

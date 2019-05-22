@@ -28,6 +28,7 @@ namespace Model.EF
         public virtual DbSet<SALE_OFFER_DETAIL> SALE_OFFER_DETAIL { get; set; }
         public virtual DbSet<SEED> SEEDs { get; set; }
         public virtual DbSet<Status_Trans> Status_Trans { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TOPIC> TOPICs { get; set; }
         public virtual DbSet<TRADER> TRADERs { get; set; }
         public virtual DbSet<TRADER_PREFERENCE> TRADER_PREFERENCE { get; set; }
@@ -38,6 +39,7 @@ namespace Model.EF
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+<<<<<<< Updated upstream
 <<<<<<< HEAD
             modelBuilder.Entity<FARMER>()
                 .Property(e => e.Image_Farmer)
@@ -45,6 +47,8 @@ namespace Model.EF
 
 =======
 >>>>>>> master
+=======
+>>>>>>> Stashed changes
             modelBuilder.Entity<PRODUCT>()
                 .Property(e => e.Image_Product)
                 .IsUnicode(false);
@@ -53,6 +57,7 @@ namespace Model.EF
                 .Property(e => e.Image_ProductDetail)
                 .IsUnicode(false);
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
             modelBuilder.Entity<TRADER>()
                 .Property(e => e.Image_Trader)
@@ -60,6 +65,8 @@ namespace Model.EF
 
 =======
 >>>>>>> master
+=======
+>>>>>>> Stashed changes
             modelBuilder.Entity<USER_AUTHENTICATION>()
                 .Property(e => e.Name_User)
                 .IsUnicode(false);

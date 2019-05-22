@@ -25,6 +25,8 @@ namespace Model.EF
 
         public int? Weight_To_Kg { get; set; }
 
+        public bool? Is_Deleted { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MARKET_TRANS_HIS> MARKET_TRANS_HIS { get; set; }
 

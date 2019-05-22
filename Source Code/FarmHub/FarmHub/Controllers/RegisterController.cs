@@ -4,11 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Model.EF;
-using Model.Dao.Trader;
+using Model.Dao.Farmer;
 
 using FarmHub.Common;
 using Model.DTO;
 using Model.DTO.Trader;
+using Model.Dao.Trader;
 
 namespace FarmHub.Controllers
 {
@@ -21,14 +22,10 @@ namespace FarmHub.Controllers
         }
 
 
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
-        }
+       
 
         [HttpPost]
-        public ActionResult Create(TraderRegister user)
+        public ActionResult CreateTrader(Register user)
         {
             if (ModelState.IsValid)
             {
@@ -37,7 +34,7 @@ namespace FarmHub.Controllers
                 var encryptorMD5Pass = Encryptor.MD5Hash(user.UserAu.Password_User);
                 user.UserAu.Password_User = encryptorMD5Pass;
 
-                long id = dao.Insert(user);
+                long id = dao.InsertTrader(user);
                 if (id > 0)
                 {
                     return RedirectToAction("Index", "User");
@@ -49,8 +46,29 @@ namespace FarmHub.Controllers
             }
             return View("Create");
          }
+        [HttpPost]
+        public ActionResult CreateFarmer(Register user)
+        {
+            if (ModelState.IsValid)
+            {
+                var dao = new RegisterDao();
 
-       
+                var encryptorMD5Pass = Encryptor.MD5Hash(user.UserAu.Password_User);
+                user.UserAu.Password_User = encryptorMD5Pass;
+
+                long id = dao.InsertTrader(user);
+                if (id > 0)
+                {
+                    return RedirectToAction("Index", "User");
+                }
+                else
+                {
+                    ModelState.AddModelError("", Common.ErrorList.REGISTER_ERROR);
+                }
+            }
+            return View("Create");
+        }
+
 
 
 

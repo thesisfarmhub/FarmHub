@@ -15,7 +15,7 @@ namespace Model.Dao.Farmer
             db = new FarmHubDbContext();
 
         }
-
+        #region Meow
         // List All
         public List<SALE_OFFER> ListAll()
         {
@@ -140,5 +140,17 @@ namespace Model.Dao.Farmer
                 throw new Exception(e.Message);
             }
         }
+        #endregion
+
+        #region ChenLong
+        public IEnumerable<SALE_OFFER> getSaleOfferByIdUser(int id)
+        {
+            IQueryable<SALE_OFFER> model = db.SALE_OFFER;
+
+            var modelList = model.Where(x => x.Is_Deleted == false && x.FARM.FARMER.Id_User == id);
+            return modelList.OrderByDescending(x => x.Date_SaleOffer);
+        }
+
+        #endregion
     }
 }

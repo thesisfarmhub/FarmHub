@@ -1,4 +1,5 @@
-﻿using Model.EF;
+﻿using Model.DTO.Trader;
+using Model.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,22 +14,35 @@ namespace Model.Dao.Trader
         public OfferDao()
         {
             db = new FarmHubDbContext();
-
         }
 
-        public int Insert()
+        public bool? canBargain { get; set; }
+        public string createdDate { get; set; }
+        public string productName { get; set; }
+        public string seedName { get; set; }
+        public int? quantity { get; set; }
+        public string massName { get; set; }
+        public int? trueMass { get; set; }
+        public int? price { get; set; }
+        public byte? payingTime { get; set; }
+        public byte? deliveringTime { get; set; }
+        public byte? numberOfOrder { get; set; }
+        public string image { get; set; }
+
+        public void Insert(PurchaseOfferDTO model)
         {
-            PURCHASE_OFFER model = new PURCHASE_OFFER();
-            
+            PURCHASE_OFFER purchModel = new PURCHASE_OFFER();
+            purchModel.Can_Bargain = model.canBargain;
+            purchModel.Date_PurchaseOffer = DateTime.Now;
+            purchModel.PRODUCT.Id_Product = model.productID;
+            purchModel.Quantity_PurchaseOffer = model.quantity;
+            purchModel.Id_MassUnit = model.massId;
+            purchModel.Price_Purchase = model.price;
+            purchModel.Paying_Time = model.payingTime;
+            purchModel.Delivering_Time = model.deliveringTime;
 
-            
-
-            db.PURCHASE_OFFER.Add(model);
-           
-
+            db.PURCHASE_OFFER.Add(purchModel);
             db.SaveChanges();
-
-            return model.Id_PurchasesOffer;
         }
 
         public bool DeleteOffer(int id)
@@ -47,15 +61,29 @@ namespace Model.Dao.Trader
             }
         }
 
-        public List<PRODUCT> ProductList()
+        public IEnumerable<PRODUCT> ProductList()
         {
-            List<PRODUCT> productList = db.PRODUCTs.ToList();
+
+
+            IQueryable<PRODUCT> model = db.PRODUCTs;
+            var productList = model.Where(x => x.Is_Deleted == false);
             return productList;
         }
-        public List<MASS_UNIT> UnitList()
+
+        public IEnumerable<MASS_UNIT> UnitList()
         {
-            List<MASS_UNIT> unitList = db.MASS_UNIT.ToList();
+            IQueryable<MASS_UNIT> model = db.MASS_UNIT;
+            var unitList = model.Where(x => x.Is_Deleted == false);
             return unitList;
         }
+
+        public IEnumerable<SEED> SeedList()
+        {
+            IQueryable<SEED> model = db.SEEDs;
+            var seedList = model.Where(x => x.Is_Deleted == false);
+            return seedList;
+        }
+
+
     }
 }

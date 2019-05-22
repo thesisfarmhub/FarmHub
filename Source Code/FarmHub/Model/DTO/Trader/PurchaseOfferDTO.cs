@@ -5,23 +5,30 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Model.DTO.Trader
 {
     public class PurchaseOfferDTO
     {
-        public int id { get; set; }
+        public int purchOfferID { get; set; }
+        public int productID { get; set; }
         public bool? canBargain { get; set; }
         public string createdDate { get; set; }
         public string productName { get; set; }
+        public string seedName { get; set; }
+        public string seedId { get; set; }
+        public string unitId { get; set; }
         public int? quantity { get; set; }
+        public byte massId { get; set; }
         public string massName { get; set; }
         public int? trueMass { get; set; }
+        public int? totalMoney { get; set; }
         public int? price { get; set; }
         public byte? payingTime { get; set; }
         public byte? deliveringTime { get; set; }
         public byte? numberOfOrder { get; set; }
+        public string image { get; set; }
 
-        
     }
 }

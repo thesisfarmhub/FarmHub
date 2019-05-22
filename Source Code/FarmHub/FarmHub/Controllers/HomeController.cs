@@ -1,5 +1,5 @@
 ﻿using FarmHub.Models;
-using Model.Dao.Trader;
+using Model.Dao.Farmer;
 using System.Web.Mvc;
 
 namespace FarmHub.Controllers
@@ -26,7 +26,7 @@ namespace FarmHub.Controllers
 
         #region Function
 
-        readonly PurchaseOfferDAO purchaseOfferDAO = new PurchaseOfferDAO();
+        readonly PurchaseOfferDao purchaseOfferDAO = new PurchaseOfferDao();
 
         #endregion
 

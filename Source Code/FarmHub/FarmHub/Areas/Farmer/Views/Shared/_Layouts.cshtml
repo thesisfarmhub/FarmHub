@@ -48,6 +48,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>*@
     <!--/ ChenLong-->
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -56,7 +57,7 @@
     <![endif]-->
 
 </head>
-<body style="background-image:linear-gradient(to right, #686868, #b1d0cf)">
+<body >
     <!-- Pre Loader -->
     @*<div id="aa-preloader-area">
             <div class="mu-preloader">
@@ -89,7 +90,15 @@
                         <li><a href="/Farmer/Farmer/Index">TRANG CHỦ</a></li>
                         <li><a href="/Farmer/Farm/Index">QUẢN LÝ NÔNG TRẠI</a></li>
                         <li><a href="/Farmer/TransactionOrder/Index">LỊCH SỬ GIAO DỊCH</a></li>
-                        <li><a href="#">GIAO DỊCH</a></li>
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="blog-archive.html">GIAO DỊCH<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/Farmer/FarmerOffer/FarmerOfferIndex">Tìm kiếm thỏa thuận </a></li>
+                                <li><a href="/Farmer/Transaction/TransactionIndex">GIao dịch đang hoạt đông</a></li>
+                            </ul>
+                        </li>
+
                         <li><a href="/Farmer/MarketTransHis/Index">GỢI Ý GIÁ</a></li>
                         <!--Show-->
                         <li class="dropdown" id="loginRegisterLabel">
@@ -101,11 +110,11 @@
                         </li>
                         <!--Show sau khi login-->
                         @*<li class="dropdown" id="taiKhoanLabel" hidden>
-                            <a>Xin Chào</a>
-                            <ul>
-                                <li></li>
-                            </ul>
-                        </li>*@
+            <a>Xin Chào</a>
+            <ul>
+                <li></li>
+            </ul>
+        </li>*@
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>

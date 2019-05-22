@@ -1,27 +1,102 @@
 ﻿body {
     min-width: 1500px;
+    padding-top: 150px;
+    background-color: white !important;
+    background-image: none !important;
+    overflow-x: auto;
 }
 
-.bigInput{
-    height: 30px;
+li {
+    padding: 3px;
+}
+
+.nice-select {
+    border-radius: 0px;
+}
+
+    .nice-select .list {
+        border-radius: 0px;
+        height: 200px;
+        overflow-y: auto;
+    }
+
+    .nice-select .option:hover, .nice-select .option.focus, .nice-select .option.selected.focus {
+        color: #73AD21;
+        background: none;
+    }
+
+
+th {
+    font-size: 12px;
+}
+
+td {
+    font-size: 12px;
+}
+
+ul {
+    padding: 20px;
+}
+
+label {
+    padding-top: 10px;
+}
+
+.centered {
+    position: absolute;
+    left: 50%;
+    margin-left: -100px;
+}
+
+span.select2-container {
+    z-index: 10050;
+}
+
+.panel-heading {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.bigInput {
+    height: 40px;
+    font-size: 15px;
+    padding: 10px;
 }
 
 ::placeholder {
-    
+    font-size: 13px;
     font-style: italic;
     opacity: 0.8;
 }
 
+span {
+    font-weight: bold;
+}
+
+input[readonly] {
+    background: #CCC;
+    color: #333;
+    border: 1px solid #666;
+    cursor: no-drop;
+}
+
+.focusInput {
+    border: 2px solid #73AD21 !important;
+    box-shadow: 0 0 10px #73AD21 !important;
+}
+
 .RoundCorner {
-    border-radius: 25px;
-    border: 2px solid #73AD21;
-    
+    border-radius: 25px !important;
+    border: 2px solid #73AD21 !important;
 }
 
 table tbody {
     text-align: center;
 }
 
+.BlackBoarder {
+    border: 0.5px solid black !important;
+}
 /*table thead tr:first-child {
     text-align: center;
 }*/
@@ -31,18 +106,25 @@ fieldset {
     width: 150px;
     height: 100px;
     padding: 10px;
-    padding-top: 5px;
+    padding-top: 0;
     margin-right: 5px;
 }
 
 legend {
     color: #FFF;
     background: #000;
-    font-size: 1.5em;
+    font-size: 14px;
     padding: 5px;
     text-align: center;
 }
 
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
 
 div.inline {
     float: left;
@@ -62,13 +144,14 @@ div.inline {
     margin-bottom: 5px;
 }
 
-                                        /*Button CSS*/
+
+
+/*Button CSS*/
 .button {
     display: inline-block;
     *display: inline;
     zoom: 1;
     padding: 6px 20px;
-    margin: 0;
     cursor: pointer;
     border: 1px solid #bbb;
     overflow: visible;
@@ -102,33 +185,31 @@ div.inline {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-   
 }
 
-.button:hover {
-     background-color: #eee;
-     color: #555;
-}
+    .button:hover {
+        background-color: #eee;
+        color: #555;
+    }
 
-.button.small{
-  padding: 4px 12px;
-}
+    .button.small {
+        padding: 4px 12px;
+    }
 
-.button.small:active{
-  top: 2px;
-}
+        .button.small:active {
+            top: 2px;
+        }
 
-.button.green, .button.red, .button.blue {
-  color: #fff;
-  text-shadow: 0 1px 0 rgba(0,0,0,.2);
-  
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.3)), to(rgba(255,255,255,0)));
-  background-image: -webkit-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
-  background-image: -moz-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
-  background-image: -ms-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
-  background-image: -o-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
-  background-image: linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
-}
+    .button.green, .button.red, .button.blue {
+        color: #fff;
+        text-shadow: 0 1px 0 rgba(0,0,0,.2);
+        background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.3)), to(rgba(255,255,255,0)));
+        background-image: -webkit-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
+        background-image: -moz-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
+        background-image: -ms-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
+        background-image: -o-linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
+        background-image: linear-gradient(top, rgba(255,255,255,.3), rgba(255,255,255,0));
+    }
 
     .button.green {
         background-color: #57a957;
@@ -163,7 +244,7 @@ div.inline {
     .button.blue {
         background-color: #0b6dff;
         border-color: #269CE9;
-        }
+    }
 
         .button.blue:hover {
             background-color: #0026ff;
@@ -173,14 +254,13 @@ div.inline {
             background: #269CE9;
         }
 
-    /* */
+/* */
 
 .btn-danger {
     background-color: #ff2810;
     display: inline-block;
     *display: inline;
     zoom: 1;
-    margin: 0;
     cursor: pointer;
     border: 1px solid #bbb;
     overflow: visible;
@@ -216,6 +296,7 @@ div.inline {
     .btn-danger:hover {
         background: #ff0000;
     }
+
 #plusBtn {
     display: block;
     width: 50px;
@@ -226,33 +307,28 @@ div.inline {
     color: #f5f5f5;
     text-align: center;
     text-decoration: none;
-   
     box-shadow: 0 0 5px gray;
     font-size: 20px;
     font-weight: bold;
 }
-                                    /*Button CSS*/
+/*Button CSS*/
 
 /*Modal*/
 .modal {
     text-align: center;
     padding: 0 !important;
-    
 }
 
     .modal:before {
         content: '';
         display: inline-block;
-   
         vertical-align: middle;
         margin-right: -4px;
     }
 
 .modal-dialog {
-   
     text-align: left;
     vertical-align: middle;
-    
 }
 
 /*datTable*/
@@ -264,4 +340,3 @@ div.dataTables_wrapper {
     max-width: 700px;
     margin: 0 auto;
 }
-

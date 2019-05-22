@@ -192,19 +192,22 @@
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
     <Compile Include="Areas\Farmer\Controllers\FarmController.cs" />
     <Compile Include="Areas\Farmer\Controllers\FarmerController.cs" />
+    <Compile Include="Areas\Farmer\Controllers\FarmerOfferController.cs" />
+    <Compile Include="Areas\Farmer\Controllers\FarmerOfferDetailController.cs" />
     <Compile Include="Areas\Farmer\Controllers\MarketTransHisController.cs" />
     <Compile Include="Areas\Farmer\Controllers\ProductController.cs" />
     <Compile Include="Areas\Farmer\Controllers\ProductDetailsController.cs" />
     <Compile Include="Areas\Farmer\Controllers\SeedController.cs" />
-    <Compile Include="Areas\Farmer\Controllers\TransactionOrderController.cs" />
     <Compile Include="Areas\Farmer\FarmerAreaRegistration.cs" />
     <Compile Include="Areas\Farmer\Models\FarmerHomePageModel.cs" />
     <Compile Include="Controllers\EditPasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\TraderOfferDetailController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\SaleOfferDetailController.cs" />
-    <Compile Include="Controllers\OfferController.cs" />
+    <Compile Include="Controllers\TraderOfferController.cs" />
+    <Compile Include="Controllers\TraderOrderController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -221,6 +224,16 @@
     <Content Include="Assets\common\CSS\jquery-ui.css" />
     <Content Include="Assets\common\CSS\Login.css" />
     <Content Include="Assets\common\CSS\nice-select.css" />
+    <Content Include="Assets\common\CSS\pretty-checkbox.css" />
+    <Content Include="Assets\common\CSS\Register.css" />
+    <Content Include="Assets\common\JS\niceSelectBoxScript.js" />
+    <Content Include="Assets\common\JS\OfferDetail.js" />
+    <Content Include="Assets\common\JS\Register.js" />
+    <Content Include="Assets\common\JS\Tab.js" />
+    <Content Include="Assets\farmer\CSS\Offer.css" />
+    <Content Include="Assets\farmer\JS\FarmerOffer.js" />
+    <Content Include="Assets\farmer\JS\FarmerOfferDetail.js" />
+    <Content Include="Assets\farmer\CSS\Transaction.js" />
     <Content Include="Assets\HTML\FORM\colorlib-regform-3\colorilib-regform-3.html" />
     <Content Include="Assets\HTML\FORM\colorlib-regform-3\css\main.css" />
     <Content Include="Assets\HTML\FORM\colorlib-regform-3\images\bg-heading-03.jpg" />
@@ -483,11 +496,13 @@
     <Content Include="Assets\Login\vendor\select2\select2.min.css" />
     <Content Include="Assets\Login\vendor\select2\select2.min.js" />
     <Content Include="Assets\trader\CSS\Offer.css" />
+    <Content Include="Assets\trader\CSS\Transaction.css" />
     <Content Include="Assets\trader\hw.datepicker.css" />
     <Content Include="Assets\trader\hw.datepicker.js" />
     <Content Include="Assets\trader\JS\AdvancedBtn.js" />
     <Content Include="Assets\trader\JS\DateTimePickerCustom.js" />
     <Content Include="Assets\trader\JS\Offer.js" />
+    <Content Include="Assets\trader\JS\OfferDetail.js" />
     <Content Include="Assets\trader\JS\Transaction.js" />
     <Content Include="Assets\common\CSS\Custom.css" />
     <Content Include="Assets\admin\css\sb-admin-2.css" />
@@ -3118,9 +3133,9 @@
     <Content Include="Areas\Farmer\Views\Seed\Details.cshtml" />
     <Content Include="Areas\Farmer\Views\Seed\Edit.cshtml" />
     <Content Include="Areas\Farmer\Views\Seed\Index.cshtml" />
-    <Content Include="Areas\Farmer\Views\TransactionOrder\Details.cshtml" />
-    <Content Include="Areas\Farmer\Views\TransactionOrder\Index.cshtml" />
     <Content Include="Areas\Farmer\Views\Farmer\Index.cshtml" />
+    <Content Include="Areas\Farmer\Views\FarmerOffer\FarmerOfferIndex.cshtml" />
+    <Content Include="Areas\Farmer\Views\FarmerOfferDetail\FarmerOfferDetail.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\CKFinderScript.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -3152,7 +3167,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layouts.cshtml" />
     <Content Include="Views\Register\Create.cshtml" />
-    <Content Include="Views\Offer\OfferIndex.cshtml" />
+    <Content Include="Views\Offer\TraderOfferIndex.cshtml" />
     <Content Include="Views\SaleOfferDetail\Index.cshtml" />
     <Content Include="Views\EditPassword\Index.cshtml" />
     <Content Include="Views\Transaction\TransactionIndex.cshtml" />
@@ -3161,9 +3176,10 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Offer\OfferCreate.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\LoginIndex.cshtml" />
+    <Content Include="Views\TraderOfferDetail\TraderOfferDetail.cshtml" />
+    <Content Include="Views\TraderOrder\TraderOrderIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

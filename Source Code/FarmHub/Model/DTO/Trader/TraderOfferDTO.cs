@@ -12,9 +12,12 @@ namespace Model.DTO.Trader
 {
     public class TraderOfferDTO
     {
-        public IEnumerable<PurchaseOfferDetailDTO> purchaseOffersDetails { get; set; }
-        public IEnumerable<SALE_OFFER> saleOffers { get; set; }
-        public IEnumerable<PurchaseOfferDTO> purchaseOffers { get; set; }
+        public PURCHASE_OFFER purchaseOffer { get; set; }
+
+        public IEnumerable<ProductDTO> products { get; set; }
+        public IEnumerable<UnitMassDTO> units { get; set; }
+        public IEnumerable<SeedDTO> seeds { get; set; }
+        public IEnumerable<PurchaseOfferDTO> purchaseDetail{get;set;}
         
     }
 }

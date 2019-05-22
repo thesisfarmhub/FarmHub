@@ -19,13 +19,29 @@ namespace Model.Dao.Trader
         {
             db = new FarmHubDbContext();
         }
-        public int Insert(TraderRegister entity)
+        public int InsertTrader(Register entity)
         {
-            entity.UserAu.Status_User = 1;
+            entity.UserAu.Status_User = 0;
+            entity.UserAu.Created_Date = DateTime.Now;
+            entity.UserAu.Id_UserKind = 2;
 
             db.USER_AUTHENTICATION.Add(entity.UserAu);
-            db.TRADERs.Add(entity.Trader);
+            db.TRADERs.Add(entity.trader);
             
+            db.SaveChanges();
+
+            return entity.UserAu.Id_User;
+        }
+
+        public int InsertFarmer(Register entity)
+        {
+            entity.UserAu.Status_User = 0;
+            entity.UserAu.Created_Date = DateTime.Now;
+            entity.UserAu.Id_UserKind = 1;
+   
+            db.USER_AUTHENTICATION.Add(entity.UserAu);
+            db.FARMERs.Add(entity.farmer);
+
             db.SaveChanges();
 
             return entity.UserAu.Id_User;

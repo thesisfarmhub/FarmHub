@@ -13,10 +13,10 @@
 
         return false;
     },
-     function (settings, data, dataIndex) {
+    function (settings, data, dataIndex) {
         var min = parseInt($('#weightbegin').val());
         var max = parseInt($('#weightend').val());
-        var weight = parseFloat(data[2]) || 0; 
+        var weight = parseFloat(data[2]) || 0;
 
         if ((isNaN(min) && isNaN(max)) ||
             (isNaN(min) && weight <= max) ||
@@ -76,37 +76,18 @@ $('#weightbegin, #weightend').keyup(function () {
 
 
 
-//Buttons
-$('#transactionOfferTbl').on('click', '#delievered', function (e) {
-    e.preventDefault();
-
-    editor.message("Bạn có xác nhận đã nhận được hàng?");
-    editor.remove($(this).parents('tr')[0], 'Delete row', {
-        "label": "Confirm",
-        "fn": function () { this.submit(); }
-    });
-});
-
-$('#transactionOfferTbl').on('click', '#cancel', function (e) {
-    e.preventDefault();
-
-    editor.message("Are you sure you want to remove this row?");
-    editor.remove($(this).parents('tr')[0], 'Delete row', {
-        "label": "Confirm",
-        "fn": function () { this.submit(); }
-    });
-});
 
 
 
 $(document).ready(function () {
+    var transOffertbl = $("#transactionOfferTbl");
     var purTbl = $("#transactionOfferTbl").DataTable({
 
-        //"ajax": {
-        //    "url": "/Transaction/GetListPurchase",
-        //    "type": "GET",
-        //    "datatypye": "json"
-        //},
+        "ajax": {
+            "url": "/Transaction/GetListTransaction",
+            "type": "GET",
+            "datatypye": "json"
+        },
         "language": {
             "url": "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Vietnamese.json"
         },
@@ -116,16 +97,26 @@ $(document).ready(function () {
         },
 
         "scrollCollapse": true,
-        "columnDefs": [
+        "columns": [
+            { "data": "endTransDay" },
+            { "data": "productName" },
+            { "data": "seedName" },
+            { "data": "farmName" },
+            { "data": "farmerName" },
+            { "data": "price" },
+            { "data": "quantity" },
+            { "data": "unitName" },
+            { "data": "totalMoney" },
+            { "data": "StatusName" },
             {
-
                 "render": function (data, type, rowData) {
 
-                    return data + ' (' + rowData['massName'] + ')';
+                    var agreebtnHTML = '<button type="button" class="small green button" role="agreeBtn"  data-toggle="Detailtooltip" title="Đồng ý" >Đồng Ý </button>';
+                    var cancelbtnHTML = ' <button class="small red button" type="button" role="cancelBtn" data-toggle="Deletetooltip" title="Từ Chối">Từ Chối </button >';
+                    var reportbtnHTML = ' <button class="small red button" type="button" role="cancelBtn" data-toggle="Deletetooltip" title="Từ Chối">Tố cáo </button >';
+                    return agreebtnHTML + cancelbtnHTML
                 },
-                "targets": 2
-            },
-            { "visible": false, "targets": [3] }
+            }
         ]
     });
 
@@ -147,4 +138,46 @@ $(document).ready(function () {
 
         $("#purchaseOfferTbl thead tr:eq(1)").hide();
     }
+
+    transOffertbl.on('click', 'button[role="agreeBtn"]', function () {
+        var id = purchaseOfferTbl.DataTable().row($(this).closest('tr')[0]).data()['purchOfferID'];
+        $.confirm({
+            icon: 'fa fa-question-circle',
+            boxWidth: '100%',
+            title: 'Xác Nhận',
+            content: '<h4>Bạn có chắc đã nhận hàng từ chủ trang trại</h4>',
+            type: 'red',
+            typeAnimated: true,
+            animationSpeed: 500,
+            closeIcon: true,
+            closeIconClass: 'fa fa-close',
+            escapeKey: true,
+            backgroundDismiss: false,
+
+            autoClose: 'cancel|6000',
+            buttons: {
+                confirm: {
+                    text: "Xác Nhận",
+                    btnClass: "btn-red",
+                    action: function () {
+
+                        
+                    }
+                },
+                cancel: function () {
+
+                }
+            }
+        });
+
+    });
+
+    transOffertbl.on('click', 'button[role="cancelBtn"]', function () {
+
+        var id = saleOffertbl.DataTable().row($(this).closest('tr')[0]).data()['id'];
+        
+
+
+
+    });
 })

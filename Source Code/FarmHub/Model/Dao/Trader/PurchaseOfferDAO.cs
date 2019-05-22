@@ -6,33 +6,19 @@ using System.Linq;
 
 namespace Model.Dao.Trader
 {
-    public class PurchaseOfferDAO
+    public class PurchaseOfferDao
     {
         FarmHubDbContext db = null;
-        public PurchaseOfferDAO()
+        public PurchaseOfferDao()
         {
             db = new FarmHubDbContext();
         }
 
-        public IEnumerable<PURCHASE_OFFER> TraderPurchaseListAllPaging(int page, int pageSize)
-        {
-            IQueryable<PURCHASE_OFFER> model = db.PURCHASE_OFFER;
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-
-
-
-            model = from PURCHASE_OFFER in db.PURCHASE_OFFER
-                    where PURCHASE_OFFER.Id_Trader == 1 && PURCHASE_OFFER.Status_PurchaseOffer == 1
-                    select PURCHASE_OFFER;
-
-            return model.OrderByDescending(x => x.Date_PurchaseOffer).ToPagedList(page, pageSize);
-        }
-
-        public IEnumerable<PURCHASE_OFFER> PurchaseListAllPaging()
+        public IEnumerable<PURCHASE_OFFER> getPurchaseOfferByID(int id)
         {
             IQueryable<PURCHASE_OFFER> model = db.PURCHASE_OFFER;
 
-            var modelList = model.Where(x => x.Id_Trader == 1 & x.Is_Deleted == false);
+            var modelList = model.Where(x => x.Is_Deleted == false && x.TRADER.Id_User ==id);
             return modelList.OrderByDescending(x => x.Date_PurchaseOffer);
         }
 

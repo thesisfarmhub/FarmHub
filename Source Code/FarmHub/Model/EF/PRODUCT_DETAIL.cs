@@ -93,15 +93,15 @@ namespace Model.EF
 
         public virtual FARM FARM { get; set; }
 
-        [NotMapped]
-        public HttpPostedFileBase ImageFile { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MARKET_TRANS_HIS> MARKET_TRANS_HIS { get; set; }
 
         public virtual PRODUCT PRODUCT { get; set; }
 
         public virtual SEED SEED { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase ImageFile { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SALE_OFFER> SALE_OFFER { get; set; }
