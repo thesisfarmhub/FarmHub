@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-namespace Model.EF
-=======
 ﻿namespace Model.EF
->>>>>>> master
 {
     using System;
     using System.Collections.Generic;
@@ -23,42 +19,25 @@ namespace Model.EF
         [Key]
         public int Id_Farm { get; set; }
 
-<<<<<<< HEAD
         public int? Id_Farmer { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "Độ dài tối đa 50 ký tự")]
+        [Required(ErrorMessage = "Thông tin này không được để trống")]
         public string Name_Farm { get; set; }
 
-        [StringLength(200)]
+        [StringLength(200, ErrorMessage = "Độ dài tối đa 200 ký tự")]
+        [Required(ErrorMessage = "Thông tin này không được để trống")]
         public string Address_Farm { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "Độ dài tối đa 50 ký tự")]
+        [Required(ErrorMessage = "Thông tin này không được để trống")]
         public string City_Farm { get; set; }
 
+        [Required(ErrorMessage = "Thông tin này không được để trống")]
+        [Range(1, 9999999, ErrorMessage = "Diện tích tính bằng Km2, xin kiểm tra lại")]
         public int? Acreage { get; set; }
 
         [StringLength(250)]
-=======
-        [Required(ErrorMessage = "Thông tin này không được để trống")]
-        public int? Id_Farmer { get; set; }
-
-        [Required(ErrorMessage = "Thông tin này không được để trống")]
-        [StringLength(50, ErrorMessage = "Độ dài tối đa 50 ký tự")]
-        public string Name_Farm { get; set; }
-
-        [Required(ErrorMessage = "Thông tin này không được để trống")]
-        [StringLength(200, ErrorMessage = "Độ dài tối đa 200 ký tự")]
-        public string Address_Farm { get; set; }
-
-        [Required(ErrorMessage = "Thông tin này không được để trống")]
-        [StringLength(50, ErrorMessage = "Độ dài tối đa 50 ký tự")]
-        public string City_Farm { get; set; }
-
-        [Required(ErrorMessage = "Thông tin này không được để trống")]
-        public int? Acreage { get; set; }
-
-        [StringLength(200, ErrorMessage = "Độ dài tối đa 200 ký tự")]
->>>>>>> master
         public string Description_Farm { get; set; }
 
         public bool? Is_Deleted { get; set; }

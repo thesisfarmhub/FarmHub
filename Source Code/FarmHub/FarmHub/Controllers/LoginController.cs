@@ -1,13 +1,8 @@
 ﻿using FarmHub.Areas.Admin.Models;
 using FarmHub.Common;
 using Model.Dao.Authentication;
-<<<<<<< HEAD
-=======
 using Model.Dao.Farmer;
 using Model.Dao.Trader;
-using Model.EF;
-using System;
->>>>>>> master
 using System.Web.Mvc;
 
 namespace FarmHub.Controllers
@@ -33,27 +28,33 @@ namespace FarmHub.Controllers
                 if (result == "Succeed")
                 {
                     var user = dao.GetUserByID(username);
-                    
-                    var userSession = new UserLoginSession();
-                    userSession.UserName = user.Name_User;
-                    userSession.UserID = user.Id_User;
-                    
+
+                    var userSession = new UserLoginSession
+                    {
+                        UserName = user.Name_User,
+                        UserID = user.Id_User
+                    };
+
                     Session["UserId"] = user.Id_User;  
                     Session.Add(Constant.USER_SESSION, userSession);
 
                     //Farmer:1 , Trader:2 , Admin:3
+
+                    // ChenLong
+                    //if (user.USER_KIND.Id_UserKind == 1)
+                    //{
+                    //    return RedirectToAction("Index", "Farmer", new { area = "Farmer" });
+                    //}
+                    //if (user.USER_KIND.Id_UserKind == 3)
+                    //{
+                    //    return RedirectToAction("index", "User", new { area = "Admin" });
+                    //}
+
+                    //return RedirectToAction("Index", "Home");
+
+                    // Meow Edited
                     if (user.USER_KIND.Id_UserKind == 1)
                     {
-<<<<<<< HEAD
-                        return RedirectToAction("Index", "Farmer", new { area = "Farmer" });
-                    }
-                    if (user.USER_KIND.Id_UserKind == 3)
-                    {
-                        return RedirectToAction("index", "User", new { area = "Admin" });
-                    }
-
-                    return RedirectToAction("Index", "Home");
-=======
                         Session["FarmerID"] = new FarmerDAO().GetFarmerByUserID(user.Id_User).Id_Farmer;
                         return RedirectToAction("Index", "Farmer", new { area = "Farmer" });
                     }
@@ -70,7 +71,6 @@ namespace FarmHub.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
->>>>>>> master
                 }
                 else if (result == "InCorrect")
                 {

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-namespace Model.EF
-=======
 ﻿namespace Model.EF
->>>>>>> master
 {
     using System;
     using System.Collections.Generic;
@@ -24,26 +20,13 @@ namespace Model.EF
         [Key]
         public int Id_ProductDetail { get; set; }
 
-<<<<<<< HEAD
         public int? Id_Product { get; set; }
 
         public int? Id_Farm { get; set; }
 
-        public int? Id_Seed { get; set; }
-
-        [StringLength(50)]
-=======
-        [Required(ErrorMessage = "Thông tin này không được để trống")]
-        public int? Id_Product { get; set; }
-
-        [Required(ErrorMessage = "Thông tin này không được để trống")]
-        public int? Id_Farm { get; set; }
-
-        [Required(ErrorMessage = "Thông tin này không được để trống")]
         public int? Id_Seed { get; set; }
 
         [StringLength(50, ErrorMessage = "Độ dài tối đa 50 ký tự")]
->>>>>>> master
         public string Geography_Location { get; set; }
 
         [StringLength(200)]
@@ -51,21 +34,8 @@ namespace Model.EF
 
         public int? Min_Mass { get; set; }
 
-<<<<<<< HEAD
-        [StringLength(50)]
-        public string Name_Crop { get; set; }
-
-        public DateTime? Start_Time { get; set; }
-
-        public DateTime? End_Time { get; set; }
-
-        public DateTime? Harvest_StartTime { get; set; }
-
-        public DateTime? Harvest_EndTime { get; set; }
-
-=======
-        [Required(ErrorMessage = "Thông tin này không được để trống")]
         [StringLength(50, ErrorMessage = "Độ dài tối đa 50 ký tự")]
+        [Required(ErrorMessage = "Thông tin này không được để trống")]
         public string Name_Crop { get; set; }
 
         [Required(ErrorMessage = "Thông tin này không được để trống")]
@@ -85,8 +55,7 @@ namespace Model.EF
         public DateTime? Harvest_EndTime { get; set; }
 
         [Required(ErrorMessage = "Thông tin này không được để trống")]
-        [Range(1, 2147483647, ErrorMessage = "Sản lượng tính bằng tấn, hãy nhập giá trị đúng")]
->>>>>>> master
+        [Range(1, 9999999, ErrorMessage = "Sản lượng tính bằng tấn, xin kiểm tra lại")]
         public int? Quantity_Expected { get; set; }
 
         public bool? Is_Deleted { get; set; }

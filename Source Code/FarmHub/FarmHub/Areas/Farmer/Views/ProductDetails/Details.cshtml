@@ -29,8 +29,9 @@
                                     <li>Tên Nông Sản: @Html.DisplayFor(x => x.PRODUCT.Name_Product)</li>
                                     <li>Tên Giống: @Html.DisplayFor(x => x.SEED.Name_Seed)</li>
                                     <li>Thổ Nhưỡng: @Html.DisplayFor(x => x.Geography_Location)</li>
-                                    <li>Khối Lượng Bán Nhỏ Nhất: @Html.DisplayFor(x => x.Min_Mass)</li>
+                                    @*<li>Khối Lượng Bán Nhỏ Nhất: @Html.DisplayFor(x => x.Min_Mass)</li>*@
                                     <li>Tên Vụ Mùa: @Html.DisplayFor(x => x.Name_Crop) - Từ @Html.DisplayFor(x => x.Start_Time) đến @Html.DisplayFor(x => x.End_Time)</li>
+                                    <li>Thời điểm bắt đầu vụ mùa: Từ @Html.DisplayFor(x => x.Start_Time) đến @Html.DisplayFor(x => x.End_Time) </li>
                                     <li>Thời Điểm Thu Hoạch: Từ @Html.DisplayFor(x => x.Harvest_StartTime) đến @Html.DisplayFor(x => x.Harvest_EndTime) </li>
                                     <li>Sản Lượng Dự Kiến: @Html.DisplayFor(x => x.Quantity_Expected) tấn</li>
                                 </ul>                                

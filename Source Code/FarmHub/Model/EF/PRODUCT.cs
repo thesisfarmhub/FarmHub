@@ -5,13 +5,6 @@ namespace Model.EF
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-    using System.Web;
-=======
->>>>>>> master
-=======
->>>>>>> Stashed changes
 
     [Table("PRODUCT")]
     public partial class PRODUCT
@@ -37,15 +30,6 @@ namespace Model.EF
 
         public bool? Is_Deleted { get; set; }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-        [NotMapped]
-        public HttpPostedFileBase ImageFile { get; set; }
-
-=======
->>>>>>> master
-=======
->>>>>>> Stashed changes
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FARMER_PREFERENCE_DETAIL> FARMER_PREFERENCE_DETAIL { get; set; }
 

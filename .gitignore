@@ -2,3 +2,25 @@
 Source Code/FarmHub/\.vs/
 
 Source Code/FarmHub/Common/obj/
+
+Source Code/FarmHub/Common/
+
+Source Code/FarmHub/Model/bin/
+
+Source Code/FarmHub/Model/obj/
+
+Source Code/FarmHub/Model/App\.config
+
+Source Code/FarmHub/Model/Model\.csproj
+
+Source Code/FarmHub/FarmHub/bin/
+
+Source Code/FarmHub/FarmHub/obj/
+
+*.csproj
+
+Source Code/FarmHub/FarmHub/Global\.asax\.cs
+
+*.user
+
+*.config

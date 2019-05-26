@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dữ liệu nhập sai định dạng, xin hãy kiểm tra lại.
+        ///   Looks up a localized string similar to Bạn nhập sai định dạng dữ liệu, xin kiểm tra lại.
         /// </summary>
         internal static string PropertyValueInvalid {
             get {

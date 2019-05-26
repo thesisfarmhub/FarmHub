@@ -180,6 +180,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\Errors.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Errors.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -200,9 +205,11 @@
     <Compile Include="Areas\Farmer\Controllers\SeedController.cs" />
     <Compile Include="Areas\Farmer\FarmerAreaRegistration.cs" />
     <Compile Include="Areas\Farmer\Models\FarmerHomePageModel.cs" />
+    <Compile Include="Areas\Farmer\Models\SeedAutoCompleteModel.cs" />
     <Compile Include="Controllers\EditPasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\TraderController.cs" />
     <Compile Include="Controllers\TraderOfferDetailController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\SaleOfferDetailController.cs" />
@@ -216,6 +223,7 @@
     <Compile Include="Models\HomePageModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\TraderHomePageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -3108,6 +3116,8 @@
     <Content Include="Assets\HTML\SpicyX\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Assets\HTML\SpicyX\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Assets\HTML\SpicyX\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Areas\Farmer\Views\FarmerOffer\FarmerOfferIndex.cshtml" />
+    <Content Include="Areas\Farmer\Views\FarmerOfferDetail\FarmerOfferDetail.cshtml" />
     <Content Include="Areas\Farmer\Views\Farm\Create.cshtml" />
     <Content Include="Areas\Farmer\Views\Farm\Delete.cshtml" />
     <Content Include="Areas\Farmer\Views\Farm\Details.cshtml" />
@@ -3117,6 +3127,11 @@
     <Content Include="Areas\Farmer\Views\Farmer\Delete.cshtml" />
     <Content Include="Areas\Farmer\Views\Farmer\Details.cshtml" />
     <Content Include="Areas\Farmer\Views\Farmer\Edit.cshtml" />
+    <Content Include="Areas\Farmer\Views\Farmer\Index.cshtml" />
+    <Content Include="Areas\Farmer\Views\MarketTransHis\Create.cshtml" />
+    <Content Include="Areas\Farmer\Views\MarketTransHis\Delete.cshtml" />
+    <Content Include="Areas\Farmer\Views\MarketTransHis\Details.cshtml" />
+    <Content Include="Areas\Farmer\Views\MarketTransHis\Edit.cshtml" />
     <Content Include="Areas\Farmer\Views\MarketTransHis\Index.cshtml" />
     <Content Include="Areas\Farmer\Views\Product\Create.cshtml" />
     <Content Include="Areas\Farmer\Views\Product\Delete.cshtml" />
@@ -3133,9 +3148,6 @@
     <Content Include="Areas\Farmer\Views\Seed\Details.cshtml" />
     <Content Include="Areas\Farmer\Views\Seed\Edit.cshtml" />
     <Content Include="Areas\Farmer\Views\Seed\Index.cshtml" />
-    <Content Include="Areas\Farmer\Views\Farmer\Index.cshtml" />
-    <Content Include="Areas\Farmer\Views\FarmerOffer\FarmerOfferIndex.cshtml" />
-    <Content Include="Areas\Farmer\Views\FarmerOfferDetail\FarmerOfferDetail.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\CKFinderScript.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -3180,6 +3192,7 @@
     <Content Include="Views\Login\LoginIndex.cshtml" />
     <Content Include="Views\TraderOfferDetail\TraderOfferDetail.cshtml" />
     <Content Include="Views\TraderOrder\TraderOrderIndex.cshtml" />
+    <Content Include="Views\Trader\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3214,6 +3227,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Errors.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Errors.Designer.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

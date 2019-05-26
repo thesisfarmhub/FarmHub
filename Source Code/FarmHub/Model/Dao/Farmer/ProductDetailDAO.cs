@@ -49,9 +49,6 @@ namespace Model.Dao.Farmer
         {
             productDetailModel.Is_Deleted = false;
             db.PRODUCT_DETAIL.Add(productDetailModel);
-<<<<<<< HEAD
-            db.SaveChanges();
-=======
             try
             {
                 db.SaveChanges();
@@ -60,7 +57,6 @@ namespace Model.Dao.Farmer
             {
                 return 0;
             }
->>>>>>> master
             return productDetailModel.Id_ProductDetail;
         }
 
@@ -74,11 +70,6 @@ namespace Model.Dao.Farmer
                 targetUpdate.Id_Product = productDetailModel.Id_Product;
                 targetUpdate.Id_Farm = productDetailModel.Id_Farm;
                 targetUpdate.Id_Seed = productDetailModel.Id_Seed;
-<<<<<<< HEAD
-                targetUpdate.Geography_Location = productDetailModel.Geography_Location;
-                targetUpdate.Image_ProductDetail = productDetailModel.Image_ProductDetail;
-                targetUpdate.Min_Mass = productDetailModel.Min_Mass;
-=======
                 targetUpdate.Name_Crop = productDetailModel.Name_Crop;
                 targetUpdate.Start_Time = productDetailModel.Start_Time;
                 targetUpdate.End_Time = productDetailModel.End_Time;
@@ -87,7 +78,6 @@ namespace Model.Dao.Farmer
                 targetUpdate.Geography_Location = productDetailModel.Geography_Location;
                 targetUpdate.Quantity_Expected = productDetailModel.Quantity_Expected;
                 targetUpdate.Image_ProductDetail = productDetailModel.Image_ProductDetail;
->>>>>>> master
                 db.SaveChanges();
                 return true;
             }

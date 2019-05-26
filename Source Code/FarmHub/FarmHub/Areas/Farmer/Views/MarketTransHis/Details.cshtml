@@ -1,0 +1,64 @@
+﻿@model Model.EF.FARMER
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Farmer/Views/Shared/_Layouts.cshtml";
+}
+
+<h2>Details Farmer</h2>
+
+<div class="card">
+
+    <div class="card-header card-header-color">
+        <h5>Chi tiết chủ nông trại</h5>
+    </div>
+
+    <div class="card-body card-body-color">
+        <div class="container">
+            <div class="row" style="padding-top:10px">
+                <div class="container">
+                    <table>
+                        <tbody>
+
+                            <tr>
+                                <td>Tên chủ nông trại: </td>
+                                <td>@Html.DisplayFor(model => model.Name_Farmer)</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày sinh: </td>
+                                <td>@Html.DisplayFor(model => model.Birthday_Farmer)</td>
+                            </tr>
+
+                            <tr>
+                                <td>Địa chỉ: </td>
+                                <td>@Html.DisplayFor(model => model.Address_Farmer)</td>
+                            </tr>
+
+                            <tr>
+                                <td>Số điện thoại: </td>
+                                <td>@Html.DisplayFor(model => model.Telephone_Farmer)</td>
+                            </tr>
+
+                            <tr>
+                                <td>Số điện thoại: </td>
+                                <td>@Html.DisplayFor(model => model.Telephone_Farmer)</td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <img src="@Url.Content(Model.Image_Farmer)" style="max-height:100px; max-width:100px" />
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

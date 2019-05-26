@@ -13,14 +13,7 @@ namespace Model.EF
         {
             FARMERs = new HashSet<FARMER>();
             FEED_BACK = new HashSet<FEED_BACK>();
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-=======
             TRADERs = new HashSet<TRADER>();
->>>>>>> master
-=======
-            TRADERs = new HashSet<TRADER>();
->>>>>>> Stashed changes
         }
 
         [Key]
@@ -48,18 +41,9 @@ namespace Model.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FEED_BACK> FEED_BACK { get; set; }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-=======
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TRADER> TRADERs { get; set; }
 
->>>>>>> master
-=======
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TRADER> TRADERs { get; set; }
-
->>>>>>> Stashed changes
         public virtual USER_KIND USER_KIND { get; set; }
     }
 }
