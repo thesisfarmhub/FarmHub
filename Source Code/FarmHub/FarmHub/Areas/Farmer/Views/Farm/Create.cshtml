@@ -33,26 +33,31 @@
                                         <div class="form-group">
                                             <input type="hidden" name="Id_Farmer" value="@ViewBag.Id_Farmer">
                                             <input type="text" class="form-control" placeholder="Tên Chủ Nông Trại" value="@(ViewBag.Name_Farmer)" disabled />
+                                            @Html.ValidationMessageFor(model => model.FARMER.Name_Farmer, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Tên Nông Trại" name="Name_Farm">
+                                            <input type="text" class="form-control" placeholder="Tên Nông Trại" name="Name_Farm" required="" oninvalid="this.setCustomValidity('Thông tin này không được để trống')" oninput="this.setCustomValidity('')">
+                                            @Html.ValidationMessageFor(model => model.Name_Farm, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Địa Chỉ Nông Trại" name="Address_Farm">
+                                            <input type="text" class="form-control" placeholder="Địa Chỉ Nông Trại" name="Address_Farm" required="" oninvalid="this.setCustomValidity('Thông tin này không được để trống')" oninput="this.setCustomValidity('')">
+                                            @Html.ValidationMessageFor(model => model.Address_Farm, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Diện Tích Nông Trại" name="Acreage">
+                                            <input type="number" class="form-control" placeholder="Diện Tích Nông Trại" name="Acreage" onkeypress='return event.charCode != 69 && event.charCode != 101 && event.charCode != 45 && event.charCode != 43 && event.charCode != 46' required="" oninvalid="this.setCustomValidity('Thông tin này không được để trống')" oninput="this.setCustomValidity('')">
+                                            @Html.ValidationMessageFor(model => model.Acreage, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Thành Phố" name="City_Farm">
+                                            <input type="text" class="form-control" placeholder="Thành Phố" name="City_Farm" required="" oninvalid="this.setCustomValidity('Thông tin này không được để trống')" oninput="this.setCustomValidity('')">
+                                            @Html.ValidationMessageFor(model => model.City_Farm, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -63,6 +68,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <textarea class="form-control" cols="30" rows="10" placeholder="Hãy giúp tôi mô tả vài điều về trang trại của bạn nhé !" name="Description_Farm"></textarea>
+                                            @Html.ValidationMessageFor(model => model.Description_Farm, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
 
@@ -85,3 +91,16 @@
     </div>
 </section>
 <!-- End Reservation section -->
+<!--Script-->
+<script>
+    function keyispressed(e) {
+        var charval = String.fromCharCode(e.keyCode);
+        var charE = "e";
+        if (isNaN(charval)) {
+            return false;
+        }
+        else if (isNaN(charE)) {
+            return false;
+        }
+        return true;
+</script>

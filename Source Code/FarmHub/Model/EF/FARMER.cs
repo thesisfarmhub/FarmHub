@@ -38,9 +38,6 @@ namespace Model.EF
         [StringLength(100)]
         public string Email_Farmer { get; set; }
 
-        [StringLength(200)]
-        public string Image_Farmer { get; set; }
-
         public bool? Is_Deleted { get; set; }
 
         [NotMapped]

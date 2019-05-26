@@ -15,6 +15,7 @@ namespace Model.Dao.Farmer
             db = new FarmHubDbContext();
 
         }
+
         #region Meow
         // List All
         public List<SALE_OFFER> ListAll()
@@ -140,6 +141,7 @@ namespace Model.Dao.Farmer
                 throw new Exception(e.Message);
             }
         }
+
         #endregion
 
         #region ChenLong

@@ -1,28 +1,13 @@
 ﻿@model FarmHub.Models.HomePageModel
 
 @{
-<<<<<<< HEAD
-=======
 
->>>>>>> master
     ViewBag.Title = "Home Page";
 }
 
 <head>
     <title>Home Page</title>
 </head>
-
-<style>
-    iframe {
-        border: 1px solid black;
-        width: 100%;
-    }
-
-    .output {
-        background: #eee;
-    }
-
-</style>
 
 <!-- Start Chef Section - TRENDING: Top 5 nông sản bán chạy/bán ế nhất-->
 <section id="mu-chef">
@@ -49,15 +34,6 @@
                                             <h4>@item.Name_Product</h4>
                                             <span>@item.Quantity_PurchaseOffer - @item.Name_Seed</span>
                                         </div>
-<<<<<<< HEAD
-                                        <div class="mu-single-chef-social">
-                                            <a href="#"><i class="fa fa-facebook"></i></a>
-                                            <a href="#"><i class="fa fa-twitter"></i></a>
-                                            <a href="#"><i class="fa fa-google-plus"></i></a>
-                                            <a href="#"><i class="fa fa-linkedin"></i></a>
-                                        </div>
-=======
->>>>>>> master
                                     </div>
                                 </li>
                             }
@@ -69,14 +45,8 @@
     </div>
 </section>
 <!-- End Chef Section -->
-<<<<<<< HEAD
-
-<!-- Start Counter Section Top 4 Products -->
-    <section id="mu-counter">
-=======
 <!-- Start Counter Section Top 4 Products -->
 @*<section id="mu-counter">
->>>>>>> master
         <div class="mu-counter-overlay">
             <div class="container">
                 <div class="row">
@@ -99,14 +69,8 @@
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
-    </section>
-    <!-- End Counter Section -->
-=======
     </section>*@
 <!-- End Counter Section -->
->>>>>>> master
-
 <!-- Start About us - GIAO DỊCH ĐANG DIỄN RA -->
 <section id="mu-about-us">
     <div class="container">
@@ -132,19 +96,12 @@
                                                         <figure class="mu-single-chef-img">
                                                             <img src="@item.PRODUCT.Image_Product" alt="chef img">
                                                         </figure>
-                                                        <div class="m`u-single-chef-info">
+                                                        <div class="mu-single-chef-info">
                                                             <h4>@item.PRODUCT.Name_Product</h4>
                                                             <span>@item.TRADER.Name_Trader</span>
                                                         </div>
                                                         <div class="mu-single-chef-social">
-<<<<<<< HEAD
-                                                            <a href="#"><i class="fa fa-facebook"></i></a>
-                                                            <a href="#"><i class="fa fa-twitter"></i></a>
-                                                            <a href="#"><i class="fa fa-google-plus"></i></a>
-                                                            <a href="#"><i class="fa fa-linkedin"></i></a>
-=======
                                                             <button @*onclick="location.href = '@Url.Action("LoginIndex","Login")'"*@ type="button" class="mu-readmore-btn">Chi Tiết</button>
->>>>>>> master
                                                         </div>
                                                     </div>
                                                 </li>

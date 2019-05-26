@@ -1,6 +1,5 @@
 ﻿using Model.DTO.Trader;
 using Model.EF;
-using PagedList;
 using System.Collections.Generic;
 using System.Linq;
 

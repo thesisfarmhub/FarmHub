@@ -3,18 +3,17 @@ using Model.Dao.Authentication;
 using Model.Dao.Farmer;
 using Model.EF;
 using System;
-using System.IO;
 using System.Web.Mvc;
 
 namespace FarmHub.Areas.Farmer.Controllers
 {
     public class FarmerController : Controller
     {
-        // GET: Farmer/Farmer
+        // Trang Chủ Farmer
         public ActionResult Index()
         {
             // Session
-            var session = Convert.ToInt32(Session["UserId"]);
+            var session = Convert.ToInt32(Session["FarmerID"]);
 
             var listSaleOffer = saleOfferDAO.ListSaleOfferByFarmerID(session);
             var suitablePurchaseOffer = saleOfferDAO.SuitablePurchaseOffer(listSaleOffer);
@@ -30,7 +29,7 @@ namespace FarmHub.Areas.Farmer.Controllers
             return View(farmerHomePageModel);
         }
 
-        // GET: Farmer/Farmer/Details/5
+        // 
         public ActionResult Details(int id)
         {
             var farmerModel = dao.Details(id);

@@ -11,7 +11,7 @@ namespace FarmHub.Areas.Farmer.Controllers
         public ActionResult Index()
         {
             // Session
-            var session = Convert.ToInt32(Session["UserId"]);
+            var session = Convert.ToInt32(Session["FarmerID"]);
             var listFarm = dao.ListFarmByFarmerID(session);
             return View(listFarm);
         }
@@ -41,7 +41,7 @@ namespace FarmHub.Areas.Farmer.Controllers
                 if (result > 0)
                 {
                     // Session
-                    var session = Convert.ToInt32(Session["UserId"]);
+                    var session = Convert.ToInt32(Session["FarmerID"]);
                     return RedirectToAction("Index", new { id = session });
                 }
                 else
@@ -50,6 +50,7 @@ namespace FarmHub.Areas.Farmer.Controllers
                 }
             }
 
+            ModelState.AddModelError("", "Tạo mới thất bại !!!");
             SetViewBagFarmer();
             return View();
         }
@@ -69,7 +70,7 @@ namespace FarmHub.Areas.Farmer.Controllers
             {
                 var result = dao.Update(farmModel);
 
-                if(result)
+                if (result)
                 {
                     return RedirectToAction("Index");
                 }
@@ -79,6 +80,7 @@ namespace FarmHub.Areas.Farmer.Controllers
                 }
             }
 
+            ModelState.AddModelError("", "Cập nhật thất bại !!!");
             var farmModelState = dao.Details(farmModel.Id_Farm);
             return View(farmModelState);
         }
@@ -120,7 +122,7 @@ namespace FarmHub.Areas.Farmer.Controllers
         public void SetViewBagFarmer()
         {
             // Session
-            var session = Convert.ToInt32(Session["UserId"]);
+            var session = Convert.ToInt32(Session["FarmerID"]);
             FarmerDAO farmerDAO = new FarmerDAO();
             ViewBag.Name_Farmer = farmerDAO.GetFarmerNameByFarmerID(session);
             ViewBag.Id_Farmer = session;

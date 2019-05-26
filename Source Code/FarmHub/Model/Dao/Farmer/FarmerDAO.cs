@@ -32,14 +32,11 @@ namespace Model.Dao.Farmer
             return db.FARMERs.Find(farmerID).Name_Farmer.ToString();
         }
 
-<<<<<<< HEAD
-=======
         // GetFarmerByUserID
         public FARMER GetFarmerByUserID(int userID)
         {
             return new FarmHubDbContext().FARMERs.FirstOrDefault(x => x.Id_User == userID);
         }
->>>>>>> master
 
         // Detail
         public FARMER Details(int id_Farmer)
@@ -70,7 +67,6 @@ namespace Model.Dao.Farmer
                 targetUpdate.Address_Farmer = farmerModel.Address_Farmer;
                 targetUpdate.Telephone_Farmer = farmerModel.Telephone_Farmer;
                 targetUpdate.Email_Farmer = farmerModel.Email_Farmer;
-                targetUpdate.Image_Farmer = farmerModel.Image_Farmer;
                 db.SaveChanges();
                 return true;
             }

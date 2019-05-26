@@ -33,7 +33,7 @@ namespace FarmHub.Controllers
 
         #region Function
 
-        readonly PurchaseOfferDAO purchaseOfferDAO = new PurchaseOfferDAO();
+        readonly PurchaseOfferDao purchaseOfferDAO = new PurchaseOfferDao();
 
         #endregion
     }

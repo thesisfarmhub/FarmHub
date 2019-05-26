@@ -1,0 +1,108 @@
+﻿@model Model.EF.FARMER
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Farmer/Views/Shared/_Layouts.cshtml";
+}
+
+<head>
+    <title>Edit Farmer</title>
+</head>
+
+<div class="card">
+
+    <div class="card-header card-header-color">
+        <h5>Chỉnh sửa thông tin chủ trang trại</h5>
+    </div>
+
+    <div class="card-body card-body-color">
+        <div class="container">
+            @using (Html.BeginForm("Create", "Farmer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="col-10" style="margin:auto;">
+
+
+                    <div class="form-group">
+                        <label for="ten">Tên:</label>
+                        @Html.EditorFor(model => model.Name_Farmer, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name_Farmer, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ngaySinh">Ngày sinh:</label>
+                        @Html.EditorFor(model => model.Birthday_Farmer, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Birthday_Farmer, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Giới tính: </label>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="true" name="Gender_Farmer"> Nam
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="false" name="Gender_Farmer"> Nữ
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="diachi">Địa chỉ:</label>
+                        @Html.EditorFor(model => model.Address_Farmer, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Address_Farmer, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sdt">Điện thoại:</label>
+                        @Html.EditorFor(model => model.Telephone_Farmer, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Telephone_Farmer, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        @Html.EditorFor(model => model.Email_Farmer, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email_Farmer, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!--S.Image-->
+                    <div class="form-group">
+                        <label for="anhDaiDien">Ảnh đại diện</label>
+                        <input type="file" class="form-control-file" onchange="readURL(this);" id="anhDaiDien" name="ImageFile">
+                        <img style="max-width:180px; max-height:180px" id="blah" src="http://placehold.it/180" alt="your image" />
+                    </div>
+                    <!--E.Image-->
+
+                    <button align="center" class="btn brown" type="submit">Xác nhận</button>
+
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
+<!--S.Scripts For Image-->
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+<!--E.Scripts For Image-->
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

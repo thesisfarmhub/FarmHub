@@ -18,21 +18,21 @@ C:\Users\trong\OneDrive\Máy tính\Working\FarmHub\FarmHub\Common\bin\Debug\Comm
 C:\Users\trong\OneDrive\Máy tính\Working\FarmHub\FarmHub\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
 C:\Users\trong\OneDrive\Máy tính\Working\FarmHub\FarmHub\Common\obj\Debug\Common.dll
 C:\Users\trong\OneDrive\Máy tính\Working\FarmHub\FarmHub\Common\obj\Debug\Common.pdb
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-=======
-D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\bin\Debug\Common.dll
-D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\bin\Debug\Common.pdb
-D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.csprojAssemblyReference.cache
-D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
-D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.dll
-D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.pdb
->>>>>>> master
-=======
 C:\Users\ChenLong\Documents\Thesis\FarmHub\Source Code\FarmHub\Common\bin\Debug\Common.dll
 C:\Users\ChenLong\Documents\Thesis\FarmHub\Source Code\FarmHub\Common\bin\Debug\Common.pdb
 C:\Users\ChenLong\Documents\Thesis\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
 C:\Users\ChenLong\Documents\Thesis\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.dll
 C:\Users\ChenLong\Documents\Thesis\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.pdb
 C:\Users\ChenLong\Documents\Thesis\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.csprojAssemblyReference.cache
->>>>>>> Stashed changes
+C:\Users\trong\OneDrive\Máy tính\FarmHub\FarmHub\Common\bin\Debug\Common.dll
+C:\Users\trong\OneDrive\Máy tính\FarmHub\FarmHub\Common\bin\Debug\Common.pdb
+C:\Users\trong\OneDrive\Máy tính\FarmHub\FarmHub\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\trong\OneDrive\Máy tính\FarmHub\FarmHub\Common\obj\Debug\Common.dll
+C:\Users\trong\OneDrive\Máy tính\FarmHub\FarmHub\Common\obj\Debug\Common.pdb
+C:\Users\trong\OneDrive\Máy tính\FarmHub\FarmHub\Common\obj\Debug\Common.csprojAssemblyReference.cache
+D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\bin\Debug\Common.dll
+D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\bin\Debug\Common.pdb
+D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.dll
+D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.pdb
+D:\Thesis 2019\FarmHub\Source Code\FarmHub\Common\obj\Debug\Common.csprojAssemblyReference.cache
