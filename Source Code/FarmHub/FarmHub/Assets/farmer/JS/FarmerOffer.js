@@ -148,7 +148,7 @@ $('#Saleweightbegin, #Saleweightend').keyup(function () {
 //Data=Table PurchaseOffer
 $(document).ready(function () {
     //DateTable SaleOffer
-    var saleOffertbl = $("#saleOfferTbl");
+    
     var saleTbl = $("#saleOfferTbl").DataTable({
         "ajax": {
             "url": `${window.location.origin}/FarmerOffer/GetListSale`,
@@ -180,8 +180,8 @@ $(document).ready(function () {
             {
                 "render": function (data, type, rowData) {
 
-                    var detailbtnHTML = '<button type="button" class="small blue button" role="saleDetailBtn"  data-toggle="Detailtooltip" title="Xem Chi tiết Đơn" >Xem Chi Tiết</i></span></button>';
-                    var deletebtnHTML = ' <button class="btn btn-danger glyphicon glyphicon-trash" type="button" role="deleteBtn" data-toggle="Deletetooltip" title="Xóa Đơn" style="padding-right:20px;margin-top:-6px;height:28px;width:29px;"> </button >';
+                    var detailbtnHTML = '<button type="button" class="small blue button" role="saleDetailBtn"  data-toggle="Detailtooltip" title="Xem Chi tiết Đơn" style="padding-right:5px;" >Xem Chi Tiết</i></span></button>';
+                    var deletebtnHTML = '<button class="small red button " type="button" role="deleteBtn" data-toggle="Deletetooltip" title="Xóa Đơn" " style="padding: 4px 8px;"><span class="glyphicon glyphicon-trash"> </span> </button >';
 
                     var bargainImg = '<img src="/Assets/Images/Bargain.png" title=" Có thể Thương Lượng " width="22" height="22"/>  &nbsp;';
                     var noBargainImg = '<img src="/Assets/Images/Non-Bargainpng.png" width="22" height="22" title="Không Được Thương Lượng " /> &nbsp; ';
@@ -237,6 +237,7 @@ $(document).ready(function () {
 
 
     var purchaseOfferTbl = $("#purchaseOfferTbl");
+    var saleOffertbl = $("#saleOfferTbl");
 
     var purTbl = purchaseOfferTbl.DataTable({
 
@@ -249,9 +250,9 @@ $(document).ready(function () {
         },
 
         "columns": [
-            { "data": "traderName"},
+            { "data": "traderName" },
             {
-             
+
                 "data": "productName",
                 "render": function (data, type, rowData) {
                     return data + ' (' + rowData['seedName'] + ')';
@@ -314,9 +315,9 @@ $(document).ready(function () {
 
 
     //Delete Offer
-    purTbl.on('click', 'button[role="deleteBtn"]', function () {
-        var id = purchaseOfferTbl.DataTable().row($(this).closest('tr')[0]).data()['id'];
-        var NOO = purchaseOfferTbl.DataTable().row($(this).closest('tr')[0]).data()['numberOfOrder'];
+    saleTbl.on('click', 'button[role="deleteBtn"]', function () {
+        var id = saleOffertbl.DataTable().row($(this).closest('tr')[0]).data()['saleOfferid'];
+        var NOO = saleOffertbl.DataTable().row($(this).closest('tr')[0]).data()['numberOfOrder'];
 
         $.confirm({
             icon: 'fa fa-question-circle',
@@ -339,15 +340,15 @@ $(document).ready(function () {
                         if (NOO > 0) {
                             $.ajax({
                                 type: "DELETE",
-                                url: "/Offer/CallDeleteOffer/" + id,
+                                url: "${window.location.origin}/FarmerOffer/CallDeleteOffer/" + id,
                                 contentType: "application/json; charset=utf-8",
                                 method: 'DELETE',
                                 datatype: "text",
                                 serverSide: true,
                                 success: function (data) {
                                     console.log(data);
-                                    purTbl.row($(this).parents('tr')).remove().draw(true);
-                                    purTbl.ajax.reload();
+                                    saleTbl.row($(this).parents('tr')).remove().draw(true);
+                                    saleTbl.ajax.reload();
                                 },
                                 error: function (data) {
                                     console.log("Error response is: " + data);
@@ -394,27 +395,27 @@ $(document).ready(function () {
     saleOffertbl.on('click', 'button[role="saleDetailBtn"]', function () {
 
         var id = saleOffertbl.DataTable().row($(this).closest('tr')[0]).data()['saleOfferid'];
-        window.location.href = window.location.origin + "/Farmer/FarmerOfferDetail/FarmerOfferDetail?" + "farmerOfferId=" + id;
+        window.location.href = window.location.origin + "/Farmer/FarmerOfferDetail/FarmerOfferDetail?" + "saleOfferId=" + id;
     });
 
     purchaseOfferTbl.on('click', 'button[role="orderBtn"]', function () {
         var id = purchaseOfferTbl.DataTable().row($(this).closest('tr')[0]).data()['id'];
-        window.location.href = window.location.origin + "/Farmer/FarmerOrder/TraderOrderIndex?" + "saleOfferId=" + id;
+        window.location.href = window.location.origin + "/Farmer/FarmerOrder/FarmerOrderIndex?" + "purchaseOfferId=" + id;
 
     });
 
-    
+
 
     //Table PurchaseOffer Onclick
-    $('#purchaseOfferTbl tbody').on('click', 'tr:not(td:eq(4))', function () {
+    $('#saleOfferTbl tbody').on('click', 'tr:not(td:eq(4))', function () {
 
         //Alternative way
         //table.columns([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]).search($(this).val()).draw();
 
-        var product = purchaseOfferTbl.DataTable().row($(this)).data()['productName'];
-        var mass = purchaseOfferTbl.DataTable().row($(this)).data()['trueMass'];
-        var price = purchaseOfferTbl.DataTable().row($(this)).data()['price'];
-        var id = purchaseOfferTbl.DataTable().row($(this)).data()['id'];
+        var product = saleOffertbl.DataTable().row($(this)).data()['productName'];
+        var mass = saleOffertbl.DataTable().row($(this)).data()['trueMass'];
+        var price = saleOffertbl.DataTable().row($(this)).data()['price'];
+        var id = saleOffertbl.DataTable().row($(this)).data()['id'];
         //alert("id là:" + id);
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
@@ -427,6 +428,66 @@ $(document).ready(function () {
 
         }
     });
+
+    //CreateForm
+    $('#CreateForm').on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+            // handle the invalid form...
+        }
+
+        else {
+            var purchaseOffer = {
+                productID: $('#product').val(),
+                seedId: $('#seed').val(),
+                quantity: $('#quantity').val(),
+                unitId: $('#unit').val(),
+                price: $('#price').val(),
+                payingTime: $('#payingTime').val(),
+                deliveringTime: $('#deliveringTime').val(),
+                canBargain: $('#canBargain').val()
+            };
+
+            console.log(purchaseOffer);
+
+            var dataType = 'application/x-www-form-urlencoded; charset=utf-8';
+            $.ajax({
+                type: "POST",
+                url: "${window.location.origin}/FarmerOffer/CreatePurchaseOffer",
+                data: purchaseOffer,
+                dataType: 'json',
+                contentType: dataType,
+                success: function () {
+                    alert("success");
+                }
+            });
+        }
+        return false;
+    })
+
+    //Select
+    $('#farm').change(function () {
+        var idFarm = $('#farm').val();
+        $.ajax({
+            "url": "/FarmerOffer/ProductDetailList?idFarm=" + idFarm,
+            "type": "GET",
+            "datatypye": "json",
+            success: function (resp) {
+                console.log(resp);
+                var data = resp.data;
+                var optionHtml = "";
+                for (var i = 0; i < data.length; i++) {
+                    optionHtml += `<option value=${data[i].id}>${data[i].productName}(${data[i].seedname})`;
+                }
+                console.log(optionHtml);
+                $('#productDetail').html(optionHtml);
+                $('#productDetail').niceSelect('update');
+            },
+            error: function (data) {
+                console.log("Error response is: " + data);
+            }
+        });
+    });
+
 })
 
 

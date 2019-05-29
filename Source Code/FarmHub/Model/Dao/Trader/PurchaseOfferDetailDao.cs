@@ -24,7 +24,7 @@ namespace Model.Dao.Trader
             return model.OrderByDescending(x => x.Id_PurchaseOfferDetail).ToPagedList(page, pageSize);
         }
 
-        public IEnumerable<SALE_OFFER> SaleOfferListByPurchaseOfferID(int purchaseOfferId)
+        public IEnumerable<TRANSACTION_ORDER> TransactionListByPurchaseOfferID(int purchaseOfferId)
         {
             #region Lambda
             //var query = database.Posts.Join(database.Post_Metas,
@@ -45,29 +45,44 @@ namespace Model.Dao.Trader
             //return results.ToList();
             #endregion
 
-            var saleOffers = from po in db.PURCHASE_OFFER
-
-                             join pod in db.PURCHASE_OFFER_DETAIL on po.Id_PurchasesOffer equals pod.Id_PurchasesOffer
-                             join tro in db.TRANSACTION_ORDER on pod.Id_PurchaseOfferDetail equals tro.Id_PurchaseOfferDetail
-                             join sod in db.SALE_OFFER_DETAIL on tro.Id_SaleOfferDetail equals sod.Id_SaleOfferDetail
-                             join so in db.SALE_OFFER on sod.Id_SaleOffer equals so.Id_SaleOffer
-
-                             where (po.Id_PurchasesOffer == purchaseOfferId) && (tro.Id_StatusTrans == 1) // Id_StatusTrans: 1="Đã Đặt Hàng" , 3= "Đã Hủy" 
-
-
-                             select so;
-
-
-
-
-
-            return saleOffers.ToList<SALE_OFFER>();
+            var transactions = db.PURCHASE_OFFER.Where(x => x.Id_PurchasesOffer == purchaseOfferId)
+                                          .Join(db.PURCHASE_OFFER_DETAIL, po => po.Id_PurchasesOffer, pod => pod.Id_PurchasesOffer, (po, pod) => new { PO = po, POD = pod })
+                                          .Join(db.TRANSACTION_ORDER, po_pod => po_pod.POD.Id_PurchaseOfferDetail, to => to.Id_PurchaseOfferDetail, (po_pod, to) => to)
+                                          .Where(x => x.Is_Deleted == false && (x.Id_StatusTrans == 9 || x.Id_StatusTrans == 11));
+            return transactions.ToList<TRANSACTION_ORDER>();
         }
 
         // Detail
         public PURCHASE_OFFER Details(int id)
         {
             return db.PURCHASE_OFFER.Find(id);
+        }
+
+        public void GetAcceptResult(int transactionId)
+        {
+            var model=db.TRANSACTION_ORDER.Find(transactionId);
+
+
+            
+            // Recalculate PO remain.
+            model.Transaction_Date = DateTime.Now;
+            model.PURCHASE_OFFER_DETAIL.PURCHASE_OFFER.Remain_PurchaseQuantity -= model.Transaction_Mass;
+            model.Id_StatusTrans = 12;//Status 12: "Đã Đồng ý".
+
+            db.SaveChanges();
+            
+        }
+
+        public void MakeCounterOffer(int transactionId, int counterOfferQuantity)
+        {
+            var model = db.TRANSACTION_ORDER.Find(transactionId);
+
+            model.Transaction_Date = DateTime.Now;
+            model.Transaction_Mass = counterOfferQuantity;
+            model.PURCHASE_OFFER_DETAIL.PURCHASE_OFFER.Remain_PurchaseQuantity -= counterOfferQuantity;
+            model.Id_StatusTrans = 10;//Status 10: "Bên Mua Đặt Lại".
+
+            db.SaveChanges();
         }
 
     }

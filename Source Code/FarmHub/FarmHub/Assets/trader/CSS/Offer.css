@@ -103,8 +103,6 @@ table tbody {
 
 fieldset {
     border: thin ridge #000;
-    width: 150px;
-    height: 100px;
     padding: 10px;
     padding-top: 0;
     margin-right: 5px;

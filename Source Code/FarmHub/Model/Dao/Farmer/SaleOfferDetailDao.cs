@@ -15,7 +15,7 @@ namespace Model.Dao.Farmer
             db = new FarmHubDbContext();
 
         }
-        public IEnumerable<PURCHASE_OFFER> SaleOfferListByPurchaseOfferID(int saleOfferId)
+        public IEnumerable<TRANSACTION_ORDER> TransactionListByPurchaseOfferID(int saleOfferId)
         {
             #region Lambda
             //var query = database.Posts.Join(database.Post_Metas,
@@ -36,25 +36,45 @@ namespace Model.Dao.Farmer
             //return results.ToList();
             #endregion
 
-            var purchaseOffers = from so in db.SALE_OFFER
+            var transactions = db.SALE_OFFER.Where(x => x.Id_SaleOffer == saleOfferId)
+                                          .Join(db.SALE_OFFER_DETAIL, so => so.Id_SaleOffer, sod => sod.Id_SaleOffer, (so, sod) => new { SO = so, SOD = sod })
+                                          .Join(db.TRANSACTION_ORDER, so_sod => so_sod.SOD.Id_SaleOfferDetail, to => to.Id_SaleOfferDetail, (so_sod, to) => to);
+                                          //.Where(x => x.Is_Deleted == false && (x.Id_StatusTrans == 9 || x.Id_StatusTrans == 11));
+            return transactions.ToList<TRANSACTION_ORDER>();
 
-                             join sod in db.SALE_OFFER_DETAIL on so.Id_SaleOffer equals sod.Id_SaleOffer
-                             join tro in db.TRANSACTION_ORDER on sod.Id_SaleOfferDetail equals tro.Id_SaleOfferDetail
-                             join pod in db.PURCHASE_OFFER_DETAIL on tro.Id_PurchaseOfferDetail equals pod.Id_PurchaseOfferDetail
-                             join po in db.PURCHASE_OFFER on pod.Id_PurchasesOffer equals po.Id_PurchasesOffer
-
-                             where (so.Id_SaleOffer == saleOfferId) && (tro.Id_StatusTrans == 1) // Id_StatusTrans: 1="Đã Đặt Hàng" , 3= "Đã Hủy" 
-
-
-                             select po;
-
-            return purchaseOffers.ToList<PURCHASE_OFFER>();
         }
 
         // Detail
-        public SALE_OFFER Details(int farmerOfferId)
+        public SALE_OFFER Details(int saleOfferId)
         {
-            return db.SALE_OFFER.Find(farmerOfferId);
+            return db.SALE_OFFER.Find(saleOfferId);
+        }
+
+        public void GetAcceptResult(int transactionId)
+        {
+            var model = db.TRANSACTION_ORDER.Find(transactionId);
+
+
+
+            // Recalculate PO remain.
+            model.Transaction_Date = DateTime.Now;
+            model.SALE_OFFER_DETAIL.SALE_OFFER.Remain_SaleQuantity -= model.Transaction_Mass;
+            model.Id_StatusTrans = 12;//Status 12: "Đã Đồng ý".
+
+            db.SaveChanges();
+
+        }
+
+        public void MakeCounterOffer(int transactionId, int counterOfferQuantity)
+        {
+            var model = db.TRANSACTION_ORDER.Find(transactionId);
+
+            model.Transaction_Date = DateTime.Now;
+            model.Transaction_Mass = counterOfferQuantity;
+            model.SALE_OFFER_DETAIL.SALE_OFFER.Remain_SaleQuantity -= counterOfferQuantity;
+            model.Id_StatusTrans = 11;//Status 11: "Bên Mua Đặt Lại".
+
+            db.SaveChanges();
         }
     }
 }

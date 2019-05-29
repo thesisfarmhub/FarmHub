@@ -16,7 +16,7 @@ namespace Model.Dao.Trader
         {
             IQueryable<SALE_OFFER> model = db.SALE_OFFER;
 
-            var modelList = model.Where(x => x.Is_Deleted == false && x.Status_SaleOffer == 10);
+            var modelList = model.Where(x => x.Is_Deleted == false && x.Remain_SaleQuantity > 0);
             return model.OrderByDescending(x => x.Date_SaleOffer);
         }
 
@@ -29,7 +29,7 @@ namespace Model.Dao.Trader
 
             IQueryable<SALE_OFFER> model = db.SALE_OFFER;
 
-            var modelList = model.Where(x => x.Is_Deleted == false && x.Status_SaleOffer == 1 && x.PRODUCT_DETAIL.Id_Product == idProduct && x.PRODUCT_DETAIL.Id_Seed == idSeed);
+            var modelList = model.Where(x => x.Is_Deleted == false && x.Remain_SaleQuantity > 0 && x.PRODUCT_DETAIL.Id_Product == idProduct && x.PRODUCT_DETAIL.Id_Seed == idSeed);
             return model.OrderByDescending(x => x.Date_SaleOffer);
         }
     }

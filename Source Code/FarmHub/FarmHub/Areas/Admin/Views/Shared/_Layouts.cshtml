@@ -8,19 +8,35 @@
     <meta name="author" content="">
     <title>SB Admin - Blank Page</title>
     <!-- Custom fonts for this template-->
-    
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link href="~/Assets/admin/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
     <link href="~/Assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <link href="~/Assets/admin/css/sb-admin.css" rel="stylesheet">
-
+    <link href="~/Assets/common/CSS/Custom.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <style>
-        .panel-heading{
-            font-size:20px;
-            font-weight:bold;
+        .panel-heading {
+            font-size: 20px;
+            font-weight: bold;
         }
     </style>
     <a href="~/Areas/Admin/Views/Shared/NavBar.cshtml">~/Areas/Admin/Views/Shared/NavBar.cshtml</a>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+
+
+    <script src="/Assets/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/admin/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/Assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
+    @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 </head>
 <body id="page-top">
     @RenderPage("NavBar.cshtml")
@@ -70,7 +86,7 @@
                     <li class="breadcrumb-item">
                         <a href="index.html">Dashboard</a>
                     </li>
-                    <li class="breadcrumb-item active"> @RenderSection("header", required: true)</li>
+                    <li class="breadcrumb-item active"> @RenderSection("header", required: false)</li>
                 </ol>
                 <!-- Page Content -->
                 @RenderBody()
@@ -113,16 +129,7 @@
     <!-- Bootstrap core JavaScript-->
 
 
-    <script src="/Assets/admin/vendor/jquery/jquery.min.js"></script>
-    <script src="~/Assets/admin/js/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="/Assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="/Assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="/Assets/admin/js/plugin/ckfinder/ckfinder.js"></script>
-    <script src="/Assets/admin/js/sb-admin.min.js"></script>
-    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
-    @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
+   
 
     @RenderSection("FooterScript", required: false);
 </body>

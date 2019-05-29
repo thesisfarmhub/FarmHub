@@ -113,7 +113,7 @@ namespace Model.Dao.Farmer
                 targetUpdate.Price_Offer = saleOfferModel.Price_Offer;
                 targetUpdate.Quantity_SaleOffer = saleOfferModel.Quantity_SaleOffer;
                 targetUpdate.Remain_SaleQuantity = saleOfferModel.Remain_SaleQuantity;
-                targetUpdate.Status_SaleOffer = saleOfferModel.Status_SaleOffer;
+               
                 db.SaveChanges();
                 return true;
             }
@@ -145,12 +145,24 @@ namespace Model.Dao.Farmer
         #endregion
 
         #region ChenLong
-        public IEnumerable<SALE_OFFER> getSaleOfferByIdUser(int id)
+        public IEnumerable<SALE_OFFER> getSaleOfferByIdUser(int FarmerId)
         {
-            IQueryable<SALE_OFFER> model = db.SALE_OFFER;
+           
+            IQueryable<SALE_OFFER> model = db.SALE_OFFER.Where(x => x.FARM.Id_Farmer == FarmerId && x.Is_Deleted == false).OrderBy(x => x.Date_SaleOffer);
 
-            var modelList = model.Where(x => x.Is_Deleted == false && x.FARM.FARMER.Id_User == id);
-            return modelList.OrderByDescending(x => x.Date_SaleOffer);
+            foreach (var item in model)
+            {
+                item.Number_Of_Orders = Convert.ToByte(db.SALE_OFFER.Where(x => x.Id_SaleOffer == item.Id_SaleOffer)
+                                          .Join(db.SALE_OFFER_DETAIL, so => so.Id_SaleOffer, sod => sod.Id_SaleOffer, (so, sod) => new { SO = so, SOD = sod })
+                                          .Join(db.TRANSACTION_ORDER, so_sod => so_sod.SOD.Id_SaleOfferDetail, to => to.Id_SaleOfferDetail, (so_sod, to) => new { SO_SOD = so_sod, TO = to })
+                                          //.Where(po_pod_to => po_pod_to.TO.Id_StatusTrans == 9 || po_pod_to.TO.Id_StatusTrans == 11)
+                                          .Count());
+               
+            }
+
+
+            db.SaveChanges();
+            return model;
         }
 
         #endregion

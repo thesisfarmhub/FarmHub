@@ -5,7 +5,6 @@ namespace Model.EF
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using System.Web;
 
     [Table("FARMER")]
     public partial class FARMER
@@ -39,9 +38,6 @@ namespace Model.EF
         public string Email_Farmer { get; set; }
 
         public bool? Is_Deleted { get; set; }
-
-        [NotMapped]
-        public HttpPostedFileBase ImageFile { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FARM> FARMs { get; set; }

@@ -45,6 +45,7 @@ namespace FarmHub.Areas.Farmer.Controllers
                 fileName = Path.GetFileNameWithoutExtension(pdModel.ImageFile.FileName);
                 fileExtension = Path.GetExtension(pdModel.ImageFile.FileName);
                 fileName = fileName + DateTime.Now.ToString("yymmssfff") + fileExtension;
+
                 pdModel.Image_ProductDetail = "/Data/Image/Farmer/Customer/" + fileName;
                 fileName = Path.Combine(Server.MapPath("/Data/Image/Farmer/Customer/"), fileName);
                 pdModel.ImageFile.SaveAs(fileName);

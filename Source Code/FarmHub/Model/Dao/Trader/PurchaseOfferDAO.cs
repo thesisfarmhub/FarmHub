@@ -1,5 +1,7 @@
 ﻿using Model.DTO.Trader;
 using Model.EF;
+using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,12 +15,21 @@ namespace Model.Dao.Trader
             db = new FarmHubDbContext();
         }
 
-        public IEnumerable<PURCHASE_OFFER> getPurchaseOfferByID(int id)
+        public IEnumerable<PURCHASE_OFFER> getPurchaseOfferByID(int traderID)
         {
-            IQueryable<PURCHASE_OFFER> model = db.PURCHASE_OFFER;
+         
+            IQueryable<PURCHASE_OFFER> model = db.PURCHASE_OFFER.Where(x => x.Id_Trader == traderID && x.Is_Deleted == false).OrderBy(x => x.Date_PurchaseOffer);
 
-            var modelList = model.Where(x => x.Is_Deleted == false && x.TRADER.Id_User ==id);
-            return modelList.OrderByDescending(x => x.Date_PurchaseOffer);
+            foreach (var item in model)
+            {
+                item.Number_Of_Orders = Convert.ToByte(db.PURCHASE_OFFER.Where(x => x.Id_PurchasesOffer == item.Id_PurchasesOffer)
+                                          .Join(db.PURCHASE_OFFER_DETAIL, po => po.Id_PurchasesOffer, pod => pod.Id_PurchasesOffer, (po, pod) => new { PO = po, POD = pod })
+                                          .Join(db.TRANSACTION_ORDER, po_pod => po_pod.POD.Id_PurchaseOfferDetail, to => to.Id_PurchaseOfferDetail, (po_pod, to) => new { PO_POD = po_pod, TO = to })
+                                          //.Where(po_pod_to => po_pod_to.TO.Id_StatusTrans == 9 || po_pod_to.TO.Id_StatusTrans == 11)
+                                          .Count());
+            }
+
+            return model;
         }
 
         //

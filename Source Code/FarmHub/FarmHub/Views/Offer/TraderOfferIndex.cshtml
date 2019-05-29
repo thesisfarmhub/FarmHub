@@ -28,8 +28,9 @@
 
 
 <div class="row">
-    <div class="col-md-5" style="margin-right:30px;">
+    <div class="col-md-5" style="padding-left:36px;">
         <button class="small blue button" id="advanced_search">Tìm kiếm nâng cao</button>
+        <button class="small blue button"  data-toggle="modal" data-target="#NewOfferModal" title="Tạo đơn mới">Tạo Đơn Mới &nbsp;<span class="fa fa-plus"></span></button>
     </div>
 </div>
 
@@ -37,40 +38,44 @@
 <div>
     <form id="PurchaseRangeSearchTbl" style="margin-top:10px;">
         <div class="row">
-            <div class="col-md-9">
-                <div class="inline" style="padding-right:10px;padding-left:20px;">
-                    <fieldset>
-                        <legend class="RoundCorner">Khoảng ngày:</legend>
-                        <input id="Purchasedatetimebegin" type="text" name="min" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder="Ngày Bắt Đầu" />
-                        <input id="Purchasedatetimeend" type="text" name="max" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder=" Ngày kết Thúc" />
-                    </fieldset>
-                </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend class="RoundCorner">Khoảng ngày:</legend>
+                            <input id="Purchasedatetimebegin" type="text" name="min" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder="Ngày Bắt Đầu" />
+                            <input id="Purchasedatetimeend" type="text" name="max" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder=" Ngày kết Thúc" />
+                        </fieldset>
+                    </div>
 
-                <div class="inline">
-                    <fieldset>
-                        <legend class="RoundCorner">Khối lượng</legend>
-                        <input id="Purchaseweightbegin" type="text" name="min" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder="Khối Lượng Nhỏ Nhất" />
-                        <input id="Purchaseweightend" type="text" name="max" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder="Khối Lượng Lớn Nhất" />
-                    </fieldset>
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend class="RoundCorner">Khối lượng</legend>
+                            <input id="Purchaseweightbegin" type="text" name="min" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder="Khối Lượng Nhỏ Nhất" />
+                            <input id="Purchaseweightend" type="text" name="max" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder="Khối Lượng Lớn Nhất" />
+                        </fieldset>
+                    </div>
                 </div>
             </div>
+            <div class="col-md-4"></div>
 
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend class="RoundCorner">Khoảng ngày:</legend>
+                            <input id="Saledatetimebegin" type="text" name="min" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder="Ngày Bắt Đầu" />
+                            <input id="Saledatetimeend" type="text" name="max" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder=" Ngày kết Thúc" />
+                        </fieldset>
+                    </div>
 
-            <div class="col-md-3">
-                <div class="inline" style="padding-right:10px;padding-left:20px;">
-                    <fieldset>
-                        <legend class="RoundCorner">Khoảng ngày:</legend>
-                        <input id="Saledatetimebegin" type="text" name="min" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder="Ngày Bắt Đầu" />
-                        <input id="Saledatetimeend" type="text" name="max" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder=" Ngày kết Thúc" />
-                    </fieldset>
-                </div>
-
-                <div class="inline">
-                    <fieldset>
-                        <legend class="RoundCorner">Khối lượng</legend>
-                        <input id="Saleweightbegin" type="text" name="min" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder="Khối Lượng Nhỏ Nhất" />
-                        <input id="Saleweightend" type="text" name="max" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder="Khối Lượng Lớn Nhất" />
-                    </fieldset>
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend class="RoundCorner">Khối lượng</legend>
+                            <input id="Saleweightbegin" type="text" name="min" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder="Khối Lượng Nhỏ Nhất" />
+                            <input id="Saleweightend" type="text" name="max" autocomplete="off" data-date-format="dd/mm/yyyy" placeholder="Khối Lượng Lớn Nhất" />
+                        </fieldset>
+                    </div>
                 </div>
             </div>
 
@@ -79,21 +84,21 @@
 
 </div>
 
-<div class="row">
-    @*<div class="col-md-5" style="margin-right:30px;">
-        </div>*@
-    <div class="col-md-7">
-        <div class="col-md-offset-9">
-            <button class="small blue button" id="plusBtn" data-toggle="modal" data-target="#NewOfferModal" title="Tạo đơn mới"><span class="fa fa-plus"></span></button>
-        </div>
-    </div>
-</div>
+
 
 <br />
 
 <div class="row">
     <div class="col-md-6">
-        <Center><h2>Đơn Đặt Mua</h2></Center>
+
+
+        <Center>
+            <h2>Đơn Đặt Mua</h2>
+           @* <button class="small blue button" id="plusBtn" data-toggle="modal" data-target="#NewOfferModal" title="Tạo đơn mới"><span class="fa fa-plus"></span></button>*@
+        </Center>
+
+
+
 
         <table id="purchaseOfferTbl" class="table table-striped table-bordered table-hover" style="width:100%">
             <thead>
@@ -231,7 +236,7 @@
                     <div class="form-group">
                         <div class="radio">
                             <label>
-                                <input type="radio" id="canBargain" value="true">
+                                <input type="radio" id="canBargain" >
                                 Có thể thỏa thuận
                             </label>
                         </div>
@@ -243,17 +248,13 @@
                 </form>
 
             </div>
-
-
-
         </div>
-
     </div>
 </div>
 
 <script>
 
-    
+
 
     $(function () {
 
@@ -265,7 +266,7 @@
             })
         })
 
-        
+
     })
 
 </script>

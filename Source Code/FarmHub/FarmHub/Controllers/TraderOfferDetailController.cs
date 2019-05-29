@@ -10,10 +10,11 @@ namespace FarmHub.Controllers
 {
     public class TraderOfferDetailController : Controller
     {
+        PurchaseOfferDetailDao dao = new PurchaseOfferDetailDao();
         // GET: OfferDetail
         public ActionResult TraderOfferDetail(int traderOfferId)
         {
-            var dao = new PurchaseOfferDetailDao();
+            
 
             var offerDetail = dao.Details(traderOfferId);
             var offerDTO = new PurchaseOfferDTO();
@@ -29,7 +30,7 @@ namespace FarmHub.Controllers
             offerDTO.deliveringTime = offerDetail.Delivering_Time;
             offerDTO.image = offerDetail.PRODUCT.Image_Product;
             offerDTO.canBargain = offerDetail.Can_Bargain;
-
+            offerDTO.remainQuantity = offerDetail.Remain_PurchaseQuantity;
             return View(offerDTO);
         }
 
@@ -61,29 +62,45 @@ namespace FarmHub.Controllers
         [HttpGet]
         public JsonResult SaleOfferListByPurchaseOfferID(int purchaseOfferId)
         {
-
-            var saleList = new PurchaseOfferDetailDao().SaleOfferListByPurchaseOfferID(purchaseOfferId);
-            List<SaleOfferDTO> saleOfferDTOs = new List<SaleOfferDTO>();
+            var saleList = new PurchaseOfferDetailDao().TransactionListByPurchaseOfferID(purchaseOfferId);
+            List<TraderTransactionDTO> transactionDTOs = new List<TraderTransactionDTO>();
 
             foreach (var p in saleList)
             {
-                var saleOfferDTO = new SaleOfferDTO();
+                var transactionDTO = new TraderTransactionDTO();
 
-                saleOfferDTO.id = p.Id_SaleOffer;
-                saleOfferDTO.createdDate = ((DateTime)p.Date_SaleOffer).ToShortDateString();
-                saleOfferDTO.productName = p.PRODUCT_DETAIL.PRODUCT.Name_Product;
-                saleOfferDTO.seedName = p.PRODUCT_DETAIL.SEED.Name_Seed;
-                saleOfferDTO.farmName = p.FARM.Name_Farm;
-                saleOfferDTO.farmerName = p.FARM.FARMER.Name_Farmer;
-                saleOfferDTO.quantity = p.Quantity_SaleOffer;
-                saleOfferDTO.massName = p.MASS_UNIT.Name_MassUnit;
-                saleOfferDTO.price = p.Price_Offer;
-                saleOfferDTO.totalMoney = p.Quantity_SaleOffer * p.MASS_UNIT.Weight_To_Kg * p.Price_Offer;
-
-                saleOfferDTOs.Add(saleOfferDTO);
+                transactionDTO.transId = p.Id_TransactionOrder;
+                transactionDTO.endTransDay = ((DateTime)p.Transaction_Date).ToShortDateString();
+                transactionDTO.productName = p.PRODUCT_DETAIL.PRODUCT.Name_Product;
+                transactionDTO.seedName = p.PRODUCT_DETAIL.SEED.Name_Seed;
+                transactionDTO.farmName = p.SALE_OFFER_DETAIL.SALE_OFFER.FARM.Name_Farm;
+                transactionDTO.farmerName = p.SALE_OFFER_DETAIL.SALE_OFFER.FARM.FARMER.Name_Farmer;
+                transactionDTO.quantity = p.Transaction_Mass;
+                transactionDTO.unitName = p.PURCHASE_OFFER_DETAIL.PURCHASE_OFFER.MASS_UNIT.Name_MassUnit;
+                transactionDTO.price = p.Transaction_Price;
+                transactionDTO.totalMoney = p.Transaction_Mass * p.PURCHASE_OFFER_DETAIL.PURCHASE_OFFER.MASS_UNIT.Weight_To_Kg * p.Transaction_Price;
+                transactionDTO.StatusName = p.STATUS_TRANS.Name_StatusTrans;
+                transactionDTOs.Add(transactionDTO);
             }
 
-            return Json(saleOfferDTOs, JsonRequestBehavior.AllowGet);
+            return Json(transactionDTOs, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult AccepOffer(int transactionId)
+        {
+       
+           dao.GetAcceptResult(transactionId);
+
+            //return Json(new { Remain = remainQuantity});
+            return Json(new object[] { new object() }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult CounterOffer(int transactionId, int counterOfferQuantity)
+        {
+            dao.MakeCounterOffer(transactionId, counterOfferQuantity);
+            return Json(new object[] { new object() }, JsonRequestBehavior.AllowGet);
         }
     }
 }

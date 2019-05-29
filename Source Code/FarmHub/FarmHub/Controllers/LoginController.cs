@@ -55,13 +55,13 @@ namespace FarmHub.Controllers
                     // Meow Edited
                     if (user.USER_KIND.Id_UserKind == 1)
                     {
-                        Session["FarmerID"] = new FarmerDAO().GetFarmerByUserID(user.Id_User).Id_Farmer;
+                        Session["FarmerId"] = new FarmerDAO().GetFarmerByUserID(user.Id_User).Id_Farmer;
                         return RedirectToAction("Index", "Farmer", new { area = "Farmer" });
                     }
                     else if (user.USER_KIND.Id_UserKind == 2)
                     {
-                        Session["TraderID"] = new TraderDAO().GetTraderByUserID(user.Id_User).Id_Trader;
-                        return RedirectToAction("Index", "Trader");
+                        Session["TraderId"] = new TraderDAO().GetTraderByUserID(user.Id_User).Id_Trader;
+                        return RedirectToAction("Index", "Home");
                     }
                     else if (user.USER_KIND.Id_UserKind == 3)
                     {
@@ -82,7 +82,7 @@ namespace FarmHub.Controllers
                 }
             }
 
-            return View("Index");
+            return View("LoginIndex");
         }
     }
 }

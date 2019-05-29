@@ -31,8 +31,6 @@ namespace Model.EF
 
         public int? Remain_SaleQuantity { get; set; }
 
-        public byte Status_SaleOffer { get; set; }
-
         public bool? Can_Bargain { get; set; }
 
         public byte? Paying_Time { get; set; }

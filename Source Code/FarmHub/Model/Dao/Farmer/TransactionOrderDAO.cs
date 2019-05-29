@@ -38,53 +38,6 @@ namespace Model.Dao.Farmer
             return db.TRANSACTION_ORDER.Find(transOrderID);
         }
 
-        #region Chenlong
-        public IEnumerable<TRANSACTION_ORDER> GetListTransaction()
-        {
-            IQueryable<TRANSACTION_ORDER> model = db.TRANSACTION_ORDER;
-            //Status: Đã Hoàn Tất 
-            var transList = model.Where(x => x.Is_Deleted == false);
-            return transList.OrderByDescending(x => x.Transaction_Date);
-        }
 
-        public bool ConfirmDelivered(TRANSACTION_ORDER entity)
-        {
-            try
-            {
-
-
-                var TransOrder = db.TRANSACTION_ORDER.Find(entity.Id_TransactionOrder);
-                TransOrder.Transaction_Date = DateTime.Today;
-                TransOrder.Status_Trans.Id_StatusTrans = 7;//"Hoàn Tất"
-
-                db.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public bool CancelDelivered(TRANSACTION_ORDER entity)
-        {
-            try
-            {
-
-
-                var TransOrder = db.TRANSACTION_ORDER.Find(entity.Id_TransactionOrder);
-                TransOrder.Transaction_Date = DateTime.Today;
-                TransOrder.Status_Trans.Id_StatusTrans = 8;//"Đã Hủy"
-
-                db.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
     }
-    #endregion
-
 }

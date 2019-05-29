@@ -1,0 +1,140 @@
+﻿@model IEnumerable<Model.EF.PRODUCT>
+
+@{
+    ViewBag.Title = "ProductIndex";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+}
+
+
+
+
+
+<Center><h1>Danh Sách Sản Phẩm</h1></Center>
+
+<p>
+    @Html.ActionLink("Tạo Sản Phẩm Mới", "Create")
+</p>
+<table class="table" id="productTbl">
+    <thead>
+        <tr>
+            <th>
+                Loại Nông Sản
+            </th>
+
+            <th>
+                Tên Nông Sản
+            </th>
+
+            <th>
+                Ảnh Nông Sản
+            </th>
+            <th></th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PRODUCT_KIND.Name_ProductKind)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name_Product)
+                </td>
+
+                <td>
+                    <img src="@Url.Content(item.Image_Product)" style="height:100px; width:150px" />
+                </td>
+
+                <td>
+                    <span class="fa fa-pencil"></span>
+                    <a href='@Url.Action("Edit", "Product",new { id = item.Id_Product })' class="btn btn-warning">
+                        <span class="fa fa-pen"></span>
+                    </a>
+
+                    <a href='@Url.Action("Detail", "Product",new { id = item.Id_Product })' class="btn btn-primary">
+                        <span class="fa fa-info"></span>
+                    </a>
+
+                    <a class="btn btn-danger DeleteClass" role="btnDelete" value="23213">
+                        <span class="fa fa-trash"></span>
+                    </a>
+
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+
+
+<script>
+   
+    $('document').ready(function () {
+        $('#productTbl').dataTable();
+
+        $('#productTbl').on('click', '.DeleteClass', function () {
+            var a = $(this).find("td").data("value");
+            alert(a);
+        })
+
+        $('#productTbl').on('click', 'button[role="btnDelete"]', function () {
+            var a =$(this).val();
+            alert(a);
+
+            $.confirm({
+                icon: 'fa fa-question-circle',
+                boxWidth: '100%',
+                title: 'Xóa Đơn',
+                content: '<h4>Bạn có muốn xóa nông sản này?</h4>',
+                type: 'red',
+                typeAnimated: true,
+                animationSpeed: 500,
+                closeIcon: true,
+                closeIconClass: 'fa fa-close',
+                escapeKey: true,
+                backgroundDismiss: false,
+
+                autoClose: 'cancel|6000',
+                buttons: {
+                    confirm: {
+                        text: "Xác Nhận",
+                        btnClass: "btn-red",
+                        action: function () {
+                            $.ajax({
+                                type: "DELETE",
+                                "url": `${window.location.origin}/Product/Delete?id=` + id,
+                                contentType: "application/json; charset=utf-8",
+                                method: 'DELETE',
+                                datatype: "text",
+                                serverSide: true,
+                                success: function (data) {
+                                    location.reload();
+                                },
+                                error: function (data) {
+                                    console.log("Error response is: " + data);
+                                }
+                            });
+                        },
+
+                        cancel: {
+                            text: "Hủy"
+                        }
+                    }
+                }
+            });
+
+        });
+
+        function Delete() {
+
+        }
+    })
+
+</script>

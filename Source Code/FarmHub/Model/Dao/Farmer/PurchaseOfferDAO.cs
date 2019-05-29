@@ -32,7 +32,7 @@ namespace Model.Dao.Farmer
 
             IQueryable<PURCHASE_OFFER> model = db.PURCHASE_OFFER;
 
-            var modelList = model.Where(x => x.Is_Deleted == false && x.Status_PurchaseOffer == 1 && x.Id_Product == idProduct && x.Id_Seed == idSeed);
+            var modelList = model.Where(x => x.Is_Deleted == false && x.Remain_PurchaseQuantity > 0 && x.Id_Product == idProduct && x.Id_Seed == idSeed);
             return model.OrderByDescending(x => x.Date_PurchaseOffer);
         }
 

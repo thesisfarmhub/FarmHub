@@ -14,9 +14,10 @@ namespace Model.DTO.Farmer
     {
         public PURCHASE_OFFER purchaseOffer { get; set; }
 
-        public IEnumerable<ProductDTO> products { get; set; }
+        public IEnumerable<ProductDetailDTO> productDetails { get; set; }
         public IEnumerable<UnitMassDTO> units { get; set; }
-        public IEnumerable<PurchaseOfferDetailDTO> purchaseDetail{get;set;}
-        
+        public IEnumerable<FarmDTO> farms { get; set; }
+     
+
     }
 }

@@ -3,6 +3,8 @@ using Model.Dao.Authentication;
 using Model.Dao.Farmer;
 using Model.EF;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace FarmHub.Areas.Farmer.Controllers
@@ -27,6 +29,32 @@ namespace FarmHub.Areas.Farmer.Controllers
             };
 
             return View(farmerHomePageModel);
+        }
+
+        // ChartJS
+        public ActionResult Dashboard()
+        {
+            var list = new FarmHubDbContext().PURCHASE_OFFER.Where(x => x.Is_Deleted == false).ToList();
+            List<int> repartition = new List<int>();
+            List<int> quantity = new List<int>();
+            var productNames = list.Select(x => x.PRODUCT.Name_Product).Distinct();
+            var quantityPurchaseOffer = list.Sum(x => x.Quantity_PurchaseOffer).ToString();
+
+            foreach(var item in productNames)
+            {
+                repartition.Add(list.Count(x => x.PRODUCT.Name_Product == item));
+            }
+
+            foreach(var item in quantityPurchaseOffer)
+            {
+                quantity.Add(item);
+            }
+
+            //var rep = repartition;
+            ViewBag.PRODUCTNAMES = productNames;
+            ViewBag.REP = repartition.ToList();
+            ViewBag.QUANTITY = quantity.ToList();
+            return View();
         }
 
         // 

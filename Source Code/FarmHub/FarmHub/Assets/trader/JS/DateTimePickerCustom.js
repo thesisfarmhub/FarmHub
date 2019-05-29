@@ -37,9 +37,7 @@ var datePicker2 = new DatePicker({
             //if (datePicker1.currentPicker != null) {
             //    datePicker1.monthChange(maxDate);
             //}
-
             table.draw();
-
         },
 
         onclose: function () {

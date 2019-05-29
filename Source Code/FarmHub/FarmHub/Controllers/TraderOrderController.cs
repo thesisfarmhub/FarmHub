@@ -29,15 +29,15 @@ namespace FarmHub.Controllers
 
             return saleDetail;
         }
-        [HttpPost]
 
-        public ActionResult CreateOffer(TraderOrderDTO model, int saleOfferId)
+        [HttpPost]
+        public ActionResult CreateOffer(TraderOrderDTO model, int saleOfferId, string counterOffered)
         {
             var userId = Convert.ToInt32(Session["UserID"]);
           
             var dao = new OrderDao();
-            dao.Insert(model, saleOfferId, userId);
-            return View();
+            dao.Insert(model, saleOfferId, userId, counterOffered);
+            return RedirectToAction("", "TraderOffer");
         }
     }
 }

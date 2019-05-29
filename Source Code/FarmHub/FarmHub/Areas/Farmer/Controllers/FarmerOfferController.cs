@@ -10,38 +10,59 @@ namespace FarmHub.Areas.Farmer.Controllers
 {
     public class FarmerOfferController : Controller
     {
+
         public ActionResult FarmerOfferIndex()
         {
-            
+            int id = Convert.ToInt32(Session["UserId"]);
             var dao = new FarmerOfferDao();
 
-            var productlist = dao.ProductList();
-            var unitlist = dao.UnitList();
-
             FarmerOfferDTO farmerOfferDTO = new FarmerOfferDTO();
-            farmerOfferDTO.products = ProductList();
+
             farmerOfferDTO.units = UnitList();
+            farmerOfferDTO.farms = FarmList(id);
 
             return View(farmerOfferDTO);
         }
 
-        public IEnumerable<ProductDTO> ProductList()
+        [HttpGet]
+        public JsonResult ProductDetailList(int idFarm)
         {
             var dao = new FarmerOfferDao();
-            var productlist = dao.ProductList();
+            var productDetaillist = dao.ProductDetailList(idFarm);
 
-            List<ProductDTO> productDTOs = new List<ProductDTO>();
+            List<ProductDetailDTO> productDTOs = new List<ProductDetailDTO>();
 
-            foreach (var item in productlist)
+            foreach (var item in productDetaillist)
             {
-                ProductDTO product = new ProductDTO();
-                product.productid = item.Id_Product;
-                product.productName = item.Name_Product;
+                ProductDetailDTO productDetail = new ProductDetailDTO();
+                productDetail.id = item.Id_ProductDetail;
+                productDetail.productName = item.PRODUCT.Name_Product;
+                productDetail.seedname = item.SEED.Name_Seed;
 
-                productDTOs.Add(product);
+                productDTOs.Add(productDetail);
             }
 
-            return productDTOs;
+            return Json(new { data = productDTOs }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public IEnumerable<FarmDTO> FarmList(int userId)
+        {
+            var dao = new FarmerOfferDao();
+            var farmlist = dao.FarmList(userId);
+
+            List<FarmDTO> farmDTOs = new List<FarmDTO>();
+
+            foreach (var item in farmlist)
+            {
+                FarmDTO farm = new FarmDTO();
+                farm.id = item.Id_Farm;
+                farm.name = item.Name_Farm;
+
+                farmDTOs.Add(farm);
+            }
+            return farmDTOs;
+
         }
 
         public IEnumerable<UnitMassDTO> UnitList()
@@ -63,31 +84,15 @@ namespace FarmHub.Areas.Farmer.Controllers
 
         }
 
-        public IEnumerable<SeedDTO> SeedList()
-        {
-            var dao = new FarmerOfferDao();
-            var seedlist = dao.SeedList();
 
-            List<SeedDTO> seedDTOs = new List<SeedDTO>();
-
-            foreach (var item in seedlist)
-            {
-                SeedDTO seed = new SeedDTO();
-                seed.id = item.Id_Seed;
-                seed.name = item.Name_Seed;
-
-                seedDTOs.Add(seed);
-            }
-            return seedDTOs;
-
-        }
 
         [HttpGet]
         public JsonResult GetListSale()
         {
-            int id = Convert.ToInt32(Session["UserId"]);
-           
-            var salelList = new SaleOfferDAO().getSaleOfferByIdUser(id);
+            var FarmerId = Convert.ToInt32(Session["FarmerId"]);
+
+
+            var salelList = new SaleOfferDAO().getSaleOfferByIdUser(FarmerId);
             List<SaleOfferDTO> saleOfferDTOs = new List<SaleOfferDTO>();
 
             foreach (var s in salelList)
@@ -138,7 +143,7 @@ namespace FarmHub.Areas.Farmer.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(SaleOfferDTO model)
+        public ActionResult CreateSaleOffer(SaleOfferDTO model)
         {
             if (ModelState.IsValid)
             {

@@ -1,4 +1,5 @@
 ﻿using Model.Dao.Farmer;
+using Model.Dao.Trader;
 using Model.DTO.Trader;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace FarmHub.Controllers
 {
     public class TransactionController : Controller
     {
+        TraderTransactionDao dao =new TraderTransactionDao();
         // GET: Transaction
         public ActionResult TransactionIndex()
         {
@@ -17,22 +19,10 @@ namespace FarmHub.Controllers
             return View();
         }
 
-        public ActionResult Confirm()
-        {
-            var dao = new TransactionOrderDAO();
-            return new EmptyResult();
-        }
-
-        public ActionResult Cancel()
-        {
-            var dao = new TransactionOrderDAO();
-            return new EmptyResult();
-        }
-
         [HttpGet]
         public JsonResult GetListTransaction()
         {
-            var transactionList = new TransactionOrderDAO().GetListTransaction();
+            var transactionList = dao.GetListTransaction();
             List<TraderTransactionDTO> transactionDTOs = new List<TraderTransactionDTO>();
 
             foreach (var p in transactionList)
@@ -45,10 +35,10 @@ namespace FarmHub.Controllers
                 traderTransactionDTO.farmName = p.SALE_OFFER_DETAIL.SALE_OFFER.FARM.Name_Farm;
                 traderTransactionDTO.farmerName = p.SALE_OFFER_DETAIL.SALE_OFFER.FARM.FARMER.Name_Farmer;
                 traderTransactionDTO.price = p.Transaction_Price;
-                traderTransactionDTO.quantity = p.SALE_OFFER_DETAIL.Quantity_SaleOfferDetail;
-                traderTransactionDTO.unitName = p.Transaction_Mass;
+                traderTransactionDTO.quantity = p.Transaction_Mass;
+                traderTransactionDTO.unitName = p.Transaction_Unitmass;
                 traderTransactionDTO.totalMoney = p.Transaction_TotalMoney;
-                traderTransactionDTO.StatusName = p.Status_Trans.Name_StatusTrans;
+                traderTransactionDTO.StatusName = p.STATUS_TRANS.Name_StatusTrans;
 
 
                 transactionDTOs.Add(traderTransactionDTO);
@@ -56,5 +46,13 @@ namespace FarmHub.Controllers
 
             return Json(new { data = transactionDTOs }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult Handler(string Command,int transactionId)
+        {
+            dao.ExecuteHandler(Command, transactionId);
+            return Json(new object[] { new object() }, JsonRequestBehavior.AllowGet);
+        }
+        
     }
 }

@@ -59,12 +59,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dao\Admin\ProductDao.cs" />
     <Compile Include="Dao\Admin\UserDao.cs" />
     <Compile Include="Dao\Authentication\EditPasswordDao.cs" />
     <Compile Include="Dao\Authentication\LoginDao.cs" />
     <Compile Include="Dao\Authentication\UserAuthenDAO.cs" />
     <Compile Include="Dao\Farmer\FarmDAO.cs" />
     <Compile Include="Dao\Farmer\FarmerDAO.cs" />
+    <Compile Include="Dao\Farmer\FarmerOrderDao.cs" />
+    <Compile Include="Dao\Farmer\FarmerTransactionDao.cs" />
     <Compile Include="Dao\Farmer\MarketTransHisDAO.cs" />
     <Compile Include="Dao\Farmer\FarmerOfferDao.cs" />
     <Compile Include="Dao\Farmer\ProductDAO.cs" />
@@ -83,15 +86,20 @@
     <Compile Include="Dao\Trader\RegisterDao.cs" />
     <Compile Include="Dao\Trader\SaleOfferDao.cs" />
     <Compile Include="Dao\Trader\TraderDAO.cs" />
-    <Compile Include="Dao\Trader\TransactionDao.cs" />
+    <Compile Include="Dao\Trader\TraderTransactionDao.cs" />
+    <Compile Include="DTO\Farmer\FarmDTO.cs" />
+    <Compile Include="DTO\Farmer\FarmerOrderDTO.cs" />
     <Compile Include="DTO\Farmer\FarmerTopProductDTO.cs" />
+    <Compile Include="DTO\Farmer\FarmerTransactionDTO.cs" />
     <Compile Include="DTO\Farmer\FarmerTransDTO.cs" />
+    <Compile Include="DTO\Farmer\ProductDetailDTO.cs" />
     <Compile Include="DTO\Farmer\ProductDTO.cs" />
     <Compile Include="DTO\Farmer\PurchaseOfferDetailDTO.cs" />
     <Compile Include="DTO\Farmer\PurchaseOfferDTO.cs" />
     <Compile Include="DTO\Farmer\SaleOfferDTO.cs" />
     <Compile Include="DTO\Farmer\FarmerOfferDTO.cs" />
     <Compile Include="DTO\Farmer\SeedDTO.cs" />
+    <Compile Include="DTO\Farmer\TraderTransactionDTO.cs" />
     <Compile Include="DTO\Farmer\UnitMassDTO.cs" />
     <Compile Include="DTO\Trader\LoginDTO.cs" />
     <Compile Include="DTO\Trader\ProductDTO.cs" />
@@ -121,8 +129,7 @@
     <Compile Include="EF\SALE_OFFER.cs" />
     <Compile Include="EF\SALE_OFFER_DETAIL.cs" />
     <Compile Include="EF\SEED.cs" />
-    <Compile Include="EF\Status_Trans.cs" />
-    <Compile Include="EF\sysdiagram.cs" />
+    <Compile Include="EF\STATUS_TRANS.cs" />
     <Compile Include="EF\TOPIC.cs" />
     <Compile Include="EF\TRADER.cs" />
     <Compile Include="EF\TRADER_PREFERENCE.cs" />
@@ -148,5 +155,6 @@
       <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

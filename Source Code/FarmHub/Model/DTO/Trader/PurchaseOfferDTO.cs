@@ -17,10 +17,9 @@ namespace Model.DTO.Trader
         public string createdDate { get; set; }
         public string productName { get; set; }
         public string seedName { get; set; }
-        public string seedId { get; set; }
-        public string unitId { get; set; }
+        public int seedId { get; set; }
         public int? quantity { get; set; }
-        public byte massId { get; set; }
+        public byte? unitId { get; set; }
         public string massName { get; set; }
         public int? trueMass { get; set; }
         public int? totalMoney { get; set; }
@@ -29,6 +28,6 @@ namespace Model.DTO.Trader
         public byte? deliveringTime { get; set; }
         public byte? numberOfOrder { get; set; }
         public string image { get; set; }
-
+        public int? remainQuantity { get; set; }
     }
 }

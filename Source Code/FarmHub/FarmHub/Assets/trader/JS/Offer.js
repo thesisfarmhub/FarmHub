@@ -154,7 +154,7 @@ $(document).ready(function () {
     var saleOffertbl = $("#saleOfferTbl");
 
     var purTbl = purchaseOfferTbl.DataTable({
-
+   
         paging: true,
         scrollCollapse: true,
         "ajax": {
@@ -188,21 +188,21 @@ $(document).ready(function () {
             {
                 "render": function (data, type, rowData) {
 
-                    var detailbtnHTML = '<button type="button" class="small blue button" role="purchaseDetailBtn"  data-toggle="Detailtooltip" title="Xem Chi tiết Đơn" >Xem Chi Tiết</i></span></button>';
-                    var deletebtnHTML = ' <button class="btn btn-danger glyphicon glyphicon-trash" type="button" role="deleteBtn" data-toggle="Deletetooltip" title="Xóa Đơn" style="padding-right:20px;margin-top:-6px;height:28px;width:29px;"> </button >';
+                    var detailbtnHTML = '<button type="button" class="small blue button" role="purchaseDetailBtn"  data-toggle="Detailtooltip" title="Xem Chi tiết Đơn" >Xem Chi Tiết</i></span></button>'; 
+                    var deletebtnHTML = ' <button class="small red button " type="button" role="deleteBtn" data-toggle="Deletetooltip" title="Xóa Đơn" " style="   padding: 4px 8px;"><span class="glyphicon glyphicon-trash"> </span> </button >';
 
                     var bargainImg = '<img src="/Assets/Images/Bargain.png" title=" Có thể Thương Lượng " width="22" height="22"/>  &nbsp;';
                     var noBargainImg = '<img src="/Assets/Images/Non-Bargainpng.png" width="22" height="22" title="Không Được Thương Lượng " /> &nbsp; ';
 
                     if (rowData['canBargain']) {
-                        return bargainImg + detailbtnHTML + deletebtnHTML
-
+                        return bargainImg + detailbtnHTML + deletebtnHTML 
                     }
                     return noBargainImg + detailbtnHTML + deletebtnHTML
                 },
             }
         ],
 
+        "aaSorting": [[0, "desc"]],
         "language": {
             "url": "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Vietnamese.json",
             searchPlaceholder: "Nhập từ khóa"
@@ -336,8 +336,8 @@ $(document).ready(function () {
                     text: "Xác Nhận",
                     btnClass: "btn-red",
                     action: function () {
-                        
-                        if (NOO = 0) {
+
+                        if (NOO == 0) {
                             $.ajax({
                                 type: "DELETE",
                                 url: "/Offer/CallDeleteOffer/" + id,
@@ -360,8 +360,8 @@ $(document).ready(function () {
                         else {
                             $.confirm({
                                 icon: 'fa fa-exclamation-triangle',
-                                title:"Lỗi",
-                                content: '<h4>Vui lòng hủy tất cả giao dịch trước khi xóa thỏa thuận!<h4/> <input id="aa" type="number">',
+                                title: "Lỗi",
+                                content: '<h4>Vui lòng hủy tất cả giao dịch trước khi xóa thỏa thuận!',
                                 animation: 'left',
                                 confirmButton: false,
                                 type: 'red',
@@ -370,12 +370,13 @@ $(document).ready(function () {
 
                                 closeIcon: true,
                                 closeIconClass: 'fa fa-close',
-                               
+
 
                             })
                         }
                     }
                 },
+
                 cancel: function () {
 
                 }
@@ -389,7 +390,7 @@ $(document).ready(function () {
     purchaseOfferTbl.on('click', 'button[role="purchaseDetailBtn"]', function () {
         var id = purchaseOfferTbl.DataTable().row($(this).closest('tr')[0]).data()['purchOfferID'];
         window.location.href = window.location.origin + "/TraderOfferDetail/TraderOfferDetail?" + "traderOfferId=" + id;
-
+     
     });
 
     saleOffertbl.on('click', 'button[role="orderBtn"]', function () {
@@ -397,7 +398,7 @@ $(document).ready(function () {
         var id = saleOffertbl.DataTable().row($(this).closest('tr')[0]).data()['id'];
         window.location.href = window.location.origin + "/TraderOrder/TraderOrderIndex?" + "saleOfferId=" + id;
 
-        
+
 
     });
 
@@ -430,15 +431,27 @@ $(document).ready(function () {
         if (e.isDefaultPrevented()) {
             // handle the invalid form...
         } else {
+
+            //Get checkbox value
+            var bargain;
+            if ($("#canBargain").is(":checked")) {
+                bargain = true;
+           
+            }
+            else {
+                bargain = false;
+            }
+
+
             var purchaseOffer = {
-                productID : $('#product').val(),
+                productID: $('#product').val(),
                 seedId: $('#seed').val(),
                 quantity: $('#quantity').val(),
                 unitId: $('#unit').val(),
                 price: $('#price').val(),
                 payingTime: $('#payingTime').val(),
                 deliveringTime: $('#deliveringTime').val(),
-                canBargain: $('#canBargain').val()
+                canBargain: bargain
             };
             console.log(purchaseOffer);
 
@@ -449,10 +462,20 @@ $(document).ready(function () {
                 data: purchaseOffer,
                 dataType: 'json',
                 contentType: dataType,
-                success: function() {
-                    alert("success");
+                success: function (data) {
+                    if (data == "success") {
+                        alert("success");
+                        window.location.reload();
+                    }
+                    
+                },
+                error: function () {
+                    //alert("error");
+                    window.location.reload();
                 }
             });
+
+
         }
         return false;
     })

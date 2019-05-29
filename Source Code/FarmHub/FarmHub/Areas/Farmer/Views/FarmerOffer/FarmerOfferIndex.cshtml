@@ -6,7 +6,7 @@
     /**/
 
     ViewBag.Title = "";
-    Layout = "~/Views/Shared/_Layouts.cshtml";
+    Layout = "~/Areas/Farmer/Views/Shared/_Layouts.cshtml";
 }
 
 <link href="~/Assets/trader/CSS/Offer.css" rel="stylesheet" />
@@ -17,7 +17,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
 <script src="~/Assets/common/JS/jquery.nice-select.js"></script>
-<script src="~/Assets/common/JS/niceSelectBoxScript.js"></script>
+    <script src="~/Assets/common/JS/niceSelectBoxScript.js"></script>
+@*<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>*@
 
 
 <script src="~/Assets/trader/JS/AdvancedBtn.js"></script>
@@ -134,49 +136,60 @@
     </div>
 </div>
 
-
 <!-- Create Offer -->
 <div class="modal animated fadeInDownBig " data-easeout="slideDownIn" id="NewOfferModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h3 class="modal-title w-100 font-weight-bold" style="margin-left:20px;">Tạo đơn đặt bán mới</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="fa fa-close"></span>
                 </button>
+                <h3 class="modal-title w-100 font-weight-bold" style="margin-left:20px;">Tạo đơn mới</h3>
             </div>
 
-            <div class="modal-body mx-3">
-                <form autocomplete="off">
-                    <div class="md-form mb-5">
-                        <label data-error="wrong" data-success="right" for="form3">*Sản Phẩm</label>
-                        <select class="wide RoundCorner">
-                            <option data-display="---Chọn Sản Phẩm---">---Chọn Sản Phẩm---</option>
-                            @foreach (var item in Model.products)
-                            {
-                                <option value="@item.productid">@item.productName</option>
-                            }
-                        </select>
+            <div class="modal-body">
+                <form data-toggle="validator" role="form" id="CreateForm">
+
+                    <div class="form-group">
 
                     </div>
 
-                    <br />
-                    <br />
+                    <div class="row" style="padding-top:20px;">
+                        <div class="col-md-8">
 
-                    <label data-error="wrong" data-success="right" for="form3">*Số lượng</label>
-                    <div class="md-form mb-1 form-inline">
-                        <div class="row">
+                            <label>Nông Trại</label>
+                            <select class="wide BlackBoarder Farm" id="farm">
+
+                                @foreach (var item in Model.farms)
+                                {
+                                    <option value="@item.id">@item.name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label>Sản Phẩm</label>
+                            <select class="wide BlackBoarder ProductDetail" id="productDetail"></select>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <div class="row" style="padding-top:20px;">
                             <div class="col-md-8">
-                                <input class="form-control validate RoundCorner bigInput" type="number" placeholder="Số lượng" min="1" style="width:100%;">
+                                <label>*Số Lượng</label>
+                                <input class="form-control validate bigInput BlackBoarder" id="quantity" type="number" placeholder="Nhập Số lượng" style="width:100%;" required>
                             </div>
 
                             <div class="col-md-4">
 
-                                <label data-error="wrong" data-success="right" for="form3"></label>
+                                <label data-error="wrong" data-success="right" for="form3">Đơn Vị</label>
+                                <select id="unit" class="wide BlackBoarder">
 
-                                <select class="wide RoundCorner">
-                                    <option data-display="---Chọn Đơn vị---">---Chọn Đơn vị---</option>
                                     @foreach (var item in Model.units)
                                     {
                                         <option value="@item.id">@item.name</option>
@@ -187,41 +200,54 @@
                         </div>
                     </div>
 
-                    <div class="md-form mb-5">
-
-                        <label data-error="wrong" data-success="right" for="form2">*Giá( VNĐ/tấn )</label>
-                        <input type="text" class="form-control validate RoundCorner bigInput" type="number" placeholder="Số lượng" min="1" style="width:100%;">
-
+                    <div class="form-group">
+                        <label for="inputName" class="control-label">Giá</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control bigInput BlackBoarder bigInput" id="price" placeholder="Giá" required>
+                            <span class="input-group-addon bigInput">VNĐ/Tấn</span>
+                        </div>
                     </div>
 
-                    <div class="md-form mb-5">
-                        <label data-error="wrong" data-success="right" for="form2">*Thời gian trả tiền</label>
-                        <input class="form-control validate RoundCorner bigInput" type="number" placeholder="Số lượng" min="1" style="width:100%;">
-
-
+                    <div class="form-group">
+                        <label for="inputName" class="control-label">*Thời gian trả tiền</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control bigInput BlackBoarder" id="payingTime" placeholder="Nhập thời gian trả tiền" required>
+                            <span class="input-group-addon bigInput">Ngày</span>
+                        </div>
                     </div>
 
-                    <div class="md-form mb-5">
-                        <label data-error="wrong" data-success="right" for="form2">*Thời gian giao hàng</label>
-                        <input class="form-control validate RoundCorner bigInput" type="number" placeholder="Số lượng" min="1" style="width:100%;">
-
+                    <div class="form-group">
+                        <label for="inputName" class="control-label">*Thời gian giao hàng</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control bigInput BlackBoarder" id="deliveringTime" placeholder="Nhập thời gian giao hàng " required>
+                            <span class="input-group-addon bigInput">Ngày</span>
+                        </div>
                     </div>
 
-                    <div class="md-form mb-5">
-                        <span class="button-checkbox">
-                            <input type="checkbox" value="true" class="hidden" /> Cho phép thỏa thuận
-                        </span>
-
-
+                    <div class="form-group">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" id="canBargain" value="true">
+                                Có thể thỏa thuận
+                            </label>
+                        </div>
                     </div>
 
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button class=" big green button RoundCorner">Tạo Mới </button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
                     </div>
                 </form>
+
             </div>
+
+
+
         </div>
+
     </div>
 </div>
 
 
+<script>
+
+</script>

@@ -10,27 +10,28 @@ namespace FarmHub.Areas.Farmer.Controllers
 {
     public class FarmerOfferDetailController : Controller
     {
+        SaleOfferDetailDao dao = new SaleOfferDetailDao();
         // GET: Farmer/FarmerOfferDetail
-        public ActionResult FarmerOfferDetail(int farmerOfferId )
+        public ActionResult FarmerOfferDetail(int saleOfferId )
         {
            var dao = new SaleOfferDetailDao();
 
-            var offerDetail = dao.Details(farmerOfferId);
-            var offerDTO = new SaleOfferDTO();
+            var saleOfferDetail = dao.Details(saleOfferId);
+            var SaleOfferDTO = new SaleOfferDTO();
 
-            offerDTO.saleOfferid = farmerOfferId;
-            offerDTO.productId= offerDetail.PRODUCT_DETAIL.Id_Product;
-            offerDTO.productName = offerDetail.PRODUCT_DETAIL.PRODUCT.Name_Product;
-            offerDTO.seedName = offerDetail.PRODUCT_DETAIL.SEED.Name_Seed;
-            offerDTO.price = offerDetail.Price_Offer;
-            offerDTO.quantity = offerDetail.Price_Offer;
-            offerDTO.massName = offerDetail.MASS_UNIT.Name_MassUnit;
-            offerDTO.payingTime = offerDetail.Paying_Time;
-            offerDTO.deliveringTime = offerDetail.Delivering_Time;
-            offerDTO.image = offerDetail.PRODUCT_DETAIL.Image_ProductDetail;
-            offerDTO.canBargain = offerDetail.Can_Bargain;
-
-            return View(offerDTO);
+            SaleOfferDTO.saleOfferid = saleOfferId;
+            SaleOfferDTO.productId= saleOfferDetail.PRODUCT_DETAIL.Id_Product;
+            SaleOfferDTO.productName = saleOfferDetail.PRODUCT_DETAIL.PRODUCT.Name_Product;
+            SaleOfferDTO.seedName = saleOfferDetail.PRODUCT_DETAIL.SEED.Name_Seed;
+            SaleOfferDTO.price = saleOfferDetail.Price_Offer;
+            SaleOfferDTO.quantity = saleOfferDetail.Price_Offer;
+            SaleOfferDTO.massName = saleOfferDetail.MASS_UNIT.Name_MassUnit;
+            SaleOfferDTO.payingTime = saleOfferDetail.Paying_Time;
+            SaleOfferDTO.deliveringTime = saleOfferDetail.Delivering_Time;
+            SaleOfferDTO.image = saleOfferDetail.PRODUCT_DETAIL.Image_ProductDetail;
+            SaleOfferDTO.canBargain = saleOfferDetail.Can_Bargain;
+            SaleOfferDTO.remain = saleOfferDetail.Remain_SaleQuantity;
+            return View(SaleOfferDTO);
         }
 
         [HttpGet]
@@ -64,29 +65,46 @@ namespace FarmHub.Areas.Farmer.Controllers
         public JsonResult PurchaseOfferListBySaleOfferID(int saleOfferId)
         {
 
-            var saleList = new SaleOfferDetailDao().SaleOfferListByPurchaseOfferID(saleOfferId);
-            List<PurchaseOfferDTO> purchaseOfferDTOs = new List<PurchaseOfferDTO>();
+            var saleList = new SaleOfferDetailDao().TransactionListByPurchaseOfferID(saleOfferId);
+            List<TraderTransactionDTO> purchaseOfferDTOs = new List<TraderTransactionDTO>();
 
             foreach (var p in saleList)
             {
-                var PurchaseOfferDTO = new PurchaseOfferDTO();
+                var TransactionOfferDTO = new TraderTransactionDTO();
 
-                PurchaseOfferDTO.id = p.Id_PurchasesOffer;
-                PurchaseOfferDTO.createdDate = ((DateTime)p.Date_PurchaseOffer).ToShortDateString();
-                PurchaseOfferDTO.productName = p.PRODUCT.Name_Product;
-                PurchaseOfferDTO.seedName = p.SEED.Name_Seed;
-                PurchaseOfferDTO.traderName = p.TRADER.Name_Trader;
-                PurchaseOfferDTO.quantity = p.Quantity_PurchaseOffer;
-                PurchaseOfferDTO.massName = p.MASS_UNIT.Name_MassUnit;
-                PurchaseOfferDTO.price = p.Price_Purchase;
-                PurchaseOfferDTO.totalMoney = p.Quantity_PurchaseOffer * p.MASS_UNIT.Weight_To_Kg * p.Price_Purchase;
-
-                purchaseOfferDTOs.Add(PurchaseOfferDTO);
+                TransactionOfferDTO.transId = p.Id_TransactionOrder;
+                TransactionOfferDTO.endTransDay = ((DateTime)p.Transaction_Date).ToShortDateString();
+                TransactionOfferDTO.productName = p.SALE_OFFER_DETAIL.SALE_OFFER.PRODUCT_DETAIL.PRODUCT.Name_Product ;
+                TransactionOfferDTO.seedName = p.SALE_OFFER_DETAIL.SALE_OFFER.PRODUCT_DETAIL.SEED.Name_Seed;
+                TransactionOfferDTO.traderName = p.PURCHASE_OFFER_DETAIL.PURCHASE_OFFER.TRADER.Name_Trader;
+                TransactionOfferDTO.quantity = p.Transaction_Mass;
+                TransactionOfferDTO.unitName = p.Transaction_Unitmass;
+                TransactionOfferDTO.price = p.Transaction_Price;
+                TransactionOfferDTO.totalMoney = p.Transaction_Mass * p.SALE_OFFER_DETAIL.SALE_OFFER.MASS_UNIT.Weight_To_Kg * p.Transaction_Price;
+                TransactionOfferDTO.StatusName = p.STATUS_TRANS.Name_StatusTrans;
+                
+                purchaseOfferDTOs.Add(TransactionOfferDTO);
             }
 
             return Json(purchaseOfferDTOs, JsonRequestBehavior.AllowGet);
         }
 
-        
+        [HttpPost]
+        public JsonResult AccepOffer(int transactionId)
+        {
+
+            dao.GetAcceptResult(transactionId);
+
+            //return Json(new { Remain = remainQuantity});
+            return Json(new object[] { new object() }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult CounterOffer(int transactionId, int counterOfferQuantity)
+        {
+            dao.MakeCounterOffer(transactionId, counterOfferQuantity);
+            return Json(new object[] { new object() }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

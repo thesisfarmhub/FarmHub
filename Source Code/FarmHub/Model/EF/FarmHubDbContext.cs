@@ -27,8 +27,7 @@ namespace Model.EF
         public virtual DbSet<SALE_OFFER> SALE_OFFER { get; set; }
         public virtual DbSet<SALE_OFFER_DETAIL> SALE_OFFER_DETAIL { get; set; }
         public virtual DbSet<SEED> SEEDs { get; set; }
-        public virtual DbSet<Status_Trans> Status_Trans { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<STATUS_TRANS> STATUS_TRANS { get; set; }
         public virtual DbSet<TOPIC> TOPICs { get; set; }
         public virtual DbSet<TRADER> TRADERs { get; set; }
         public virtual DbSet<TRADER_PREFERENCE> TRADER_PREFERENCE { get; set; }
@@ -45,6 +44,10 @@ namespace Model.EF
 
             modelBuilder.Entity<PRODUCT_DETAIL>()
                 .Property(e => e.Image_ProductDetail)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<TRANSACTION_ORDER>()
+                .Property(e => e.Image_Invoice)
                 .IsUnicode(false);
 
             modelBuilder.Entity<USER_AUTHENTICATION>()

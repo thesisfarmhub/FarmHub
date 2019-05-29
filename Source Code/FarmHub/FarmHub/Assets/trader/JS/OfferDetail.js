@@ -55,7 +55,7 @@ $('document').ready(function () {
         },
         "pageLength": 5,
         "columns": [
-            { "data":"createdDate"},
+            { "data":"endTransDay"},
             {
 
                 "data": "productName",
@@ -64,23 +64,22 @@ $('document').ready(function () {
                 },
             },
             {
-                "data": "seedName",
-                visible: false
+                "data": "seedName", visible: false
             },
             { "data": "farmName" },
-            { "data": "farmerName" },
+            { "data": "farmerName", visible: false},
             { "data": "price" },
             {
                 "data": "quantity",
                 "render": function (data, type, rowData) {
-                    return data + ' (' + rowData['massName'] + ')';
+                    return data + ' (' + rowData['unitName'] + ')';
                 },
             },
             {
-                "data": "massName",
-                visible: false
+                "data": "unitName",
             },
-            { "data": "totalMoney" },
+            {"data": "totalMoney"},
+            { "data":"StatusName"},
             {
                 "render": function (data, type, rowData) {
 
@@ -98,14 +97,26 @@ $('document').ready(function () {
     });
 
 
+    
+    var suitableSaleOffer = $("#suitableSaleOffer");
     var saleOfferByPurchaseOffer = $("#saleOfferByPurchaseOffer");
-    var purchaseOfferDetailsTbl = $("#purchaseOfferDetailsTbl");
 
+    
+   
     // Agree button
     saleOfferByPurchaseOffer.on('click', 'button[role="agreeBtn"]', function () {
+        var transactionId = saleOfferByPurchaseOffer.DataTable().row($(this).closest('tr')[0]).data()['transId'];
+        var saleOfferQuantity = saleOfferByPurchaseOffer.DataTable().row($(this).closest('tr')[0]).data()['quantity'];
+        var unitName = saleOfferByPurchaseOffer.DataTable().row($(this).closest('tr')[0]).data()['unitName'];
+
         
-        var id = saleOfferByPurchaseOffer.DataTable().row($(this).closest('tr')[0]).data()['purchOfferID'];
+        var remainQuantity = $("#remainQuantity").val();
+        var counterOfferQuantity = 0;
         var a = 1;
+
+        //alert("podId: " + purchaseOfferId + " remain: " + remainQuantity + " TransId: " + transactionId + "soQuantity: " + saleOfferQuantity);
+        
+
         $.confirm({
            
             icon: 'fa fa-question-circle',
@@ -118,14 +129,52 @@ $('document').ready(function () {
             closeIcon: true,
             closeIconClass: 'fa fa-close',
             escapeKey: true,
-            backgroundDismiss: false,
+            backgroundDismiss: true,
 
             autoClose: 'cancel|6000',
             buttons: {
                 confirm: {
                     text: "Chấp Nhận",
                     action: function () {
-                        if (a = 1) {
+                        if (remainQuantity - saleOfferQuantity >= 0)
+                        {
+                            $.ajax({
+                                type: "POST",
+                                async: false,
+                                url: "/TraderOfferDetail/AccepOffer?transactionId=" + transactionId ,
+                                contentType: "application/json; charset=utf-8",
+                                method: 'POST',
+                                datatype: "text",
+                                serverSide: true,
+                                success: function (data) {
+                                    window.location.href = window.location.origin + "/Offer/TraderOfferIndex";
+                                },
+                                error: function (data) {
+                                    alert("Error response is: " + data);
+                                }
+                            });
+                        }
+                        //alert(remainQuantity);
+                        if (remainQuantity == 0) {
+                            $.confirm({
+                                icon: 'fa fa-exclamation-triangle',
+                                title: "Lỗi",
+                                content: "<h4>Đơn này không thể nhận thêm bất cứ thỏa thuận nào khác! <h4/>",
+                                animation: 'left',
+                                confirmButton: false,
+                                type: 'red',
+                                typeAnimated: true,
+                                animationSpeed: 500,
+                                backgroundDismiss: true,
+                                closeIcon: true,
+                                closeIconClass: 'fa fa-close',
+                            })
+                        }
+
+                        else {
+                            remainQuantity = $("#remainQuantity").val();
+                           
+
                             $.confirm({
                                 icon: 'fa fa-exclamation-triangle',
                                 title: "Lỗi",
@@ -147,7 +196,7 @@ $('document').ready(function () {
                                                 $.confirm({
                                                     icon: 'fa fa-pencil',
                                                     title: "Thỏa Thuận Lại",
-                                                    content: '<h4>Nhập vào số lượng đặt mới <h4/> <input id="counterOffer" type="number" class="btn btn-block">',
+                                                    content: ' <h4>Nhập vào số lượng đặt mới(Tối đa: ' + remainQuantity + ' ' + unitName + ')<h4/> <input id="counterOfferQuantity" type="number" class="btn btn-block" style="border-style:solid;border-width: 1px;">',
                                                     animation: 'left',
                                                     confirmButton: false,
                                                     type: 'red',
@@ -155,83 +204,51 @@ $('document').ready(function () {
                                                     animationSpeed: 500,
                                                     closeIcon: true,
                                                     closeIconClass: 'fa fa-close',
+                                                    buttons: {
+                                                        Confirm: {
+                                                           text:"Xác Nhận",
+                                                            action: function () {
+                                                                counterOfferQuantity = $('#counterOfferQuantity').val();
+                                                                
+                                                                $.ajax({
 
+                                                                    type: "POST",
+                                                                    url: "/TraderOfferDetail/CounterOffer?transactionId=" + transactionId + "&counterOfferQuantity=" + counterOfferQuantity,
+                                                                    contentType: "application/json; charset=utf-8",
+                                                                    method: 'POST',
+                                                                    datatype: "text",
+                                                                    serverSide: true,
+
+                                                                    success: function (data) {
+                                                                        window.location.href = window.location.origin + "/Offer/TraderOfferIndex";
+                                                                    },
+
+                                                                    error: function (data) {
+                                                                       alert("Error response is: " + data);
+                                                                    }
+                                                                });
+                                                            }
+                                                        },
+
+                                                        Cancle: {
+                                                            text:"Hủy"
+                                                        }
+                                                    }
                                                 })
                                             }
                                         }
                                     },
 
-                                    cancle: function () {
-
+                                    cancle: {
+                                        text:"Hủy"
                                     }
                                 }
                             })
                         }
+
+
                     }
                     
-                   
-
-
-                    //text: "Xác Nhận",
-                    //btnClass: "btn-red",
-                    //action: function () {
-                    //        $.ajax({
-                    //            type: "POST",
-                    //            url: "/TraderOfferDetail/CallAgreeOffer/" + id,
-                    //            contentType: "application/json; charset=utf-8",
-                    //            method: 'POST',
-                    //            datatype: "text",
-                    //            serverSide: true,
-                    //            success: function (data) {
-                    //                console.log(data);
-                    //                if (data == false) {
-                    //                    $.confirm({
-                    //                        icon: 'fa fa-exclamation-triangle',
-                    //                        title: "Lỗi",
-                    //                        content: "<h4>Số Lượng đặt vượt quá giới hạn <h4/>",
-                    //                        animation: 'left',
-                    //                        confirmButton: false,
-                    //                        type: 'red',
-                    //                        typeAnimated: true,
-                    //                        animationSpeed: 500,
-
-                    //                        closeIcon: true,
-                    //                        closeIconClass: 'fa fa-close',
-
-                    //                        buttons: {
-                    //                            CounterOffer: {
-                    //                                $.confirm({
-                    //                                    icon: 'fa fa-pencil',
-                    //                                    title: "Lỗi",
-                    //                                    content: '<h4>Nhập vào số lượng đặt mới <h4/> <input id="counterOffer" type="number" class="btn btn-block">',
-                    //                                    animation: 'left',
-                    //                                    confirmButton: false,
-                    //                                    type: 'red',
-                    //                                    typeAnimated: true,
-                    //                                    animationSpeed: 500,
-
-                    //                                    closeIcon: true,
-                    //                                    closeIconClass: 'fa fa-close',
-
-
-                    //                                })
-                    //                            },
-
-                    //                            Cancle {
-
-                    //                            }
-                    //                        }
-
-                    //                    })
-                    //                }
-                    //                purTbl.row($(this).parents('tr')).remove().draw(true);
-                    //                purTbl.ajax.reload();
-                    //            },
-                    //            error: function (data) {
-                    //                console.log("Error response is: " + data);
-                    //            }
-                    //        });
-                    //}
                 },
                 cancel:  {
                     text: "Hủy",
@@ -241,9 +258,11 @@ $('document').ready(function () {
 
     });
 
+   
+
     saleOfferByPurchaseOffer.on('click', 'button[role="rejectBtn"]', function () {
 
-        var id = saleOffertbl.DataTable().row($(this).closest('tr')[0]).data()['id'];
+        var transactionId = saleOffertbl.DataTable().row($(this).closest('tr')[0]).data()['transId'];
         window.location.href = window.location.origin + "/TraderOrder/TraderOrderIndex?" + "saleOfferId=" + id;
 
 

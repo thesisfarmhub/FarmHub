@@ -16,30 +16,24 @@ namespace Model.Dao.Trader
             db = new FarmHubDbContext();
         }
 
-        public bool? canBargain { get; set; }
-        public string createdDate { get; set; }
-        public string productName { get; set; }
-        public string seedName { get; set; }
-        public int? quantity { get; set; }
-        public string massName { get; set; }
-        public int? trueMass { get; set; }
-        public int? price { get; set; }
-        public byte? payingTime { get; set; }
-        public byte? deliveringTime { get; set; }
-        public byte? numberOfOrder { get; set; }
-        public string image { get; set; }
+        
 
-        public void Insert(PurchaseOfferDTO model)
+        public void Insert(PurchaseOfferDTO model, int traderID)
         {
+            
             PURCHASE_OFFER purchModel = new PURCHASE_OFFER();
-            purchModel.Can_Bargain = model.canBargain;
+
             purchModel.Date_PurchaseOffer = DateTime.Now;
-            purchModel.PRODUCT.Id_Product = model.productID;
+            purchModel.Can_Bargain = model.canBargain;
+            purchModel.Id_Trader = traderID;
+            purchModel.Id_Product = model.productID;
+            purchModel.Id_Seed = model.seedId;
             purchModel.Quantity_PurchaseOffer = model.quantity;
-            purchModel.Id_MassUnit = model.massId;
+            purchModel.Id_MassUnit = model.unitId;
             purchModel.Price_Purchase = model.price;
             purchModel.Paying_Time = model.payingTime;
             purchModel.Delivering_Time = model.deliveringTime;
+            purchModel.Is_Deleted = false;
 
             db.PURCHASE_OFFER.Add(purchModel);
             db.SaveChanges();

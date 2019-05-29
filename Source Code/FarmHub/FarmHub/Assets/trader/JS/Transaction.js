@@ -110,11 +110,24 @@ $(document).ready(function () {
             { "data": "StatusName" },
             {
                 "render": function (data, type, rowData) {
+                    var tranferedbtnHTML = '<button type="button" class="small green button" role="transferedBtn"  data-toggle="Detailtooltip" title="Đã chuyển tiền" >Đã Chuyển Tiền </button>';
+                   
+                    var extendbtnHTML = ' <button class="btn btn-warning" type="button" role="extendBtn" data-toggle="Deletetooltip" title="Gia Hạn Thời Gian Trả Tiền"><span class="fa fa-clock-o"></span></button >';
+                    var DeliveredbtnHTML = ' <button class="small green button" type="button" role="deliveredBtn" data-toggle="Deletetooltip" title="Gia Hạn Thời Gian Trả Tiền">Đã Nhận Được Hàng</button >';
+                    var notDeliveredbtnHTML = ' <button class="btn btn-warning" type="button" role="notDeliveredBtn" data-toggle="Deletetooltip" title="Gia Hạn Thời Gian Trả Tiền">Chưa Nhận được hàng</button >';
+                    var reportbtnHTML = ' <button class="small blue button" type="button" role="reportBtn" data-toggle="Deletetooltip" title="Tố cáo" ><span class="fa fa-flag"></span> </button >';
+                    var cancelbtnHTML = ' <button class="small red button" type="button" role="cancelBtn" data-toggle="Deletetooltip" title="Từ Chối">Hủy Thỏa Thuận</button >';
 
-                    var agreebtnHTML = '<button type="button" class="small green button" role="agreeBtn"  data-toggle="Detailtooltip" title="Đồng ý" >Đồng Ý </button>';
-                    var cancelbtnHTML = ' <button class="small red button" type="button" role="cancelBtn" data-toggle="Deletetooltip" title="Từ Chối">Từ Chối </button >';
-                    var reportbtnHTML = ' <button class="small red button" type="button" role="cancelBtn" data-toggle="Deletetooltip" title="Từ Chối">Tố cáo </button >';
-                    return agreebtnHTML + cancelbtnHTML
+                    if (rowData['StatusName'] == "Đã Đồng Ý") {
+                        return tranferedbtnHTML + cancelbtnHTML + extendbtnHTML ;
+                    }
+                    if (rowData['StatusName'] == "Gia Hạn Giao Hàng") {
+                        return  cancelbtnHTML + reportbtnHTML;
+                    }
+                    if (rowData['StatusName'] == "Sẵn Sàng Giao Hàng") {
+                        return DeliveredbtnHTML + notDeliveredbtnHTML + cancelbtnHTML + reportbtnHTML;
+                    }
+                   
                 },
             }
         ]
@@ -139,13 +152,197 @@ $(document).ready(function () {
         $("#purchaseOfferTbl thead tr:eq(1)").hide();
     }
 
-    transOffertbl.on('click', 'button[role="agreeBtn"]', function () {
-        var id = purchaseOfferTbl.DataTable().row($(this).closest('tr')[0]).data()['purchOfferID'];
+    transOffertbl.on('click', 'button[role="transferedBtn"]', function () {
+        var transactionId = transOffertbl.DataTable().row($(this).closest('tr')[0]).data()['transId'];
+
         $.confirm({
             icon: 'fa fa-question-circle',
             boxWidth: '100%',
-            title: 'Xác Nhận',
-            content: '<h4>Bạn có chắc đã nhận hàng từ chủ trang trại</h4>',
+            title: 'Xóa Đơn',
+            content: '<h4>Vi lòng đăng ảnh hóa đơn ngân hàng của bạn.</h4> <input type="file" class="form-control-file" onchange="readURL(this);" id="anhSanPham" name="ImageFile" style="color:aliceblue"> < img style="max-width:80px; max-height:120px" id="blah" src="http://placehold.it/180" alt="your image" />',
+            type: 'green',
+            typeAnimated: true,
+            animationSpeed: 500,
+            closeIcon: true,
+            closeIconClass: 'fa fa-close',
+            escapeKey: true,
+            backgroundDismiss: false,
+            autoClose: 'cancel|6000',
+            buttons: {
+                confirm: {
+                    text: "Xác Nhận",
+                    btnClass: "btn-default",
+                    action: function () {
+                        $.ajax({
+                            "url": "/Transaction/Handler?Command=" + "Delivered" + "&transactionId=" + transactionId,
+                            "type": "POST",
+                            "datatypye": "json",
+                            success: function (data) {
+                                window.location.reload();
+                            },
+                            error: function (data) {
+
+                            }
+                        });
+                    }
+                },
+                cancel: {
+                    text: "Hủy",
+                    btnClass: "btn-red",
+                }
+            }
+        });
+
+    });
+
+    transOffertbl.on('click', 'button[role="extendBtn"]', function () {
+        var transactionId = transOffertbl.DataTable().row($(this).closest('tr')[0]).data()['transId'];
+        var totalMoney = transOffertbl.DataTable().row($(this).closest('tr')[0]).data()['totalMoney'];
+        var Fine = totalMoney * 0.1 ;
+        $.confirm({
+            icon: 'fa fa-question-circle',
+            boxWidth: '100%',
+            title: 'Xóa Đơn',
+            content: '<h4>Bạn có muốn gia hạn thêm thời gian giao tiền.Bạn sẽ bị phạt 10% giá trị hóa đơn tương ứng với ' + Fine +' VNĐ. </h4>',
+            type: 'green',
+            typeAnimated: true,
+            animationSpeed: 500,
+            closeIcon: true,
+            closeIconClass: 'fa fa-close',
+            escapeKey: true,
+            backgroundDismiss: false,
+            autoClose: 'cancel|6000',
+            buttons: {
+                confirm: {
+                    text: "Xác Nhận",
+                    btnClass: "btn-default",
+                    action: function () {
+                        $.ajax({
+                            "url": "/Transaction/Handler?Command=" + "Extend" + "&transactionId=" + transactionId,
+                            "type": "POST",
+                            "datatypye": "json",
+                            success: function (data) {
+                                window.location.reload();
+                            },
+                            error: function (data) {
+
+                            }
+                        });
+                    }
+                },
+                cancel: {
+                    text: "Hủy",
+                    btnClass: "btn-red",
+                }
+            }
+        });
+
+    });
+
+
+    transOffertbl.on('click', 'button[role="deliveredBtn"]', function () {
+        var transactionId = transOffertbl.DataTable().row($(this).closest('tr')[0]).data()['transId'];
+
+        $.confirm({
+            icon: 'fa fa-question-circle',
+            boxWidth: '100%',
+            title: 'Xóa Đơn',
+            content: '<h4>Bạn có chắc đã nhận được hàng từ chủ nông trại?</h4>',
+            type: 'green',
+            typeAnimated: true,
+            animationSpeed: 500,
+            closeIcon: true,
+            closeIconClass: 'fa fa-close',
+            escapeKey: true,
+            backgroundDismiss: false,
+            autoClose: 'cancel|6000',
+            buttons: {
+                confirm: {
+                    text: "Xác Nhận",
+                    btnClass: "btn-default",
+                    action: function () {
+                        $.ajax({
+                            "url": "/Transaction/Handler?Command=" + "Delivered" + "&transactionId=" + transactionId,
+                            "type": "POST",
+                            "datatypye": "json",
+                            success: function (data) {
+                                window.location.reload();
+                            },
+                            error: function (data) {
+
+                            }
+                        });
+                    }
+                },
+                cancel:  {
+                    text: "Hủy",
+                    btnClass: "btn-red",
+                }
+            }
+        });
+        
+    });
+
+    transOffertbl.on('click', 'button[role="notDeliveredBtn"]', function () {
+
+        var transactionId = transOffertbl.DataTable().row($(this).closest('tr')[0]).data()['transId'];
+
+        $.confirm({
+            icon: 'fa fa-question-circle',
+            boxWidth: '100%',
+            title: 'Chưa Nhận Được Hàng',
+            content: '<h4>Bạn có chắc không nhận được hàng từ chủ nông trại?</h4>',
+            type: 'orange',
+            typeAnimated: true,
+            animationSpeed: 500,
+            closeIcon: true,
+            closeIconClass: 'fa fa-close',
+            escapeKey: true,
+            backgroundDismiss: false,
+            autoClose: 'cancel|6000',
+            buttons: {
+                confirm: {
+                    text: "Xác Nhận",
+                    btnClass: "btn-default",
+                    action: function () {
+                        $.ajax({
+                            "url": "/Transaction/Handler?Command=" + "NotDelivered" + "&transactionId=" + transactionId,
+                            "type": "POST",
+                            "datatypye": "json",
+                            success: function (data) {
+                                window.location.reload();
+                            },
+                            error: function (data) {
+
+                            }
+                        });
+                    }
+                },
+
+                cancel: {
+                    text: "Hủy",
+                    btnClass: "btn-red",
+                }
+            }
+        });
+
+    });
+
+    transOffertbl.on('click', 'button[role="report"]', function () {
+
+        var id = transOffertbl.DataTable().row($(this).closest('tr')[0]).data()['transId'];
+
+    });
+
+    transOffertbl.on('click', 'button[role="cancelBtn"]', function () {
+
+        var transactionId = transOffertbl.DataTable().row($(this).closest('tr')[0]).data()['transId'];
+
+        $.confirm({
+            icon: 'fa fa-question-circle',
+            boxWidth: '100%',
+            title: 'Hủy Thỏa Thuận',
+            content: '<h4>Bạn có muốn hủy thỏa thuân này? Bạn sẽ mất 1 điểm tín nhiệm</h4>',
             type: 'red',
             typeAnimated: true,
             animationSpeed: 500,
@@ -153,31 +350,45 @@ $(document).ready(function () {
             closeIconClass: 'fa fa-close',
             escapeKey: true,
             backgroundDismiss: false,
-
             autoClose: 'cancel|6000',
             buttons: {
                 confirm: {
                     text: "Xác Nhận",
-                    btnClass: "btn-red",
+                    btnClass: "btn-default",
                     action: function () {
+                        $.ajax({
+                            "url": "/Transaction/Handler?Command=" + "Cancel" + "&transactionId=" + transactionId,
+                            "type": "POST",
+                            "datatypye": "json",
+                            success: function (data) {
+                                window.location.reload();
+                            },
+                            error: function (data) {
 
-                        
+                            }
+                        });
                     }
                 },
-                cancel: function () {
-
+                cancel: {
+                    text: "Hủy",
+                    btnClass: "btn-red",
                 }
             }
         });
 
     });
 
-    transOffertbl.on('click', 'button[role="cancelBtn"]', function () {
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-        var id = saleOffertbl.DataTable().row($(this).closest('tr')[0]).data()['id'];
-        
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result);
+            };
 
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
-
-    });
 })

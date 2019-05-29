@@ -114,9 +114,9 @@ namespace FarmHub.Controllers
         [HttpGet]
         public JsonResult GetListPurchase()
         {
-            var id = Convert.ToInt32(Session["UserID"]);
-           
-            var purchaselList = new PurchaseOfferDao().getPurchaseOfferByID(id);
+            var Traderid = Convert.ToInt32(Session["TraderID"]);
+
+            var purchaselList = new PurchaseOfferDao().getPurchaseOfferByID(Traderid);
             List<PurchaseOfferDTO> purchaseOfferDTOs = new List<PurchaseOfferDTO>();
 
             foreach (var p in purchaselList)
@@ -142,14 +142,16 @@ namespace FarmHub.Controllers
 
 
         [HttpPost]
-        public ActionResult CreatePurchaseOffer( PurchaseOfferDTO model)
+        public ActionResult CreatePurchaseOffer(PurchaseOfferDTO model)
         {
+            var traderId = Convert.ToInt32(Session["TraderId"]);
             if (ModelState.IsValid)
             {
                 var dao = new OfferDao();
-                dao.Insert(model);
+                dao.Insert(model, traderId);
             }
-            return View("OfferIndex");
+            //return "{\"msg\":\"success\"}";
+            return Content("success");
         }
 
         [HttpDelete]
