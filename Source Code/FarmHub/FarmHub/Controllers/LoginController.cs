@@ -61,11 +61,11 @@ namespace FarmHub.Controllers
                     else if (user.USER_KIND.Id_UserKind == 2)
                     {
                         Session["TraderId"] = new TraderDAO().GetTraderByUserID(user.Id_User).Id_Trader;
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Trader");
                     }
                     else if (user.USER_KIND.Id_UserKind == 3)
                     {
-                        return RedirectToAction("index", "User", new { area = "Admin" });
+                        return RedirectToAction("Index", "User", new { area = "Admin" });
                     }
                     else
                     {

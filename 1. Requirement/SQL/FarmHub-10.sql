@@ -373,7 +373,9 @@ Create Table FEED_BACK(
 	Id_User int,
 	Id_Topic int,
 	Title_FeedBack nvarchar(50),
+	Id_Transaction int,
 	Description_FeedBack nvarchar(200),
+	Is_Deleted bit
 	-- Foreign Key --
 	Foreign key(Id_User) references USER_AUTHENTICATION(Id_User),
 	Foreign key(Id_Topic) references TOPIC(Id_Topic)

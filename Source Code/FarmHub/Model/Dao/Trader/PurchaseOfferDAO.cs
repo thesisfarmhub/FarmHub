@@ -43,20 +43,26 @@ namespace Model.Dao.Trader
         }
 
         // List All Limit
-        public List<PURCHASE_OFFER> ListAllLimit(int quantity = 9)
+        public List<PURCHASE_OFFER> ListAllLimit()
         {
-            return db.PURCHASE_OFFER.Where(x => x.Is_Deleted == false).OrderByDescending(x => x.Id_PurchasesOffer).Take(quantity).ToList();
+            return db.PURCHASE_OFFER.Where(x => x.Is_Deleted == false).OrderByDescending(x => x.Id_PurchasesOffer).Take(5).ToList();
         }
 
-        // List Purchase Offer By Trader ID
+        // List Purchase Offer By Trader ID Limit
+        public List<PURCHASE_OFFER> ListPOByTraderID(int traderID, int take)
+        {
+            return db.PURCHASE_OFFER.Where(x => x.Is_Deleted == false && x.Id_Trader == traderID && x.Remain_PurchaseQuantity > 0).GroupBy(x => x.Id_Product).Select(gr => gr.FirstOrDefault()).OrderByDescending(x => x.Id_PurchasesOffer).Take(take).ToList();
+        }
+
+        // List Purchase Offer By Trader ID Non-Limit
         public List<PURCHASE_OFFER> ListPOByTraderID(int traderID)
         {
-            return db.PURCHASE_OFFER.Where(x => x.Is_Deleted == false && x.Id_Trader == traderID && x.Quantity_PurchaseOffer > 0).OrderByDescending(x => x.Id_PurchasesOffer).ToList();
+            return db.PURCHASE_OFFER.Where(x => x.Is_Deleted == false && x.Id_Trader == traderID && x.Remain_PurchaseQuantity > 0).OrderByDescending(x => x.Id_PurchasesOffer).ToList();
         }
 
-        // Suitable Sale Offer
+        // Suitable Sale Offer Limit
         // Trader Home Page: List Purchase Offer => Suitable Sale Offer
-        public List<List<SALE_OFFER>> SuitalbeSaleOffers(List<PURCHASE_OFFER> listPurchaseOffer)
+        public List<List<SALE_OFFER>> SuitalbeSaleOffers(List<PURCHASE_OFFER> listPurchaseOffer, int take)
         {
             var listSaleOffer = new List<List<SALE_OFFER>>();
 
@@ -65,7 +71,7 @@ namespace Model.Dao.Trader
 
             foreach (var item in listProductID)
             {
-                List<SALE_OFFER> subListSO = db.SALE_OFFER.Where(x => x.PRODUCT_DETAIL.PRODUCT.Id_Product == item && x.Remain_SaleQuantity > 0 && x.Is_Deleted == false).ToList();
+                List<SALE_OFFER> subListSO = db.SALE_OFFER.Where(x => x.PRODUCT_DETAIL.PRODUCT.Id_Product == item && x.Remain_SaleQuantity > 0 && x.Is_Deleted == false).Take(take).ToList();
                 listSaleOffer.Add(subListSO);
             }
 

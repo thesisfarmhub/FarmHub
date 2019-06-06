@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="number" class="form-control" placeholder="Diện Tích Nông Trại" name="Acreage" onkeypress='return event.charCode != 69 && event.charCode != 101 && event.charCode != 45 && event.charCode != 43 && event.charCode != 46' required="" oninvalid="this.setCustomValidity('Thông tin này không được để trống')" oninput="this.setCustomValidity('')">
+                                            <input type="number" class="form-control myClass" placeholder="Diện Tích Nông Trại" name="Acreage" onkeypress='return event.charCode != 69 && event.charCode != 101 && event.charCode != 45 && event.charCode != 43 && event.charCode != 46' required="" oninvalid="this.setCustomValidity('Thông tin này không được để trống')" oninput="this.setCustomValidity('')">
                                             @Html.ValidationMessageFor(model => model.Acreage, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -103,4 +103,15 @@
             return false;
         }
         return true;
+    }
+
+        $(document).ready(function () {
+            var elem = $(".myClass");
+            if (elem) {
+                elem.keydown(function () {
+                    if (elem.val().length > 7)
+                        elem.val(elem.val().substr(0, 7));
+                });
+            }
+        });
 </script>

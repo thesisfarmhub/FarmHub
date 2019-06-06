@@ -37,7 +37,7 @@
                                     <th>Địa chỉ</th>
                                     <th>Thành phố</th>
                                     <th>Diện tích</th>
-                                    <th>Chức năng</th>
+                                    <th>Thao tác</th>
                                 </tr>
                             </thead>
 
@@ -50,10 +50,10 @@
                                         <td>@Html.DisplayFor(modelItem => item.City_Farm)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Acreage)</td>
                                         <td>
-                                            @Html.ActionLink("Sửa", "Edit", new { id = item.Id_Farm }) |
-                                            @Html.ActionLink("Xem", "Details", new { id = item.Id_Farm }) |
-                                            @Html.ActionLink("Xóa", "Delete", new { id = item.Id_Farm }) |
-                                            @Html.ActionLink("Nông Sản", "Index", "ProductDetails", new { id = item.Id_Farm }, null)
+                                            <button class="btn btn-warning" onclick="location.href = '@Url.Action("Edit","Farm", new { id = item.Id_Farm })'" title="Chỉnh sửa"><span class=" fa fa-pencil"></span></button>
+                                            <button class="btn btn-info" onclick="location.href = '@Url.Action("Details","Farm", new { id = item.Id_Farm })'" title="Xem chi tiết"><span class="fa fa-info"></span></button>
+                                            <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete","Farm", new { id = item.Id_Farm })'" title="Xóa"><span class="fa fa-trash"></span></button>
+                                            <button class="btn btn-success" onclick="location.href = '@Url.Action("Index","ProductDetails", new { id = item.Id_Farm })'" title="Danh sách nông sản"><span class="fa fa-list-ol"></span></button>
                                         </td>
                                     </tr>
                                 }

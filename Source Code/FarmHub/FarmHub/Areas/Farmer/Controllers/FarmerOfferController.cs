@@ -34,10 +34,12 @@ namespace FarmHub.Areas.Farmer.Controllers
 
             foreach (var item in productDetaillist)
             {
-                ProductDetailDTO productDetail = new ProductDetailDTO();
-                productDetail.id = item.Id_ProductDetail;
-                productDetail.productName = item.PRODUCT.Name_Product;
-                productDetail.seedname = item.SEED.Name_Seed;
+                ProductDetailDTO productDetail = new ProductDetailDTO
+                {
+                    id = item.Id_ProductDetail,
+                    productName = item.PRODUCT.Name_Product,
+                    seedname = item.SEED.Name_Seed
+                };
 
                 productDTOs.Add(productDetail);
             }

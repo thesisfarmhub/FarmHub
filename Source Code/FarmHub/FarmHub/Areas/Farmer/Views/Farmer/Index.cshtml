@@ -7,6 +7,16 @@
 
 <head>
     <title> Home Page Farmer</title>
+
+    <script src="~/Scripts/Chart.min.js"></script>
+
+    <style>
+        #chart_container {
+            width: 400px;
+            height: 200px;
+        }
+    </style>
+
 </head>
 
 <!-- Start Chef Section - TRENDING: Top 5 nông sản bán chạy/bán ế nhất-->
@@ -17,7 +27,7 @@
                 <div class="mu-chef-area">
                     <div class="mu-title">
                         <span class="mu-subtitle">Top 7</span>
-                        <h2>NÔNG SẢN ĐẶT MUA NHIỀU NHẤT</h2>
+                        <h2>NÔNG SẢN ĐẶT BÁN NHIỀU NHẤT</h2>
                         <i class="fa fa-spoon"></i>
                         <span class="mu-title-bar"></span>
                     </div>
@@ -32,7 +42,7 @@
                                         </figure>
                                         <div class="mu-single-chef-info">
                                             <h4>@item.Name_Product</h4>
-                                            <span>@item.Quantity_SaleOffer tấn - @item.Name_Seed</span>
+                                            <span>@item.Quantity_SaleOffer tấn - @item.Price_Offer VNĐ</span>
                                         </div>
                                     </div>
                                 </li>
@@ -97,13 +107,13 @@
                                                             <img src="@item.PRODUCT_DETAIL.Image_ProductDetail" alt="chef img">
                                                         </figure>
                                                         <div class="mu-single-chef-info">
-                                                            <h4>@item.PRODUCT_DETAIL.PRODUCT.Name_Product - @item.PRODUCT_DETAIL.SEED.Name_Seed</h4>
-                                                            <span>Khối Lượng: @item.Quantity_SaleOffer tons</span>
+                                                            <h4>@item.PRODUCT_DETAIL.PRODUCT.Name_Product</h4>
+                                                            <span>Giá: @item.Price_Offer VNĐ</span>
                                                             <br />
-                                                            <span>Giá: @item.Price_Offer$</span>
+                                                            <span>Còn lại: @item.Remain_SaleQuantity @item.MASS_UNIT.Name_MassUnit</span>
                                                         </div>
                                                         <div class="mu-single-chef-social">
-                                                            <button onclick="location.href = '@Url.Action("ActionName","ControllerName")'" type="button" class="mu-readmore-btn">Chi Tiết</button>
+                                                            <button type="button" class="mu-readmore-btn">Chi Tiết</button>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -115,8 +125,15 @@
                         </div>
                         <div class="col-md-3">
                             <div class="mu-about-us-right">
-                                <img src="~/Assets/HTML/SpicyX/img/about-us/abtus-img-1.png" style="max-width:100%; max-height:100%;" alt="img">
-                                <img src="~/Assets/HTML/SpicyX/img/about-us/abtus-img-1.png" style="max-width:100%; max-height:100%;" alt="img">
+
+                                <div id="chart_container">
+                                    <canvas id="bar_chart3"></canvas>
+                                </div>
+
+                                <div id="chart_container">
+                                    <canvas id="bar_chart4"></canvas>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -154,10 +171,10 @@
                                                                 <img src="@subItem.PRODUCT.Image_Product" alt="chef img">
                                                             </figure>
                                                             <div class="mu-single-chef-info">
-                                                                <h4>@subItem.PRODUCT.Name_Product - @subItem.SEED.Name_Seed</h4>
-                                                                <span>Khối Lượng: @subItem.Quantity_PurchaseOffer tấn</span>
+                                                                <h4>@subItem.PRODUCT.Name_Product</h4>
+                                                                <span>Giá: @subItem.Price_Purchase VNĐ</span>
                                                                 <br />
-                                                                <span>Giá: @subItem.Price_Purchase$</span>
+                                                                <span>Còn lại: @subItem.Remain_PurchaseQuantity @subItem.MASS_UNIT.Name_MassUnit</span>
                                                             </div>
                                                             <div class="mu-single-chef-social">
                                                                 <button type="button" class="mu-readmore-btn">Chi Tiết</button>
@@ -173,8 +190,15 @@
                         </div>
                         <div class="col-md-3">
                             <div class="mu-about-us-right">
-                                <img src="~/Assets/HTML/SpicyX/img/about-us/abtus-img-1.png" style="max-width:100%; max-height:100%;" alt="img">
-                                <img src="~/Assets/HTML/SpicyX/img/about-us/abtus-img-1.png" style="max-width:100%; max-height:100%;" alt="img">
+
+                                <div id="chart_container">
+                                    <canvas id="bar_chart"></canvas>
+                                </div>
+
+                                <div id="chart_container">
+                                    <canvas id="bar_chart2"></canvas>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -184,3 +208,295 @@
     </div>
 </section>
 <!-- End About us - TOP PRODUCTS -->
+<!-- ChartJS -->
+<script>
+
+    var productNames = @Html.Raw(Json.Encode(ViewBag.PRODUCTNAMES));
+    var numberOfOffers = @Html.Raw(Json.Encode(ViewBag.NUMBEROFOFFERS));
+    var prices = @Html.Raw(Json.Encode(ViewBag.PRICES));
+
+    var saleOfferProductNames = @Html.Raw(Json.Encode(ViewBag.SO_PRODUCTNAMES));
+    var soNumberOfOffers = @Html.Raw(Json.Encode(ViewBag.SO_NUMBEROFOFFERS));
+    var soPrices = @Html.Raw(Json.Encode(ViewBag.SO_PRICES));
+
+    var ctx = $("#bar_chart");
+    var barChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: productNames,
+            datasets: [
+                {
+                    label: "Số lượng nhu cầu mua",
+                    fill: false,
+                    data: numberOfOffers,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    boderWidth: 1
+                }
+            ]
+        },
+
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Nhu cầu mua của tôi'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        //labelString: 'Product Names'
+                    },
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        //labelString: 'Value'
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var ctx = $("#bar_chart2");
+    var barChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: productNames,
+            datasets: [
+                {
+                    label: "Giá",
+                    fill: false,
+                    data: prices,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    boderWidth: 1
+                }
+            ]
+        },
+
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Nhu cầu mua của tôi'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        //labelString: 'Product Names'
+                    },
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        //labelString: 'Value'
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var ctx = $("#bar_chart3");
+    var barChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: saleOfferProductNames,
+            datasets: [
+                {
+                    label: "Số lượng nhu cầu bán",
+                    fill: false,
+                    data: soNumberOfOffers,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    boderWidth: 1
+                }
+            ]
+        },
+
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Nhu cầu bán của chủ trang trại'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        //labelString: 'Product Names'
+                    },
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        //labelString: 'Value'
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var ctx = $("#bar_chart4");
+    var barChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: saleOfferProductNames,
+            datasets: [
+                {
+                    label: "Giá",
+                    fill: false,
+                    data: soPrices,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    boderWidth: 1
+                }
+            ]
+        },
+
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Nhu cầu bán của chủ trang trại'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        //labelString: 'Product Names'
+                    },
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        //labelString: 'Value'
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+</script>

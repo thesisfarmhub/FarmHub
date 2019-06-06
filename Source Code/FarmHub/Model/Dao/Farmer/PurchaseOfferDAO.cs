@@ -39,15 +39,15 @@ namespace Model.Dao.Farmer
         #region Meow
 
         // List All
-        public List<PURCHASE_OFFER> ListAll()
+        public List<PURCHASE_OFFER> ListAllActive()
         {
             return db.PURCHASE_OFFER.Where(x => x.Is_Deleted == false).OrderByDescending(x => x.Id_PurchasesOffer).ToList();
         }
 
         // List All Limit
-        public List<PURCHASE_OFFER> ListAllLimit(int quantity = 9)
+        public List<PURCHASE_OFFER> ListAllLimit()
         {
-            return db.PURCHASE_OFFER.Where(x => x.Is_Deleted == false).OrderByDescending(x => x.Id_PurchasesOffer).Take(quantity).ToList();
+            return db.PURCHASE_OFFER.Where(x => x.Is_Deleted == false).GroupBy(x => x.Id_Product).Select(x => x.FirstOrDefault()).Take(5).ToList();
         }
 
         // List Purchase Offer By Trader ID
@@ -67,7 +67,7 @@ namespace Model.Dao.Farmer
 
             foreach (var item in listProductID)
             {
-                List<SALE_OFFER> subListSO = db.SALE_OFFER.Where(x => x.PRODUCT_DETAIL.PRODUCT.Id_Product == item && x.Remain_SaleQuantity > 0 && x.Is_Deleted == false).ToList();
+                List<SALE_OFFER> subListSO = db.SALE_OFFER.Where(x => x.PRODUCT_DETAIL.PRODUCT.Id_Product == item && x.Remain_SaleQuantity > 0 && x.Is_Deleted == false).Take(5).ToList();
                 listSaleOffer.Add(subListSO);
             }
 

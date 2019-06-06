@@ -10,8 +10,8 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <style>
         #chart_container {
-            width: 700px;
-            height: 700px;
+            width: 500px;
+            height: 400px;
             padding: 1px;
         }
     </style>
@@ -31,7 +31,8 @@
                 type: 'line',
                 data: {
                     labels: productNames,
-                    datasets: [{
+                    datasets: [
+                        {
                         label: "Số lượng",
                         fill: false,
                         data: repArray,
@@ -97,6 +98,9 @@
                             scaleLabel: {
                                 display: true,
                                 labelString: 'Product Names'
+                            },
+                            ticks: {
+                                beginAtZero: false
                             }
                         }],
                         yAxes: [{
@@ -104,6 +108,9 @@
                             scaleLabel: {
                                 display: true,
                                 labelString: 'Value'
+                            },
+                            ticks: {
+                                beginAtZero: false
                             }
                         }]
                     }
@@ -111,5 +118,4 @@
             });
         </script>
     </div>
-
 </body>

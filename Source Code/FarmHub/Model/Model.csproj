@@ -96,6 +96,7 @@
     <Compile Include="DTO\Farmer\ProductDTO.cs" />
     <Compile Include="DTO\Farmer\PurchaseOfferDetailDTO.cs" />
     <Compile Include="DTO\Farmer\PurchaseOfferDTO.cs" />
+    <Compile Include="DTO\Farmer\SaleOfferChartDTO.cs" />
     <Compile Include="DTO\Farmer\SaleOfferDTO.cs" />
     <Compile Include="DTO\Farmer\FarmerOfferDTO.cs" />
     <Compile Include="DTO\Farmer\SeedDTO.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="DTO\Farmer\UnitMassDTO.cs" />
     <Compile Include="DTO\Trader\LoginDTO.cs" />
     <Compile Include="DTO\Trader\ProductDTO.cs" />
+    <Compile Include="DTO\Trader\PurchaseOfferChartDTO.cs" />
     <Compile Include="DTO\Trader\PurchaseOfferDTO.cs" />
     <Compile Include="DTO\Trader\SaleOfferDTO.cs" />
     <Compile Include="DTO\Trader\SeedDTO.cs" />

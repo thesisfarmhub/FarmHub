@@ -1,6 +1,8 @@
 ﻿using FarmHub.Areas.Farmer.Models;
 using Model.Dao.Authentication;
 using Model.Dao.Farmer;
+using Model.DTO.Farmer;
+using Model.DTO.Trader;
 using Model.EF;
 using System;
 using System.Collections.Generic;
@@ -17,16 +19,75 @@ namespace FarmHub.Areas.Farmer.Controllers
             // Session
             var session = Convert.ToInt32(Session["FarmerID"]);
 
-            var listSaleOffer = saleOfferDAO.ListSaleOfferByFarmerID(session);
-            var suitablePurchaseOffer = saleOfferDAO.SuitablePurchaseOffer(listSaleOffer);
-            var listTopProducts = saleOfferDAO.ListTopProductDetails();
+            var listSaleOfferLimit = saleOfferDao.ListSaleOfferByFarmerID(session, 5); // only show litmit SO on Home Page
+            var listSaleOffer = saleOfferDao.ListSaleOfferByFarmerID(session);
+            var suitablePurchaseOffer = saleOfferDao.SuitablePurchaseOffer(listSaleOffer, 2); // only show litmit suitable on Home Page
+            var listTopProducts = saleOfferDao.ListTopProductDetails();
 
             var farmerHomePageModel = new FarmerHomePageModel
             {
-                ListSaleOffer = listSaleOffer,
+                ListSaleOffer = listSaleOfferLimit,
                 SuitablePurchaseOffer = suitablePurchaseOffer,
                 FarmerListTopProduct = listTopProducts
             };
+
+            #region Chart Purchase Offer
+
+            var listPO = purchaseOfferDAO.ListAllActive();
+
+            var productNames = listPO.Select(x => x.PRODUCT.Name_Product).Distinct();
+            ViewBag.PRODUCTNAMES = productNames; // Label: Product Names
+
+            var purchaseOfferChartDTO = listPO.GroupBy(x => x.PRODUCT.Name_Product).Select(x => new PurchaseOfferChartDTO
+            {
+                NumberOfOrders = x.Select(id => id.Id_PurchasesOffer).Count(),
+                PurchaseOfferAvgPrice = (int)x.Average(p => p.Price_Purchase),
+                PurchaseOfferTotalQuantity = (int)x.Sum(qu => qu.Quantity_PurchaseOffer)
+            }).ToList();
+
+            List<int> prices = new List<int>();
+            foreach (var item in purchaseOfferChartDTO)
+            {
+                prices.Add(item.PurchaseOfferAvgPrice);
+            }
+            ViewBag.PRICES = prices.ToList(); // Data: Prices
+
+            List<int> numberOfOffers = new List<int>();
+            foreach (var item in purchaseOfferChartDTO)
+            {
+                numberOfOffers.Add(item.NumberOfOrders);
+            }
+            ViewBag.NUMBEROFOFFERS = numberOfOffers; // Number of orders
+
+            #endregion
+
+            #region Chart Sale Offer
+
+            var saleOfferProductNames = listSaleOffer.Select(x => x.PRODUCT_DETAIL.PRODUCT.Name_Product).Distinct();
+            ViewBag.SO_PRODUCTNAMES = saleOfferProductNames.ToList(); // Label: Sale Offer Product Name
+
+            var saleOfferChartDTO = listSaleOffer.GroupBy(x => x.PRODUCT_DETAIL.PRODUCT.Name_Product).Select(x => new SaleOfferChartDTO
+            {
+                NumberOfOrders = x.Select(id => id.Id_SaleOffer).Count(),
+                SaleOfferAvgPrice = (int)x.Average(p => p.Price_Offer),
+                SaleOfferTotalQuantity = (int)x.Sum(qu => qu.Quantity_SaleOffer)
+            }).ToList();
+
+            List<int> soPrices = new List<int>();
+            foreach (var item in saleOfferChartDTO)
+            {
+                soPrices.Add(item.SaleOfferAvgPrice);
+            }
+            ViewBag.SO_PRICES = soPrices.ToList(); // Data: Sale Offer Prices
+
+            List<int> soNumberOfOffers = new List<int>();
+            foreach (var item in saleOfferChartDTO)
+            {
+                soNumberOfOffers.Add(item.NumberOfOrders);
+            }
+            ViewBag.SO_NUMBEROFOFFERS = soNumberOfOffers.ToList(); // Sale Offer Number Of Order
+
+            #endregion
 
             return View(farmerHomePageModel);
         }
@@ -36,9 +97,9 @@ namespace FarmHub.Areas.Farmer.Controllers
         {
             var list = new FarmHubDbContext().PURCHASE_OFFER.Where(x => x.Is_Deleted == false).ToList();
             List<int> repartition = new List<int>();
-            List<int> quantity = new List<int>();
+            List<int> prices = new List<int>();
             var productNames = list.Select(x => x.PRODUCT.Name_Product).Distinct();
-            var quantityPurchaseOffer = list.Sum(x => x.Quantity_PurchaseOffer).ToString();
+            var quantityPurchaseOffer = list.GroupBy(x => x.PRODUCT.Name_Product).ToString();
 
             foreach(var item in productNames)
             {
@@ -47,125 +108,20 @@ namespace FarmHub.Areas.Farmer.Controllers
 
             foreach(var item in quantityPurchaseOffer)
             {
-                quantity.Add(item);
+                prices.Add(item);
             }
 
-            //var rep = repartition;
             ViewBag.PRODUCTNAMES = productNames;
             ViewBag.REP = repartition.ToList();
-            ViewBag.QUANTITY = quantity.ToList();
+            ViewBag.PRICES = prices.ToList();
             return View();
-        }
-
-        // 
-        public ActionResult Details(int id)
-        {
-            var farmerModel = dao.Details(id);
-            return View(farmerModel);
-        }
-
-        // GET: Farmer/Farmer/Create
-        public ActionResult Create()
-        {
-            SetViewBagUserAuthen();
-            return View();
-        }
-
-        // POST: Farmer/Farmer/Create
-        //[HttpPost]
-        //public ActionResult Create(FARMER farmerModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        string fileName = Path.GetFileNameWithoutExtension(farmerModel.ImageFile.FileName);
-        //        string fileExtension = Path.GetExtension(farmerModel.ImageFile.FileName);
-        //        fileName = fileName + DateTime.Now.ToString("yymmssfff") + fileExtension;
-        //        farmerModel.Image_Farmer = "/Data/Image/Farmer/" + fileName;
-        //        fileName = Path.Combine(Server.MapPath("/Data/Image/Farmer/"), fileName);
-        //        farmerModel.ImageFile.SaveAs(fileName);
-        //        var result = dao.Create(farmerModel);
-
-        //        ModelState.Clear();
-
-        //        if (result > 0)
-        //        {
-        //            return RedirectToAction("Index");
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("", "Tạo mới thất bại !!!");
-        //        }
-        //    }
-
-        //    SetViewBagUserAuthen();
-        //    return View();
-        //}
-
-        // GET: Farmer/Farmer/Edit/5
-        public ActionResult Edit(int id)
-        {
-            SetViewBagUserAuthen();
-            var farmerModel = dao.Details(id);
-            return View(farmerModel);
-        }
-
-        // POST: Farmer/Farmer/Edit/5
-        [HttpPost]
-        public ActionResult Edit(FARMER farmerModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = dao.Update(farmerModel);
-
-                if (result)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Cập nhật thất bại !!!");
-                }
-            }
-
-            SetViewBagUserAuthen();
-            var farmModelState = dao.Details(farmerModel.Id_Farmer);
-            return View(farmModelState);
-        }
-
-        // GET: Farmer/Farmer/Delete/5
-        public ActionResult Delete(int id)
-        {
-            var farmModel = dao.Details(id);
-            return View(farmModel);
-        }
-
-        // POST: Farmer/Farmer/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = dao.Delete(id);
-
-                if (result)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Xóa thất bại !!!");
-                }
-            }
-
-            var farmerModel = dao.Details(id);
-            return View(farmerModel);
         }
 
         #region Function
 
         readonly FarmerDAO dao = new FarmerDAO();
 
-        readonly SaleOfferDAO saleOfferDAO = new SaleOfferDAO();
+        readonly SaleOfferDAO saleOfferDao = new SaleOfferDAO();
 
         // SetViewBagUserAuthen
         public void SetViewBagUserAuthen()
@@ -173,6 +129,8 @@ namespace FarmHub.Areas.Farmer.Controllers
             var dao = new UserAuthenDAO();
             ViewBag.Id_User = new SelectList(dao.ListAllActive(), "Id_User", "Name_User");
         }
+
+        readonly PurchaseOfferDao purchaseOfferDAO = new PurchaseOfferDao();
 
         #endregion
     }

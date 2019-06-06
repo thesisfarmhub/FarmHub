@@ -26,7 +26,7 @@ namespace FarmHub
            (
                name: "Default",
                url: "{controller}/{action}/{id}",
-               defaults: new { controller = "Login", action = "LoginIndex", id = UrlParameter.Optional, },
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, },
                namespaces: new[] { "FarmHub.Controllers" }
 
            );

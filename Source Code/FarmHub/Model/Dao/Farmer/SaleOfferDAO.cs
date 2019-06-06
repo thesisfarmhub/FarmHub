@@ -29,7 +29,13 @@ namespace Model.Dao.Farmer
             return db.SALE_OFFER.Where(x => x.Is_Deleted == false).OrderByDescending(x => x.Id_SaleOffer).ToList();
         }
 
-        // List Sale Offer By Farmer ID
+        // List Sale Offer By Farmer ID Limit
+        public List<SALE_OFFER> ListSaleOfferByFarmerID(int farmerID, int take)
+        {
+            return db.SALE_OFFER.Where(x => x.FARM.Id_Farmer == farmerID && x.Remain_SaleQuantity > 0 && x.Is_Deleted == false)/*.GroupBy(x => x.PRODUCT_DETAIL.PRODUCT.Id_Product).Select(gr => gr.FirstOrDefault())*/.OrderByDescending(x => x.Id_SaleOffer).Take(take).ToList();
+        }
+
+        // List Sale Offer By Farmer ID Non-Limit
         public List<SALE_OFFER> ListSaleOfferByFarmerID(int farmerID)
         {
             return db.SALE_OFFER.Where(x => x.FARM.Id_Farmer == farmerID && x.Remain_SaleQuantity > 0 && x.Is_Deleted == false).OrderByDescending(x => x.Id_SaleOffer).ToList();
@@ -37,7 +43,7 @@ namespace Model.Dao.Farmer
 
         // Suitable Purchase Offer
         // Farmer Home Page: List Sale Offer => Suitalbe Purchase Offer
-        public List<List<PURCHASE_OFFER>> SuitablePurchaseOffer(List<SALE_OFFER> listSaleOffer)
+        public List<List<PURCHASE_OFFER>> SuitablePurchaseOffer(List<SALE_OFFER> listSaleOffer, int take)
         {
             var listPurchaseOffer = new List<List<PURCHASE_OFFER>>();
 
@@ -46,7 +52,7 @@ namespace Model.Dao.Farmer
 
             foreach (var item in listProductID)
             {
-                List<PURCHASE_OFFER> subListPO = db.PURCHASE_OFFER.Where(x => x.PRODUCT.Id_Product == item && x.Remain_PurchaseQuantity > 0 && x.Is_Deleted == false).ToList();
+                List<PURCHASE_OFFER> subListPO = db.PURCHASE_OFFER.Where(x => x.PRODUCT.Id_Product == item && x.Remain_PurchaseQuantity > 0 && x.Is_Deleted == false).Take(take).ToList();
                 listPurchaseOffer.Add(subListPO);
             }
 
@@ -72,7 +78,7 @@ namespace Model.Dao.Farmer
                 Quantity_SaleOffer = x.Sum(q => q.Quantity_SaleOffer),
                 Date_SaleOffer = x.FirstOrDefault().Date_SaleOffer,
                 Image_Product = x.FirstOrDefault().PRODUCT_DETAIL.Image_ProductDetail
-            }).OrderByDescending(x => x.Quantity_SaleOffer).Take(7).ToList(); // Take top 4 Products
+            }).OrderByDescending(x => x.Quantity_SaleOffer).Take(7).ToList(); // Take top 7 Products
 
             return listTopProducts;
         }

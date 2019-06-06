@@ -11,6 +11,7 @@
     <style>
         table, thead, tr, tbody, th, td {
             text-align: center;
+            text-anchor: middle;
         }
     </style>
 
@@ -37,7 +38,7 @@
                                     <th>Tên giống</th>
                                     <th>Thổ nhưỡng</th>
                                     <th>Hình ảnh</th>
-                                    <th>Chức năng</th>
+                                    <th>Thao tác</th>
                                 </tr>
                             </thead>
 
@@ -50,9 +51,9 @@
                                         <td>@Html.DisplayFor(modelItem => item.Geography_Location)</td>
                                         <td><img src="@item.Image_ProductDetail" style="max-height:100px; max-width:100px" /></td>
                                         <td>
-                                            @Html.ActionLink("Sửa", "Edit", new { id = item.Id_ProductDetail }) |
-                                            @Html.ActionLink("Xem", "Details", new { id = item.Id_ProductDetail }) |
-                                            @Html.ActionLink("Xóa", "Delete", new { id = item.Id_ProductDetail })
+                                            <button class="btn btn-warning" onclick="location.href = '@Url.Action("Edit","ProductDetails", new { id = item.Id_ProductDetail })'" title="Chỉnh sửa"><span class=" fa fa-pencil"></span></button>
+                                            <button class="btn btn-info" onclick="location.href = '@Url.Action("Details","ProductDetails", new { id = item.Id_ProductDetail })'" title="Xem chi tiết"><span class="fa fa-info"></span></button>
+                                            <button class="btn btn-danger" onclick="location.href = '@Url.Action("Delete","ProductDetails", new { id = item.Id_ProductDetail })'" title="Xóa"><span class="fa fa-trash"></span></button>
                                         </td>
                                     </tr>
                                 }
